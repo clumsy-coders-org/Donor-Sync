@@ -1,13 +1,20 @@
 
 
 import React from 'react'
+import {Route,Routes} from "react-router-dom"
+
 
 function App() {
   return (
     <div>
 
-      <h1 className=' text-7xl text-center text-blue-700'  > welcome  </h1>
-      
+      <Routes>
+
+        
+
+
+      </Routes>
+
     </div>
   )
 }
