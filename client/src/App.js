@@ -1,13 +1,10 @@
-
-
 import React from 'react'
+import Login from './components/Login.jsx'
 
 function App() {
   return (
     <div>
-
-      <h1 className=' text-7xl text-center text-blue-700'  > welcome  </h1>
-      
+      <Login/> 
     </div>
   )
 }
