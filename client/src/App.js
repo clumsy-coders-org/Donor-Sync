@@ -19,7 +19,7 @@ function App() {
 
       </Routes>
 
-      <Login/> 
+      {/* <Login/>  */}
 
 
       <Home/>
