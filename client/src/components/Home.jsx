@@ -1,8 +1,11 @@
 import React from 'react'
+import home from "../assets/home-page-image.jpg"
 
 function Home() {
   return (
-    <div>Home Page</div>
+    <div>
+      <img src={home} alt="Home page image" />
+    </div>
   )
 }
 
