@@ -17,6 +17,7 @@ function App() {
 
 
          <Header />
+         
        <Routes>
         
         <Route path = "/" element={<Home/>}/>
