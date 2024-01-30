@@ -47,7 +47,7 @@ function Signup() {
 
           <div className='w-[400px] h-[300px] hidden sm:block' >
 
-            <h1 className='text-center text-[30px] font-bold text-red-600' > Welcome  </h1>
+            <h1 className='text-center text-[30px] font-bold text-red-600' >  Welcome  </h1>
 
             <img className='hidden sm:block w-[200px] h-[200px] mt-[50px] ml-[50px] ' src={signupimg} alt="" />
 
