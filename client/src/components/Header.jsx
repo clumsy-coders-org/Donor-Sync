@@ -1,6 +1,6 @@
 import React from 'react'
-import logonb from '../assets/logo-final-1.png'
-import bicon from '../assets/red-blood-icon.png'
+import logonb from '../assets/logo.png'
+import bicon from '../assets/logo.png'
 import pro from '../assets/person-square.svg'
 
 
