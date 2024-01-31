@@ -8,30 +8,30 @@ import Footer from "./components/Footer";
 import About from './components/About'
 import Contact from './components/Contact'
 import Login from './components/Login/Login.jsx'
+import Signup from './components/signup/Signup.jsx'
+
 
 function App() {
   return (
 
     <div>
+     <Header />
+     
+     
+     <Routes>
 
-
-         <Header />
-         
-       <Routes>
-        
         <Route path = "/" element={<Home/>}/>
         <Route path = "/about" element={<About/>}/>
         <Route path = "/contact" element={<Contact/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path='/signup' element={<Signup/>} />
          
-         </Routes>
+         
+       </Routes>
 
       <Footer />
-
-  
-
-    
-    </div>
+      
+      </div>
 
     
 
