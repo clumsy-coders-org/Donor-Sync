@@ -1,7 +1,7 @@
 function Footer(){
 
     return(
-        <div className="bg-dark py-3 text-center text-light mt-4">
+        <div className="bg-black py-3 text-center text-white ">
             &copy; Copy right all rights reserved
         </div>
     )
