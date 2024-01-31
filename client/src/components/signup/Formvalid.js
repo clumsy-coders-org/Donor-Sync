@@ -115,6 +115,7 @@ export const secondValidation=(inputvalues, seterrmsg, seterrflag,formSubmit)=>{
             }else{
 
                 formSubmit()
+                seterrflag(false)
 
 
             }

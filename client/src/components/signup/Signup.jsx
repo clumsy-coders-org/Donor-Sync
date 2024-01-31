@@ -5,13 +5,17 @@ import { useState } from 'react'
 import { CiWarning } from "react-icons/ci";
 import { IoWarning } from "react-icons/io5";
 import { firstFormValid, secondValidation } from "./Formvalid"
+import { useNavigate } from "react-router-dom"
+import { Oval } from 'react-loader-spinner'
+
 
 
 function Signup() {
 
-  const [mobNext, setmobNext] = useState(true)
-  const [errmsg, seterrmsg] = useState("")
-  const [errflag, seterrflag] = useState(false)
+  const [mobNext, setmobNext] = useState(true);
+  const [errmsg, seterrmsg] = useState("");
+  const [errflag, seterrflag] = useState(false);
+  const [spinner, setspinner] = useState(false);
   const [inputValus, setinputValus] = useState({
 
     name: "",
@@ -23,12 +27,16 @@ function Signup() {
     city: "",
     bloodgroup: "",
     type: ""
-  })
+  });
+
+  const navigate = useNavigate();
 
 
   const formSubmit = () => {
 
-    alert("signup ok")
+    setspinner(true);
+
+    alert("signup ok");
   }
 
 
@@ -115,7 +123,9 @@ function Signup() {
                     onChange={(e) => { setinputValus({ ...inputValus, password: e.target.value }) }}
                   /><br />
 
-                  <button onClick={() => { firstFormValid(inputValus, seterrmsg, seterrflag, setmobNext) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[10px] font-bold border-solid border-2 border-red-600 text-[20px] ' > Next </button>
+                  <button onClick={() => { firstFormValid(inputValus, seterrmsg, seterrflag, setmobNext) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[10px] font-bold border-solid border-2 border-red-600 text-[20px] ' > Next </button><br />
+
+                  <span className=' ml-[50px] mt-4   ' > Already a Account ? </span> <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span>
 
 
                 </div>
@@ -136,15 +146,14 @@ function Signup() {
 
                   </select>   <br />
 
-                  <select onChange={(e) => { setinputValus({ ...inputValus, city: e.target.value }) }} type="text" placeholder='City' className='w-[300px] h-10 rounded-[10px]  mb-8 border-solid border-2 border-red-600 ' >
+                  <input type="text" placeholder='Enter Your City' className='w-[300px] h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600  '
+
+                    onChange={(e) => { setinputValus({ ...inputValus, city: e.target.value }) }}
 
 
-                    <option value={null}> Select Your City </option>
-                    <option value={"pattambi"}> pattambi </option>
+                  /><br />
 
 
-
-                  </select> <br />
 
                   <select type="text" placeholder='Bllod Group' className='w-[300px]   h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600 '>
 
@@ -167,7 +176,43 @@ function Signup() {
                   <label htmlFor="" className='ml-[50px] font-bold  ' > Doner ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recepient ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
 
 
-                  <button onClick={() => { secondValidation(inputValus, seterrmsg, seterrflag, formSubmit) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[30px] font-bold border-solid border-2 border-red-600 text-[20px] ' >  Signup </button>
+
+                  <button onClick={() => { secondValidation(inputValus, seterrmsg, seterrflag, formSubmit) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[30px] font-bold border-solid border-2 border-red-600 text-[20px] ' >
+
+                    {
+                      spinner ?
+
+                        <div className='ml-[52px]' >
+
+                          <Oval
+                            visible={true}
+                            height="30"
+                            width="30"
+                            color="#7D0A0A"
+                            ariaLabel="oval-loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                          />
+
+                        </div>
+
+
+
+                        :
+                        <span> Sign Up </span>
+
+                    }
+
+
+
+
+
+                  </button>
+
+
+
+
+
 
 
                 </div>
@@ -220,6 +265,7 @@ function Signup() {
 
                   <button onClick={() => { firstFormValid(inputValus, seterrmsg, seterrflag, setmobNext) }} className='ml-[80px] w-[150px] h-10 rounded-lg font-bold border-solid border-2 border-red-600 text-[20px] ' > Next  </button>
 
+                  <span className=' ml-[50px] mt-4   ' > Already a Account ? </span> <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span>
 
                 </div>
 
@@ -231,11 +277,16 @@ function Signup() {
                   <select type="text" placeholder='District' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600' >
                     <option value=""> Select Your District </option>
 
-                  </select>
+                  </select><br />
 
-                  <select type="text" placeholder='City' className='w-[300px] h-12 rounded-[10px] mb-8 border-solid border-2 border-red-600 '>
-                    <option value=""> Select Your City </option>
-                  </select> <br />
+                  <input type="text" placeholder='Enter Your City' className='w-[300px] h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600  '
+
+                    onChange={(e) => { setinputValus({ ...inputValus, city: e.target.value }) }}
+
+
+                  /><br />
+
+
 
                   <select type="text" placeholder='Blood Group' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600 '>
                     <option value=""> Select Your Blood Group </option>
@@ -254,7 +305,36 @@ function Signup() {
 
 
 
-                  <button onClick={() => { secondValidation(inputValus, seterrmsg, seterrflag, formSubmit) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[50px] font-bold border-solid border-2 border-red-600 text-[20px] ' > Sign Up </button>
+                  <button onClick={() => { secondValidation(inputValus, seterrmsg, seterrflag, formSubmit) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[50px] font-bold border-solid border-2 border-red-600 text-[20px] ' >
+                    
+                  {
+                      spinner ?
+
+                        <div className='ml-[52px]' >
+
+                          <Oval
+                            visible={true}
+                            height="30"
+                            width="30"
+                            color="#7D0A0A"
+                            ariaLabel="oval-loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                          />
+
+                        </div>
+
+
+
+                        :
+                        <span> Sign Up </span>
+
+                    }
+                     
+                     
+                     
+                     
+                     </button>
 
 
                 </div>
