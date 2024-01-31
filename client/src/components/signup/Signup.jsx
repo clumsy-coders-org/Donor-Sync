@@ -1,6 +1,6 @@
 
 import React from 'react'
-import signupimg from "../../assets/logo-final-1.png"
+import signupimg from "../../assets/logo.png"
 import { useState } from 'react'
 import { CiWarning } from "react-icons/ci";
 import { IoWarning } from "react-icons/io5";
