@@ -1,5 +1,5 @@
 import React from 'react'
-import logonb from '../assets/logo-final-1.png'
+import logonb from '../assets/logo-final-navbar.png'
 import bicon from '../assets/logo.png'
 import pro from '../assets/profile.png'
 import search from '../assets/search.png'
