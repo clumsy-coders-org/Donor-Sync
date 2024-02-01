@@ -6,6 +6,7 @@ import search from '../assets/search.png'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { SearchCircleOutline, X ,MenuAlt4, BellIcon,  UserCircleOutline } from 'heroicons-react'
+import { useNavigate } from 'react-router-dom'
 
 const navigation = [
   { name: 'DonorSync', href: '/', current: true },
@@ -19,7 +20,15 @@ function classNames(...classes) {
 }
 
 function Header() {
+
+
+  const navigate=useNavigate()
+
+
+
+
   return (
+
     <Disclosure as="nav" className="bg-red-600">
     {({ open }) => (
       <>
@@ -49,17 +58,17 @@ function Header() {
               <div className="hidden sm:ml-1 sm:block">
                 <div className="flex space-x-4">
                   {navigation.map((item) => (
-                    <a
+                    <span
                       key={item.name}
-                      href={item.href}
+                      onClick={()=>{navigate(item.href)}}
                       className={classNames(
                         item.current ? 'bg-red-600 text-white text-lg' : 'text-gray-300 hover:bg-gray-700 hover:text-white text-lg',
-                        'rounded-md px-3 py-4 text-sm font-medium'
+                        'rounded-md px-3 py-4 text-sm font-medium cursor-pointer'
                       )}
                       aria-current={item.current ? 'page' : undefined}
                     >
                       {item.name}
-                    </a>
+                    </span>
                   ))}
                 </div>
               </div>
@@ -106,7 +115,8 @@ function Header() {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                          href="#"
+                         
+                        onClick={()=>{navigate("/login")}}
                           className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                         >
                           Your Profile
@@ -115,22 +125,24 @@ function Header() {
                     </Menu.Item>
                     <Menu.Item>
                       {({ active }) => (
-                        <a
-                          href="/login"
-                          className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                        <span
+                          
+                          onClick={()=>{navigate("/login")}}
+                          className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 cursor-pointer ')}
                         >
                           Login
-                        </a>
+                        </span>
                       )}
                     </Menu.Item>
                     <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="/signup"
-                          className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                      {({ active }) =>(
+                        <span
+                          
+                          onClick={()=>{navigate("/signup")}}
+                          className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 cursor-pointer')}
                         >
                           Sign Up
-                        </a>
+                        </span>
                       )}
                     </Menu.Item>
                   </Menu.Items>

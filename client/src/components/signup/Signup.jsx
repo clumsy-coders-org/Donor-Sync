@@ -126,7 +126,7 @@ function Signup() {
 
                   <button onClick={() => { firstFormValid(inputValus, seterrmsg, seterrflag, setmobNext) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[10px] font-bold border-solid border-2 border-red-600 text-[20px] ' > Next </button><br />
 
-                  <span className=' ml-[50px] mt-4   ' > Already a Account ? </span> <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span>
+                  <span className=' ml-[50px] mt-4 hidden sm:block   ' > Already a Account ? </span> <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span>
 
 
                 </div>
@@ -266,7 +266,7 @@ function Signup() {
 
                   <button onClick={() => { firstFormValid(inputValus, seterrmsg, seterrflag, setmobNext) }} className='ml-[80px] w-[150px] h-10 rounded-lg font-bold border-solid border-2 border-red-600 text-[20px] ' > Next  </button>
 
-                  <span className=' ml-[50px] mt-4   ' > Already a Account ? </span> <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span>
+                  <span className=' ml-[100px] mt-4   ' > Already a Account ? </span> <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span>
 
                 </div>
 
