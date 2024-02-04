@@ -25,7 +25,7 @@ function UserDetails() {
           <div className='mt-5 px-8'>
              <input type='checkbox' className='border border-red-500 '/>
              <span className='px-2'>
-              Donnor
+              Donor
              </span>
              <input type='checkbox' className='border border-red-500 '/>
              <span className='px-2'>

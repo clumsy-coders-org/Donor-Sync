@@ -174,7 +174,7 @@ function Signup() {
 
 
 
-                  <label htmlFor="" className='ml-[50px] font-bold  ' > Doner ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recepient ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
+                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recepient ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
 
 
 
