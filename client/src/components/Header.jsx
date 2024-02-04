@@ -4,15 +4,19 @@ import bicon from '../assets/logo.png'
 import pro from '../assets/profile.png'
 import search from '../assets/search.png'
 import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { SearchCircleOutline, X ,MenuAlt4, BellIcon,  UserCircleOutline } from 'heroicons-react'
+import { Disclosure,  Transition } from '@headlessui/react'
+import { SearchCircleOutline, X ,Menu, BellIcon,  UserCircleOutline } from 'heroicons-react'
 import { useNavigate } from 'react-router-dom'
 
 const navigation = [
+  
+  
   { name: 'DonorSync', href: '/', current: true },
   { name: 'Home', href: '/', current: false },
   { name: 'About', href: '/about', current: false },
   { name: 'Contact', href: '/contact', current: false },
+  {name: <SearchCircleOutline/>, href:'/search', current: false, }, 
+  {name:  <UserCircleOutline/>, href:'/login', current: false},
 ]
 
 function classNames(...classes) {
@@ -34,7 +38,7 @@ function Header() {
       <>
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
-            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
               {/* Mobile menu button*/}
               <Disclosure.Button className="relative inline-flex items-center justify-center rounded-3xl p-2 text-black hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-400">
                 <span className="absolute -inset-0.5" />
@@ -42,21 +46,22 @@ function Header() {
                 {open ? (
                   <X className="block h-6 w-6" aria-hidden="true" />
                 ) : (
-                  <MenuAlt4 className="block h-6 w-6" aria-hidden="true" />
+                  <Menu className="block h-6 w-6" aria-hidden="true" />
                 )}
                 
               </Disclosure.Button>
             </div>
-            <div className="flex flex-1 items-center justify-center sm:items-center sm:justify-start">
-              <div className="flex flex-shrink-0 items-center ">
+            <div className="flex flex-1 items-center justify-start sm:items-center sm:justify-start">
+              <div className="flex flex-shrink-0 justify-normal items-center ">
                <a href='/'> <img 
-                  className="h-12 w-auto"
+                  className="h-12 w-auto "
                   src={logonb}
                   alt="Your Company"
                 /> </a>
               </div>
               <div className="hidden sm:ml-1 sm:block">
-                <div className="flex space-x-4">
+                <div className="flex space-x-4 ">
+                 
                   {navigation.map((item) => (
                     <span
                       key={item.name}
@@ -73,33 +78,25 @@ function Header() {
                 </div>
               </div>
             </div>
-            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            {/* <div className="absolute hidden sm:block inset-y-0 left-0  items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <button
                 type="button"
                 className="relative rounded-full bg-white p-1 text-gray-900 hover:text-black focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
               >
                 <span className="absolute -inset-1.5" />
                 <span className="sr-only">Search</span>
-                {/* <img
-                      className="h-6 w-6 rounded-full"
-                      src={search}
-                      alt=""
-                    /> */}
+                
                 <SearchCircleOutline className="h-7 w-7" aria-hidden="true" />
-              </button>
+              </button> */}
 
               {/* Profile dropdown */}
-              <Menu as="div" className="relative ml-3">
+              {/* <Menu as="div" className="relative ml-3">
                 <div>
-                  <Menu.Button className="relative flex rounded-full bg-white p-1 text-sm focus:outline-none  hover:text-gray-900 focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 ">
-                    <span className="absolute -inset-1.5" />
-                    <span className="sr-only">Open user menu</span>
-                    < UserCircleOutline className="h-7 w-7" aria-hidden="true" />
-                    {/* <img
-                      className="h-7 w-7 rounded-full"
-                      src={pro}
-                      alt=""
-                    /> */}
+                  <Menu.Button className=" relative  rounded-full bg-white p-1 text-sm focus:outline-none  hover:text-gray-900 focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2">
+                    <span className=" absolute -inset-1.5" />
+                    <span className=" sr-only">Open user menu</span>
+                    < UserCircleOutline className=" h-7 w-7" aria-hidden="true" />
+                    
                   </Menu.Button>
                 </div>
                 <Transition
@@ -111,7 +108,7 @@ function Header() {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute left-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <Menu.Item>
                       {({ active }) => (
                         <a
@@ -147,10 +144,10 @@ function Header() {
                     </Menu.Item>
                   </Menu.Items>
                 </Transition>
-              </Menu>
+              </Menu> */}
             </div>
           </div>
-        </div>
+        {/* </div> */}
 
         <Disclosure.Panel className="sm:hidden">
           <div className="space-y-1 px-2 pb-3 pt-2">
