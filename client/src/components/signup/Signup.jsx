@@ -126,7 +126,7 @@ function Signup() {
 
                   <button onClick={() => { firstFormValid(inputValus, seterrmsg, seterrflag, setmobNext) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[10px] font-bold border-solid border-2 border-red-600 text-[20px] ' > Next </button><br />
 
-                  <span className=' ml-[50px] mt-4 hidden sm:block   ' > Already a Account ? <span className='text-blue-600  cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span> 
+                  <span className=' ml-[50px] mt-4 hidden sm:block   ' > Already have an Account ? <span className='text-blue-600  cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span> 
 
 
                 </div>
@@ -174,7 +174,7 @@ function Signup() {
 
 
 
-                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recepient ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
+                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
 
 
 
@@ -268,7 +268,7 @@ function Signup() {
 
                   {/* <span className=' ml-[200px]px] mt-4   ' > Already a Account ? <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span>  */}
 
-                  <span className='ml-16' > Already a Account ? <span className='text-blue-700 cursor-pointer ' > Login </span> </span>
+                  <span className='ml-16' > Already have an Account ? <span className='text-blue-700 cursor-pointer ' > Login </span> </span>
 
                 </div>
 
@@ -304,7 +304,7 @@ function Signup() {
 
                   /><br />
 
-                  <label htmlFor="" className='ml-[50px] font-bold  ' > Doner ?  </label> <input type="Radio" />  <label htmlFor="" className='ml-[20px] font-bold'>Recepient ?  </label> <input type="Radio" />
+                  <label htmlFor="" className='ml-[50px] font-bold  ' > Doner ?  </label> <input type="Radio" />  <label htmlFor="" className='ml-[20px] font-bold'>Reciepient ?  </label> <input type="Radio" />
 
 
 
