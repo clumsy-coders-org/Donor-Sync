@@ -1,42 +1,120 @@
-import React from 'react'
-import loginImg from '../../assets/young.jpg'
-import logo from '../../assets/logo.png'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Assuming you are using React Router
+import loginImg from '../../assets/young.jpg';
+import logo from '../../assets/logo.png';
 
 export default function Login() {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
+
+  const [errors, setErrors] = useState({
+    username: '',
+    password: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    // Clear error message when user starts typing
+    setErrors({
+      ...errors,
+      [name]: '',
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Check for empty fields
+    let newErrors = {};
+    if (!formData.username.trim()) {
+      newErrors = { ...newErrors, username: 'Username is required' };
+    }
+    if (!formData.password.trim()) {
+      newErrors = { ...newErrors, password: 'Password is required' };
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+    } else {
+      // Perform login logic
+      console.log('Logging in...');
+    }
+  };
+
   return (
-    <div className='flex justify-center items-center min-h-screen'>
-    <div className='grid grid-cols-1 sm:grid-cols-2 w-full max-w-[1200px] p-4 rounded-lg border-2 border-rose-400'>
-      <div className='flex flex-col justify-center'>
-        <form className='max-w-[400px] mx-auto p-8 px-8 rounded-lg'>
-          <div>
-            <img className='h-1/2 min-h-0 object-cover place-items-center ' src={logo} alt="" />
+    <div className="bg-gray-200 flex items-center justify-center min-h-screen">
+      <div className="bg-white p-8 rounded-lg shadow-md flex flex-col md:flex-row w-full max-w-4xl mx-4">
+        {/* Left Column (Form, Logo, and Headline) */}
+        <div className="w-full md:w-1/2 flex flex-col text-center md:text-left mx-auto md:mx-0 md:mr-4">
+          {/* Logo at the center */}
+          <img src={logo} alt="Logo" className="mb-4 w-20 mx-auto md:mx-0" />
+
+          {/* Headline */}
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold mb-2">
+              Become a Blood Donor
+              <br />
+              Today
+            </h2>
           </div>
-          <h2 className='text-2xl dark:text-red-600 font-bold text-left'>Become a blood donor today!</h2>
-          <div className='flex flex-col text-black-400 py-2'>
-            <input
-              type="text"
-              placeholder='Username'
-              className='dark:text-gray-600 font-thin rounded-lg mt-2 p-2 focus:border-red-500 focus:outline-none border-2 border-rose-400 '
-            />
-          </div>
-          <div className='flex flex-col text-black-400 py-2'>
-            <input
-              type="password"
-              placeholder='Password'
-              className='dark:text-gray-600 font-thin rounded-lg mt-2 p-2 focus:border-red-500 focus:outline-none border-2 border-rose-400'
-            />
-          </div>
-          <div className='flex justify-between text-gray-400 py-2'>
-            <p className='flex items-center'><input className="mr-2" type="checkbox" />Remember Me</p>
-            <p>Forgot Password</p>
-          </div>
-          <button className='w-full my-5 py-2 bg-red-600 rounded hover:shadow-black'>Login</button>
-        </form>
-      </div>
-      <div className='hidden sm:block'>
-        <img className='w-full h-full object-cover' src={loginImg} alt="" />
+
+          {/* Login Form */}
+          <form className="flex-grow flex flex-col justify-between" onSubmit={handleSubmit}>
+            <div className="mb-6">
+              <input
+                type="text"
+                id="username"
+                name="username"
+                className={`w-full border rounded-md p-3 text-lg ${errors.username && 'border-red-500'}`}
+                placeholder="Username"
+                value={formData.username}
+                onChange={handleInputChange}
+              />
+              {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+            </div>
+
+            <div className="mb-6">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                className={`w-full border rounded-md p-3 text-lg ${errors.password && 'border-red-500'}`}
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleInputChange}
+              />
+              {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+            </div>
+
+            {/* Links for Forgot Password and Signup */}
+            <div className="flex justify-between mb-4 text-sm">
+              <Link to="/forgot-password" className="text-blue-500 hover:underline">
+                Forgot Password?
+              </Link>
+              <Link to="/signup" className="text-blue-500 hover:underline">
+                Signup
+              </Link>
+            </div>
+
+            {/* Login Button at the Bottom Center */}
+            <div className="mt-auto">
+              <button type="submit" className="w-full py-2 text-white bg-red-600 rounded hover:bg-black">
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {/* Right Column (Image) - Hidden on Mobile */}
+        <div className="w-full md:w-1/2 hidden md:block">
+          <img src={loginImg} alt="Illustration" className="w-full h-full object-cover" />
+        </div>
       </div>
     </div>
-  </div>
-  )
+  );
 }
