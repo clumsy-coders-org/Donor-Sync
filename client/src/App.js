@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {Route,Routes} from "react-router-dom"
-import UserDetails from './components/UserDetails.jsx'
+import UserDetails from './components/UserDetails/UserDetails.jsx'
 import Home from './components/Home.jsx'
 import Header from './components/Header'
 import Footer from "./components/Footer";
