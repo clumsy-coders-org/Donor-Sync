@@ -1,8 +1,8 @@
 import React from 'react'
-import home from "../assets/home-page-image.jpg"
-import donation from '../assets/donation.jpg'
-import blooddonation from '../assets/blooddonation.jpg'
-import blood from '../assets/mobile-view-home-bg.jpeg'
+import home from "../../assets/home-page-image.jpg"
+import donation from '../../assets/donation.jpg'
+import blooddonation from '../../assets/blooddonation.jpg'
+import blood from '../../assets/mobile-view-home-bg.jpeg'
 
 
 
