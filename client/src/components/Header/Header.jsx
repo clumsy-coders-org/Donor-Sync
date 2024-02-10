@@ -1,8 +1,8 @@
 import React from 'react'
-import logonb from '../assets/logo-final-navbar.png'
-import bicon from '../assets/logo.png'
-import pro from '../assets/profile.png'
-import search from '../assets/search.png'
+import logonb from '../../assets/logo-final-navbar.png'
+import bicon from '../../assets/logo.png'
+import pro from '../../assets/profile.png'
+import search from '../../assets/search.png'
 import { Fragment } from 'react'
 import { Disclosure,  Transition } from '@headlessui/react'
 import { SearchCircleOutline, X ,Menu, BellIcon,  UserCircleOutline } from 'heroicons-react'
@@ -15,7 +15,6 @@ const navigation = [
   { name: 'Home', href: '/', current: false },
   { name: 'About', href: '/about', current: false },
   { name: 'Contact', href: '/contact', current: false },
-  {name: <SearchCircleOutline/>, href:'/search', current: false, }, 
   {name:  <UserCircleOutline/>, href:'/login', current: false},
 ]
 
@@ -78,16 +77,16 @@ function Header() {
                 </div>
               </div>
             </div>
-            {/* <div className="absolute hidden sm:block inset-y-0 left-0  items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            {/* <div className="absolute hidden sm:block inset-y-0 left-0  items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"> */}
               <button
                 type="button"
-                className="relative rounded-full bg-white p-1 text-gray-900 hover:text-black focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
+                className="relative rounded-full right-12 md:right-4 text-gray-900 hover:text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-1"
               >
                 <span className="absolute -inset-1.5" />
                 <span className="sr-only">Search</span>
                 
                 <SearchCircleOutline className="h-7 w-7" aria-hidden="true" />
-              </button> */}
+              </button>
 
               {/* Profile dropdown */}
               {/* <Menu as="div" className="relative ml-3">
