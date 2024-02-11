@@ -1,10 +1,10 @@
 import React from 'react'
 
 import {Route,Routes} from "react-router-dom"
-import UserDetails from './components/UserDetails.jsx'
-import Home from './components/Home.jsx'
-import Header from './components/Header'
-import Footer from "./components/Footer";
+import UserDetails from './components/UserDetails/UserDetails.jsx'
+import Home from './components/Home/Home.jsx'
+import Header from './components/Header/Header.jsx'
+import Footer from "./components/Footer/Footer.jsx";
 import About from './components/About'
 import Contact from './components/Contact'
 import Login from './components/Login/Login.jsx'
