@@ -80,8 +80,9 @@ function UserDetails() {
                <label htmlFor="" className='ml-[50px] font-bold  ' > Doner </label> <input name='type' type="Radio" onChange={(e) => { setValues({ ...values, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recepient</label> <input name='type' type="Radio" onChange={(e) => { setValues({ ...values, type: e.target.value }) }} /> 
             </div>
 
-            <div className='mt-5 grid gap-5 '>
+            <div className='mt-5 grid grid-cols-2 gap-6 '>
               <button className='bg-red-500 py-1 px-1 text-center text-white font-bold rounded-full hover:bg-red-600'>Save</button>
+              <button className='bg-red-500 py-1 px-1 text-center text-white font-bold rounded-full hover:bg-red-600'>Log Out</button>
             </div>
            </form>
          </div>
