@@ -1,7 +1,17 @@
+
+
+
 import React from 'react'
 
 const Select = () => {
+    
+    
+    
+    
     return (
+        
+        
+        
         <div className='grid grid-cols-1 grid-auto-fit-[10rem] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mt-10 ml-12 font-semibold'>
            <select className='w-64 bg-zinc-100 py-3 pl-2 font-semibold rounded-[10px]'>
                 <option value="" disabled selected hidden>Blood Group</option>
