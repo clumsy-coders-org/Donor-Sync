@@ -2,12 +2,12 @@
 
 
 const bcrypt = require("bcrypt")
-const express = require("express")
+import Users from "../Database/Models/userModel"
 module.exports={
 
     user_signup:(data)=>{                           //user signup Database query
         return new Promise (async(resolve,reject)=>{
-            const userdata = await usermodel.findOne({email:data.email})
+            const userdata = await Users.findOne({email:data.email})
 
             if(userdata){
                 resolve({exist:true})
@@ -15,7 +15,7 @@ module.exports={
                 const salt = await bcrypt.genSalt(10);
                 data.password = await bcrypt.hash(data.password, salt)
 
-                const final = new usermodel(data)
+                const final = new Users(data)
 
                 final.save().then(()=>{
                     resolve({flag:true})
@@ -35,7 +35,7 @@ module.exports={
         user_login:(data)=>{                           //user login Database query
             return new Promise (async(resolve,reject)=>{
                 try{
-                const userdata = await usermodel.findOne({email:data.email})
+                const userdata = await Users.findOne({email:data.email})
     
                 if(!userdata){
                     resolve({emailerr:true})
