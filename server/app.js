@@ -2,8 +2,9 @@
 const express=require("express");
 const app=express();
 require('dotenv').config();
-const DB=require("./Database/connect")
-
+const DB=require("./Database/connect.js")
+import authRoute from "./Routers/authRout.js";
+import cors from "cors";
 const PORT=process.env.PORT || 3001
 
 
