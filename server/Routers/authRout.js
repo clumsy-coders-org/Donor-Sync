@@ -12,7 +12,7 @@
 // export default router;
 
 import express from "express";
-import { login, register } from "../control/authContro.js";
+import { login, register } from "../Control/authContro.js";
 
 const router = express.Router();
 

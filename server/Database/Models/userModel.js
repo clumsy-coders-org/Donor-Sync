@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
 const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
 // Create schema for Users
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
     name: { type: String, required: true },
     email: { type: String, unique: true, required:true },
     mobile: { type: Number, unique: true, required: true },
@@ -16,6 +16,6 @@ const userSchema = new mongoose.Schema({
 });
 
 // Create model for Users
-const Users = mongoose.model('Users', userSchema);
+const Users = model('Users', userSchema);
 
-module.exports = Users
+export default Users

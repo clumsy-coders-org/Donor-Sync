@@ -1,10 +1,12 @@
 
-const express=require("express");
+import express, { json, urlencoded } from "express";
 const app=express();
-require('dotenv').config();
-const DB=require("./Database/connect")
-// import authRoute from "./Routers/authRout.js";
-const cors = require("cors")
+// require('dotenv').config();
+import { DBConnect } from "../server/Database/connect.js";
+import dotenv from "dotenv"
+dotenv.config();
+import authRoute from "./Routers/authRout.js";
+import cors from "cors";
 
 
 const PORT=process.env.PORT || 3001
@@ -12,16 +14,18 @@ const PORT=process.env.PORT || 3001
 
 
 
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(json());
+app.use(urlencoded({extended:true}));
 
-DB.DBConnect();
+DBConnect();
 
 app.use(cors({
-      origin : "http://localhost:3000"
+      origin : "http://localhost:3000",
+      methods: ["GET", "POST"],
+      credentials: true
   }));
 
-// app.use(`/auth`, authRoute); //auth/register
+app.use(`/auth`, authRoute); //auth/register
 
 
 

@@ -1,7 +1,7 @@
 
 
 
-import Users from "../models/userModel.js";
+import Users from "../Database/Models/userModel.js";
 import { compareString, createJWT, hashString } from "../utils/index.js";
 
 export const register = async (req, res, next) => {
