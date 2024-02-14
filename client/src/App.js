@@ -9,6 +9,7 @@ import About from './components/About'
 import Contact from './components/Contact'
 import Login from './components/Login/Login.jsx'
 import Signup from './components/signup/Signup.jsx'
+import FilterComponent from './components/Search/FilterComponent.jsx'
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userdetails' element={<UserDetails/>} />
+        <Route path='/search' element={<FilterComponent />} />
          
          
        </Routes>
