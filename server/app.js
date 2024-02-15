@@ -1,17 +1,25 @@
 
-const express=require("express");
-const app=express();
+
+
+
+const express = require("express");
+const app = express()
+const DB = require("./Database/connect.js")
+const authRoute = require("./Routers/authRout")
+const cors = require("cors")
+const bodyparser= require("body-parser")
+const cookieparser=require("cookie-parser");
 require('dotenv').config();
-const DB=require("./Database/connect.js")
-import authRoute from "./Routers/authRout.js";
-import cors from "cors";
 const PORT=process.env.PORT || 3001
 
-
-
-
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended:true}))
+app.use(cookieparser());
+
+
+
 
 DB.DBConnect();
 

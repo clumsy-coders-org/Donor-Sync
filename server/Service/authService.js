@@ -2,41 +2,78 @@
 
 
 const bcrypt = require("bcrypt")
-import Users from "../Database/Models/userModel"
-module.exports={
+const users = require("../Database/Models/userModel")
 
-    user_signup:(data)=>{                           //user signup Database query
-        return new Promise (async(resolve,reject)=>{
-            const userdata = await Users.findOne({email:data.email})
 
-            if(userdata){
-                resolve({exist:true})
-            }else{
-                const salt = await bcrypt.genSalt(10);
-                data.password = await bcrypt.hash(data.password, salt)
 
-                const final = new Users(data)
+// module.exports={
 
-                final.save().then(()=>{
-                    resolve({flag:true})
-                }).catch({err:err})
+//     user_signup:(data)=>{                           //user signup Database query
+//         return new Promise (async(resolve,reject)=>{
+//             const userdata = await users.findOne({email:data.email})
 
-                }
-            })
-        }
+//             if(userdata){
+//                 resolve({exist:true})
+//             }else{
+//                 const salt = await bcrypt.genSalt(10);
+//                 data.password = await bcrypt.hash(data.password, salt)
+
+//                 const final = new users(data)
+
+//                 final.save().then(()=>{
+//                     resolve({flag:true})
+//                 }).catch({err:err})
+
+//                 }
+//             })
+//         }
 
        
-    }    
+//     }    
 
 
 
     module.exports={
 
-        user_login:(data)=>{                           //user login Database query
+
+
+        user_signup:(data)=>{                           //user signup Database query
+           
+    
+            console.log(data)
+           
+            return new Promise (async(resolve,reject)=>{
+                const userdata = await users.findOne({email:data.email})
+    
+                if(userdata){
+                    resolve({exist:true})
+                }else{
+                    // const salt = await bcrypt.genSalt(10);
+                    data.password = await bcrypt.hash(data.password, 10)
+    
+                    const final = new users(data)
+    
+                    final.save().then(()=>{
+                        console.log("DB CONNECT");
+                        resolve({flag:true})
+                   
+                    }).catch(err =>{
+
+                        reject({err:err})
+                        console.log(err);
+                    })
+    
+                    }
+                })
+            },
+
+
+
+      user_login:(data)=>{                           //user login Database query
             return new Promise (async(resolve,reject)=>{
                 try{
-                const userdata = await Users.findOne({email:data.email})
-    
+                const userdata = await users.findOne({email:data.username})
+                    console.log(userdata);
                 if(!userdata){
                     resolve({emailerr:true})
                 }else{
@@ -55,6 +92,11 @@ module.exports={
             })
     
           }
+        
+        
+        
+        
+        
         }    
 
     
