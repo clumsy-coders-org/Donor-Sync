@@ -1,15 +1,14 @@
 
 
-import { connect } from "mongoose";
-// require('dotenv').config()
-import dotenv from "dotenv"
-dotenv.config();
+const moongoose=require("mongoose");
+require('dotenv').config()
 
 
 
-export function DBConnect(){
 
-    connect(process.env.DB_URL).then(()=>{
+module.exports.DBConnect=()=>{
+
+    moongoose.connect(process.env.DB_URL).then(()=>{
 
           console.log("DB connected")
     }).catch(err=>{

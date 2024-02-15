@@ -4,7 +4,7 @@
 
 const express = require("express");
 const app = express()
-const DB = require("./Database/connect.js")
+const DB = require("./Database/connect")
 const authRoute = require("./Routers/authRout")
 const cors = require("cors")
 const bodyparser= require("body-parser")
