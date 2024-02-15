@@ -5,7 +5,7 @@
 
 const express=require("express");
 const router=express();
-const control=require("../Control/authContro.js")
+const control=require("../control/authContro.js")
 
 
 

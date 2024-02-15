@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     city: { type: String, required: true },
     bloodgroup: { type: String,  required: true },
     age: { type: Number, required: true },
+    type: {type: String, required: true, possibleValues: ['Donor', 'Recipient']}
    
 });
 
