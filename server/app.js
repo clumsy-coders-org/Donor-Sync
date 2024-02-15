@@ -23,7 +23,6 @@ app.use(cookieparser());
 
 DB.DBConnect();
 
-DBConnect();
 
 app.use(cors({
       origin : "http://localhost:3000",
