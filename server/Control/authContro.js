@@ -1,89 +1,92 @@
 
 
 
-import Users from "../Database/Models/userModel.js";
-import { compareString, createJWT, hashString } from "../utils/index.js";
+const authservice = require("../service/authService.js")
+const JWT = require("jsonwebtoken")
+require("dotenv").config()
 
-export const register = async (req, res, next) => {
-  const { name, email, mobile, password } = req.body;
+module.exports = {
 
-  //validate fileds
-  if (!(name || email || mobile || password)) {
-    next("Provide Required Fields!");
-    return;
-  }
 
-  try {
-    const userExist = await Users.findOne({ email });
 
-    if (userExist) {
-      next("Email Address already exists");
-      return;
-    }
 
-    const hashedPassword = await hashString(password);
+    signup_data: (req, res) => {
 
-    const user = await Users.create({
-      firstName,
-      lastName,
-      email,
-      password: hashedPassword,
-    });
+    //  console.log(req.body)
+    
+     
+     
+// signup post req contro fun 
+       
 
-  } catch (error) {
-    console.log(error);
-    res.status(404).json({ message: error.message });
-  }
-};
+        authservice.user_signup(req.body).then((respo) => {
+            
+            console.log("signup")
+            if (respo.exist) {
 
-export const login = async (req, res, next) => {
-  const { email, password } = req.body;
+                res.json({ exist: true })
+                return
 
-  try {
-    //validation
-    if (!email || !password) {
-      next("Please Provide User Credentials");
-      return;
-    }
+            } else if (respo.flag) {
 
-    // find user by email
-    const user = await Users.findOne({ email }).select("+password").populate({
-      path: "friends",
-      select: "firstName lastName location profileUrl -password",
-    });
+                res.json({ flag: true })
+                return
+            }
+        }).catch(err => {
 
-    if (!user) {
-      next("Invalid email or password");
-      return;
-    }
+            res.status(500).json({ flag: false })
+            return   
+        })
 
-    if (!user?.verified) {
-      next(
-        "User email is not verified. Check your email account and verify your email"
-      );
-      return;
-    }
 
-    // compare password
-    const isMatch = await compareString(password, user?.password);
+    },
 
-    if (!isMatch) {
-      next("Invalid email or password");
-      return;
-    }
+    login_data: (req, res) => {   // login postt contro fun
 
-    user.password = undefined;
+        console.log("login")
+        authservice.user_login(req.body).then((respo) => {
 
-    const token = createJWT(user?._id);
+            if (respo.emailerr) {
 
-    res.status(201).json({
-      success: true,
-      message: "Login successfully",
-      user,
-      token,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(404).json({ message: error.message });
-  }
-};
+                res.json({ emailerr: true })
+                return
+
+            } else if (respo.flag) {
+
+                
+
+                // jwt setup 
+
+                const { _id, username } = respo.data     // login time user data get
+
+             const token= JWT.sign({name:username,id:_id},process.env.JWT_SECRET_KEY);
+
+             console.log(token)
+
+             res.cookie("donor_sync", token, {
+                maxAge: 360000,
+                sameSite:"none",
+                secure:true,
+                httpOnly:true
+                
+             })
+             
+             res.json({ flag: true,token:token })
+             
+             return
+
+
+            } else {
+
+                res.json({ msg: "password err" })
+                return
+            }
+        }).catch(err => {
+
+            res.json({ msg: "server " })
+            return
+        })
+
+
+
+    }}

@@ -3,21 +3,15 @@
 // import express from "express";
 // import { user_login, user_signup } from "../Control/authContro.js";
 
-// const router = express.Router();
 
-// router.post("/signup", user_signup);
-// router.post("/login", user_login);
-
-
-// export default router;
-
-import express from "express";
-import { login, register } from "../Control/authContro.js";
-
-const router = express.Router();
-
-router.post("/register", register);
-router.post("/login", login);
+const express=require("express");
+const router=express();
+const control=require("../Control/authContro.js")
 
 
-export default router;
+
+router.post("/signup",  control.signup_data);
+router.post("/login", control.login_data);
+
+
+module.exports = router

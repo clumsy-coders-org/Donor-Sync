@@ -1,21 +1,27 @@
 
-import express, { json, urlencoded } from "express";
-const app=express();
-// require('dotenv').config();
-import { DBConnect } from "../server/Database/connect.js";
-import dotenv from "dotenv"
-dotenv.config();
-import authRoute from "./Routers/authRout.js";
-import cors from "cors";
 
 
+
+const express = require("express");
+const app = express()
+const DB = require("./Database/connect.js")
+const authRoute = require("./Routers/authRout")
+const cors = require("cors")
+const bodyparser= require("body-parser")
+const cookieparser=require("cookie-parser");
+require('dotenv').config();
 const PORT=process.env.PORT || 3001
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended:true}))
+app.use(cookieparser());
 
 
 
-app.use(json());
-app.use(urlencoded({extended:true}));
+
+DB.DBConnect();
 
 DBConnect();
 
@@ -26,6 +32,7 @@ app.use(cors({
   }));
 
 app.use(`/auth`, authRoute); //auth/register
+
 
 
 
