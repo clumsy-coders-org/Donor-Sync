@@ -20,11 +20,11 @@ export default function validation(values){
     }
 
     if(values.district === ""){
-        errors.district = "Enter the District"
+        errors.district = "Enter a District"
     }
 
     if(values.city === ""){
-        errors.city = " Please enter a city"
+        errors.city = " Please enter a City"
     }
 
     if(values.email === "") {

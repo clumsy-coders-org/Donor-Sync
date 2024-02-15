@@ -37,51 +37,52 @@ function UserDetails() {
          <div className="w-full lg:w-1/2 bg-no-repeat bg-cover bg-center" style={{backgroundImage: `url(${logo})`}}>
          </div>
          <div className="w-full lg:w-1/2 py-16 px-2">
-          <h2 className='text-3xl mb-4 text-center font-bold'>User Details</h2>
+          <h2 className='text-3xl mb-8 text-center font-bold'>Account Details</h2>
            <form action='#' onSubmit={handleValidation}>
-            <div className='grid grid-cols-2 gap-6'>
+            <div className='flex flex-wrap gap-5 justify-center'>
               <div>
               <input type="text" placeholder='User Name' name='name' 
-              className='border border-red-500 py-1 px-1 rounded-full'onChange={handleInput}/>
+              className='border  border-red-500 py-1 px-1 rounded-xl'onChange={handleInput}/>
               {errors.name && <p className='text-red-500'>{errors.name}</p>}
               </div>
               <div>
               <input type="number"   placeholder='Age' name='age' 
-              className='border border-red-500 py-1 px-1 rounded-full'onChange={handleInput}/>
+              className='  border border-red-500 py-1 px-1 rounded-xl'onChange={handleInput}/>
               {errors.age && <p className='text-red-500'>{errors.age}</p>}
               </div>
               <div>
               <input type="email" placeholder='Email Id' name='email' 
-              className='border border-red-500 py-1 px-1 rounded-full'onChange={handleInput}/>
+              className='border border-red-500 py-1 px-1 rounded-xl'onChange={handleInput}/>
               {errors.email && <p className='text-red-500'>{errors.email}</p>}
               </div>
               <div>
               <input type="number" placeholder='Mobile No' name='mobile' 
-              className='border border-red-500 py-1 px-1 rounded-full'onChange={handleInput}/>
+              className='border border-red-500 py-1 px-1 rounded-xl'onChange={handleInput}/>
               {errors.mobile && <p className='text-red-500'>{errors.mobile}</p>}
               </div>
               <div>
               <input type="text" placeholder='Blood Group' name='bloodgroup' 
-              className='border border-red-500 py-1 px-1 rounded-full'onChange={handleInput}/>
+              className='border border-red-500 py-1 px-1 rounded-xl'onChange={handleInput}/>
               {errors.bloodgroup && <p className='text-red-500'>{errors.bloodgroup}</p>}
               </div>
               <div>
               <input type="text" placeholder='District' name='district' 
-              className='border border-red-500 py-1 px-1 rounded-full'onChange={handleInput}/>
+              className='border border-red-500 py-1 px-1 rounded-xl'onChange={handleInput}/>
               {errors.district && <p className='text-red-500'>{errors.district}</p>}
               </div>
             </div>
             <div className='mt-5'>
             <input type="text" placeholder='City' name='city' 
-            className='border border-red-500 py-1 px-1 w-full rounded-full'onChange={handleInput}/>
+            className='border border-red-500 py-1 px-1 w-full rounded-xl'onChange={handleInput}/>
             {errors.city && <p className='text-red-500'>{errors.city}</p>}
             </div>
-            <div className='mt-5 px-8'>
-               <label htmlFor="" className='ml-[50px] font-bold  ' > Doner </label> <input name='type' type="Radio" onChange={(e) => { setValues({ ...values, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recepient</label> <input name='type' type="Radio" onChange={(e) => { setValues({ ...values, type: e.target.value }) }} /> 
+            <div className='mt-5  px-8'>
+               <label htmlFor="" className='ml-[20px] sm:ml-[100px] font-bold  ' > Doner </label> <input name='type' type="Radio" onChange={(e) => { setValues({ ...values, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recepient</label> <input name='type' type="Radio" onChange={(e) => { setValues({ ...values, type: e.target.value }) }} /> 
             </div>
 
-            <div className='mt-5 grid gap-5 '>
+            <div className='mt-5 grid grid-cols-2 gap-6 '>
               <button className='bg-red-500 py-1 px-1 text-center text-white font-bold rounded-full hover:bg-red-600'>Save</button>
+              <button className='bg-red-500 py-1 px-1 text-center text-white font-bold rounded-full hover:bg-red-600'>Log Out</button>
             </div>
            </form>
          </div>

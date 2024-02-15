@@ -6,6 +6,8 @@ const express = require("express");
 const app = express()
 const DB = require("./Database/connect")
 const authRoute = require("./Routers/authRout")
+const searchRout=require("./Routers/searchRout")
+
 const cors = require("cors")
 const bodyparser= require("body-parser")
 const cookieparser=require("cookie-parser");
@@ -21,7 +23,6 @@ app.use(cookieparser());
 
 
 
-DB.DBConnect();
 
 
 app.use(cors({
@@ -31,6 +32,8 @@ app.use(cors({
   }));
 
 app.use(`/auth`, authRoute); //auth/register
+
+DB.DBConnect();  // Database connecting func
 
 
 
