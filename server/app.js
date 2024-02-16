@@ -20,7 +20,7 @@ DB.DBConnect();  // Database connecting func
 
 
 
-
+app.use("/search",searchRout)
 
 
 
