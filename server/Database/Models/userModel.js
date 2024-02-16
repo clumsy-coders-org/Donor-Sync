@@ -1,70 +1,21 @@
-
-
 const mongoose=require("mongoose");
+const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
-
-
-const user=new mongoose.Schema({           // users schema creation 
-
-       
-       username:{
-          type:String,
-          require:true
-       },
-
-       email:{
-         
-           type:String,
-           unique:true,
-           require:true
-       },
-
-       password:{
-
-            type:String,
-            require:true
-       },
-
-       mobile:{
-
-           type:String,
-           require:true,
-           unique:true
-       },
-
-       age:{
-
-        type:String,
-        require:true
-
-       },
-
-       bloodgroup:{
-
-          type:String,
-          require:true
-       },
-       district:{
-
-         type:String,
-         require:true
-       },
-
-       city:{
-          
-           type:String,
-           require:true
-       },
-       usertype:{
- 
-          type:String,
-          require:true
-           
-       }
+// Create schema for Users
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, unique: true, required:true },
+    mobile: { type: Number, unique: true, required: true },
+    password: { type: String, required: true },
+    district: { type: String, required: true },
+    city: { type: String, required: true },
+    bloodgroup: { type: String,  required: true },
+    age: { type: Number, required: true },
+    type: {type: String, required: true, }
+   
 });
 
+// Create model for Users
+const Users = mongoose.model('Users', userSchema);
 
-const userSchema=mongoose.model("user",user);   
-
-module.exports=userSchema ;
-
+module.exports = Users

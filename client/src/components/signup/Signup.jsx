@@ -8,6 +8,9 @@ import { IoWarning } from "react-icons/io5";
 import { firstFormValid, secondValidation } from "./Formvalid"
 import { useNavigate } from "react-router-dom"
 import { Oval } from 'react-loader-spinner'
+import axios from "../../axios/instance.js"
+import {message} from "antd"
+
 
 
 
@@ -30,14 +33,39 @@ function Signup() {
     type: ""
   });
 
+  axios.defaults.withCredentials = true;
+
   const navigate = useNavigate();
 
 
-  const formSubmit = () => {
+  const formSubmit = (e) => {
 
     setspinner(true);
+    console.log(inputValus);
+    axios.post("/auth/signup",inputValus).then((respo)=>{
 
-    alert("signup ok");
+      if(respo.data.exist){
+
+            message.error("This email already exists, try another one.")
+     
+          }else if(respo.data.flag){
+            message.success("Account created")
+            navigate("/login")
+
+      }else{
+
+           message.error("Server Error")
+      }
+
+        
+  }).catch(err=>{
+
+       message.error("Something wrong ! ")
+       console.log(err)
+       console.log("errrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
+        
+  })
+    
   }
 
 
@@ -156,7 +184,7 @@ function Signup() {
 
 
 
-                  <select type="text" placeholder='Bllod Group' className='w-[300px]   h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600 '>
+                  <select onChange={(e)=>{setinputValus({ ...inputValus, bloodgroup: e.target.value })}} type="text" placeholder='Bllod Group' className='w-[300px]   h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600 '>
 
                     <option value={null}> Select Your Blood Group </option>
                     <option value="O+"> O+ </option>
@@ -174,7 +202,7 @@ function Signup() {
 
 
 
-                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
+                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input name='type' type="Radio" value={"Donor"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input name='type' type="Radio" value={"Recipient"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
 
 
 
@@ -304,9 +332,9 @@ function Signup() {
 
                   /><br />
 
-                  <label htmlFor="" className='ml-[50px] font-bold  ' > Doner ?  </label> <input type="Radio" />  <label htmlFor="" className='ml-[20px] font-bold'>Reciepient ?  </label> <input type="Radio" />
+                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input type="Radio" value={"Donor"}  onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }}/>  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input type="Radio" value={"Recipient"}  onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }}/>
 
-
+                 
 
                   <button onClick={() => { secondValidation(inputValus, seterrmsg, seterrflag, formSubmit) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[50px] font-bold border-solid border-2 border-red-600 text-[20px] ' >
                     

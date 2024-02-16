@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Assuming you are using React Router
 import loginImg from '../../assets/young.jpg';
 import logo from '../../assets/logo.png';
+import axios from "../../axios/instance.js"
+import { useNavigate } from "react-router-dom"
+import {message} from "antd"
+
+
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -27,6 +32,9 @@ export default function Login() {
     });
   };
 
+  const navigate=useNavigate()
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Check for empty fields
@@ -42,7 +50,31 @@ export default function Login() {
       setErrors(newErrors);
     } else {
       // Perform login logic
-      console.log('Logging in...');
+      axios.defaults.withCredentials = true;
+
+  
+      
+      
+      axios.post("/auth/login",formData).then((respo)=>{
+
+        if(respo.data.emailerr){
+
+              message.error("This email is invalid")
+        
+             }else if(respo.data.flag){
+                  message.success("Login successful")
+                   navigate("/")
+             }else{
+
+                   message.error("Password and email does not match")
+             }
+ }).catch(err=>{
+
+         message.error("something wrong")
+ })
+
+
+      
     }
   };
 
