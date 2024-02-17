@@ -4,6 +4,7 @@ const app=express();
  require('dotenv').config();
 const DB=require("./Database/connect")
 const searchRout=require("./Routers/searchRout")
+const bbauth=require("./Routers/bloodbankauthRout")
 
 const PORT=process.env.PORT || 3001
 
@@ -21,6 +22,9 @@ DB.DBConnect();  // Database connecting func
 
 
 app.use("/search",searchRout)
+
+
+app.use("/bloodbankauth",bbauth)   // blood bank auth  
 
 
 
