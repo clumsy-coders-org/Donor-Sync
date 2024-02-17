@@ -202,7 +202,11 @@ function Signup() {
 
 
 
+<<<<<<< HEAD
                   <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input name='type' type="Radio" value={"Donor"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input name='type' type="Radio" value={"Recipient"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
+=======
+                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input name='type' value={"donor"} type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input name='type' value={"recipient"} type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
+>>>>>>> search_page
 
 
 

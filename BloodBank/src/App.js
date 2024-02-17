@@ -4,13 +4,25 @@
 
 
 import React from 'react'
+import { Routes, Route } from "react-router-dom"
+import Home from "./components/home/Home"
+
 
 function App() {
   return (
     <div>
 
-      <h1 className='text-red-600' > welcome blood bank </h1>
-      
+      <Routes>
+
+        <Route element={<Home />} path='/' />
+
+
+
+      </Routes>
+
+
+
+
     </div>
   )
 }
