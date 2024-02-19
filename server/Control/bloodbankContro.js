@@ -77,5 +77,43 @@ module.exports = {
              res.json({err:true})
         })
 
+    },
+
+
+
+    blood_bank_dashboard_data:(req,res)=>{
+
+            const id="65d38bc7d4f42a5624707f22"
+
+
+            service.blood_bank_dashboard_data(id).then((respo)=>{
+
+                 
+                   if(respo.flag){
+
+                      res.json({flag:true,data:respo.data})
+                      return
+                  
+                    }else{
+
+                         res.json({flag:false})
+                         return
+
+                   }
+            }).catch(err=>{
+
+                  res.json({err:true})
+                  return
+            })
+
+
+          
     }
+
+
+
+
+
+
+
 }

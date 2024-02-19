@@ -10,42 +10,42 @@ const arrya = [
    {
       bloodgroup: "O+",
       quantity: 0,
-      status: "notavilable"
+      status: false
    },
    {
       bloodgroup: "A+",
       quantity: 0,
-      status: "notavilable"
+      status: false
    },
    {
       bloodgroup: "A+",
       quantity: 0,
-      status: "notavilable"
+      status: false
    },
    {
       bloodgroup: "B+",
       quantity: 0,
-      status: "notavilable"
+      status: false
    },
    {
       bloodgroup: "B-",
       quantity: 0,
-      status: "notavilable"
+      status:false
    },
    {
       bloodgroup: "O-",
       quantity: 0,
-      status: "notavilable"
+      status: false
    },
    {
       bloodgroup: "AB+",
       quantity: 0,
-      status: "notavilable"
+      status: false
    },
    {
       bloodgroup: "AB-",
       quantity: 0,
-      status: "notavilable"
+      status: false
    }
 ]
 
@@ -148,5 +148,44 @@ module.exports = {
       })
 
 
+   },
+
+
+
+   blood_bank_dashboard_data:(id)=>{
+
+
+           return new Promise(async(resolve,reject)=>{
+
+                 try {
+
+
+           const result= await bbModel.findOne({_id:id})
+              
+                if(!result){
+
+                     resolve({flag:false})
+                }else{
+
+                     resolve({flag:true,data:result})
+                }
+
+                  
+                 } catch (error) {
+
+                  reject()
+                  
+                 }
+                     
+           })
    }
+
+
+
+
+
+
+
+
+
 }

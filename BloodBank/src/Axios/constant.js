@@ -4,13 +4,13 @@
 
 import axios from "axios"
 
-const baseurl="https://credot-test-backend.onrender.com"
+const baseurl="http://localhost:3001"
+
 
 // "https://credot-test-backend.onrender.com"
 
 
-// "http://localhost:3001"
-
+// 
 
 
 

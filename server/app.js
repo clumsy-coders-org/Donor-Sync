@@ -7,7 +7,7 @@ const app = express()
 const DB = require("./Database/connect")
 const authRoute = require("./Routers/authRout")
 const searchRout=require("./Routers/searchRout")
-const bbauth=require("./Routers/bloodbankauthRout")
+const bbauth=require("./Routers/bloodbankRout")
 
 const cors = require("cors")
 const bodyparser= require("body-parser")
@@ -27,7 +27,7 @@ app.use(cookieparser());
 
 
 app.use(cors({
-      origin : "http://localhost:3000",
+      origin : ["http://localhost:3000",],
       methods: ["GET", "POST"],
       credentials: true
   }));
@@ -38,10 +38,10 @@ DB.DBConnect();  // Database connecting func
 
 
 
-app.use("/search",searchRout)
+app.use("/search",searchRout) 
 
 
-app.use("/bloodbankauth",bbauth)   // blood bank auth  
+app.use("/bloodbank",bbauth)  // blood bank auth  
 
 
 

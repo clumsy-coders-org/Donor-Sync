@@ -7,7 +7,7 @@ function Nave() {
   return (
     <div>
 
-        <div className='w-full h-[100px] bg-gray-200 flex ' >
+        <div className='w-full h-[70px] bg-gray-200 flex ' >
 
             <div className='w-[50%] h-full flex items-center pl-10 gap-10 ' >
                 <img src={logo} className='w-[80px] h-[80px]' alt="" />
