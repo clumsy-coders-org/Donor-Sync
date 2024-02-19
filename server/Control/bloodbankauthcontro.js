@@ -1,18 +1,81 @@
 
 
-const service=require("../Service/bloodbankService")
+const service = require("../Service/bloodbankService");
+const JWT = require("jsonwebtoken")
 
 
 
 
-module.exports={
-
-     
-      blood_bank_auth:(req,res)=>{
+module.exports = {
 
 
-        service.blood_bank_auth(req.body)
+    blood_bank_signup: (req, res) => {
 
-           
-      }
+
+        service.blood_bank_signup(req.body).then((respo) => {
+
+            if (respo.exist) {
+
+                res.json({ exist: true })
+                return
+
+            } else if (respo.flag) {
+
+                res.json({ flag: true })
+                return
+            }
+
+        }).catch(err => {
+
+            res.json({ err: true })
+            return
+        })
+
+    },
+
+
+
+
+    blood_bank_login: (req, res) => {
+
+
+        service.blood_bank_login(req.body).then((respo) => {
+
+
+            if (respo.regerr) {
+
+                res.json({ regerr: true })
+                return
+
+            } else if (respo.passerr) {
+
+                res.json({ passerr: true })
+                return
+
+            } else if (respo.flag) {
+
+                const { _id, name } = respo.data
+
+                const token = JWT.sign({ name: name, id: _id }, process.env.JWT_BB_SECRET_KEY);
+
+
+                res.cookie("donor_sync_blood_bank", token, {
+                    maxAge: 360000,
+                    sameSite: "none",
+                    secure: true,
+                    httpOnly: true
+
+                })
+
+
+                res.json({ flag: true })
+
+
+            }
+        }).catch(err=>{
+
+             res.json({err:true})
+        })
+
+    }
 }

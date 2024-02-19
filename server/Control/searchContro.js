@@ -1,44 +1,68 @@
 
 
 
- const service=require("../Service/searchService");
+const service = require("../Service/searchService");
 
 
 
 
-module.exports={
-
-      
-       find_blood:(req,res)=>{
+module.exports = {
 
 
-        const {type}=req.body
-         
-          if(type==="donor"){
+     find_blood: (req, res) => {
 
-             service.find_avilable_donor(req.body).then((respo)=>{
 
-                if(respo.empty){
+          const { type } = req.body
 
-                      res.json({empty:true})
-                      return
-                
-                    }else if(respo.flag){
+          if (type === "donor") {
 
-                         res.json({flag:true,data:respo.data})
+               service.find_avilable_donor(req.body).then((respo) => {
+
+                    if (respo.empty) {
+
+                         res.json({ empty: true })
+                         return
+
+                    } else if (respo.flag) {
+
+                         res.json({ flag: true, data: respo.data })
                          return
                     }
-       }).catch(err=>{
+               }).catch(err => {
 
-             res.json({err:true,errmsg:err})
-       })
-              
-          }else{
+                    res.json({ err: true, errmsg: err })
 
-               service.find_avilable_bloodBank(req.body)
-               
-               
+
+
+               })
+
+          } else {
+
+               service.find_avilable_bloodBank(req.body).then((respo) => {
+
+                    if (respo.empty) {
+
+                         res.json({ empty: true })
+                         return
+
+                    } else if (respo.flag) {
+
+                         res.json({ flag: true, data: respo.data })
+                         return
+                    }
+
+
+               }).catch(err => {
+
+                    res.json({ err: true })
+                   
+                    return
+               })
+
+
+
+
           }
-          
-       }
+
+     }
 }
