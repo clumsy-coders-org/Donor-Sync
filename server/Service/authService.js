@@ -17,7 +17,7 @@ const users = require("../Database/Models/userModel")
         user_signup:(data)=>{                           //user signup Database query
            
     
-            console.log(data)
+           
            
             return new Promise (async(resolve,reject)=>{
                 const userdata = await users.findOne({email:data.email})
@@ -31,7 +31,7 @@ const users = require("../Database/Models/userModel")
                     const final = new users(data)
     
                     final.save().then(()=>{
-                        console.log("DB CONNECT");
+                       
                         resolve({flag:true})
                    
                     }).catch(err =>{
@@ -61,6 +61,7 @@ const users = require("../Database/Models/userModel")
                         resolve({flag:false})
                     }else{
                         resolve({flag:true, data:userdata})
+                        console.log("login ok")
                     }
                 }
                 }catch(error){
