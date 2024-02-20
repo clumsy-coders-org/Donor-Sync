@@ -12,15 +12,15 @@ module.exports = {
 
     signup_data: (req, res) => {
 
-    //  console.log(req.body)
-    
-     
-     
-// signup post req contro fun 
-       
+        //  console.log(req.body)
+
+
+
+        // signup post req contro fun 
+
 
         authservice.user_signup(req.body).then((respo) => {
-            
+
             console.log("signup")
             if (respo.exist) {
 
@@ -35,58 +35,35 @@ module.exports = {
         }).catch(err => {
 
             res.status(500).json({ flag: false })
-            return   
+            return
         })
 
 
     },
 
-    login_data: (req, res) => {   // login postt contro fun
 
-        console.log("login")
+
+
+
+
+    login_user: (req, res) => {
+
+
         authservice.user_login(req.body).then((respo) => {
 
-            if (respo.emailerr) {
 
-                res.json({ emailerr: true })
-                return
+            console.log("resolve")
 
-            } else if (respo.flag) {
-
-                
-
-                // jwt setup 
-
-                const { _id, username } = respo.data     // login time user data get
-
-             const token= JWT.sign({name:username,id:_id},process.env.JWT_SECRET_KEY);
-
-             console.log(token)
-
-             res.cookie("donor_sync", token, {
-                maxAge: 360000,
-                sameSite:"none",
-                secure:true,
-                httpOnly:true
-                
-             })
-             
-             res.json({ flag: true,token:token })
-             
-             return
-
-
-            } else {
-
-                res.json({ msg: "password err" })
-                return
-            }
         }).catch(err => {
 
-            res.json({ msg: "server " })
-            return
+            console.log("reject")
         })
 
 
 
-    }}
+    }
+
+
+
+
+}

@@ -57,17 +57,10 @@ export default function Login() {
       
       axios.post("/auth/login",formData).then((respo)=>{
 
-        if(respo.data.emailerr){
 
-              message.error("This email is invalid")
-        
-             }else if(respo.data.flag){
-                  message.success("Login successful")
-                   navigate("/")
-             }else{
+          console.log(respo.data)
 
-                   message.error("Password and email does not match")
-             }
+       
  }).catch(err=>{
 
          message.error("something wrong")
