@@ -47,20 +47,33 @@ module.exports = {
     user_login: (data) => {
 
 
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
 
             try {
 
-                if (data) {
 
-                    console.log("data ok")
-                    resolve({flag:true})
+                const userdata = await users.findOne({ email: data.username })
+
+                if (userdata) {
+
+                    const final=await bcrypt.compare(data.password,userdata.password)
+
+                    if(final){
+
+                          resolve({flag:true,data:userdata})
+                    }else{
+
+                         resolve({flag:false})
+                    }
+                   
 
                 } else {
 
-                   
-                    resolve({flag:false})
+                    resolve({emailerr:true})
+
                 }
+
+
 
             } catch (error) {
 

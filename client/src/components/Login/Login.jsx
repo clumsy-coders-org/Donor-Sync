@@ -4,7 +4,7 @@ import loginImg from '../../assets/young.jpg';
 import logo from '../../assets/logo.png';
 import axios from "../../axios/instance.js"
 import { useNavigate } from "react-router-dom"
-import {message} from "antd"
+import { message } from "antd"
 
 
 
@@ -32,7 +32,7 @@ export default function Login() {
     });
   };
 
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
 
   const handleSubmit = (e) => {
@@ -52,22 +52,40 @@ export default function Login() {
       // Perform login logic
       axios.defaults.withCredentials = true;
 
-  
+
+
+
+      axios.post("/auth/login", formData).then((respo) => {
+
+
+        if (respo.data.err) {
+
+          message.error("server err")
+
+          return
+
+        } else if (respo.data.emailerr) {
+
+          message.error("this email not valid")
+          return
+        
+        } else if (respo.data.flag) {
+
+          navigate("/")
       
+        }else{
+ 
+           message.error("email and password not match")
+        }
+
+      }).catch(err => {
+
+        message.error("something wrong")
       
-      axios.post("/auth/login",formData).then((respo)=>{
+      })
 
 
-          console.log(respo.data)
 
-       
- }).catch(err=>{
-
-         message.error("something wrong")
- })
-
-
-      
     }
   };
 
