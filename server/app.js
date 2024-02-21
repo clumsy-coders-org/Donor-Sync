@@ -7,6 +7,7 @@ const app = express()
 const DB = require("./Database/connect")
 const authRoute = require("./Routers/authRout")
 const searchRout=require("./Routers/searchRout")
+const bbauth=require("./Routers/bloodbankauthRout")
 
 const cors = require("cors")
 const bodyparser= require("body-parser")
@@ -31,13 +32,17 @@ app.use(cors({
       credentials: true
   }));
 
-app.use(`/auth`, authRoute); //auth/register
+
 
 DB.DBConnect();  // Database connecting func
 
 
+app.use("/auth", authRoute); //auth/register
+
+app.use("/search",searchRout)
 
 
+app.use("/bloodbankauth",bbauth)   // blood bank auth  
 
 
 

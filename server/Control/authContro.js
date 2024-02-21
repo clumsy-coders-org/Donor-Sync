@@ -12,15 +12,15 @@ module.exports = {
 
     signup_data: (req, res) => {
 
-    //  console.log(req.body)
-    
-     
-     
-// signup post req contro fun 
-       
+        //  console.log(req.body)
+
+
+
+        // signup post req contro fun 
+
 
         authservice.user_signup(req.body).then((respo) => {
-            
+
             console.log("signup")
             if (respo.exist) {
 
@@ -35,58 +35,111 @@ module.exports = {
         }).catch(err => {
 
             res.status(500).json({ flag: false })
-            return   
+            return
         })
 
 
     },
 
-    login_data: (req, res) => {   // login postt contro fun
 
-        console.log("login")
+
+
+
+
+    login_user: (req, res) => {
+
+
         authservice.user_login(req.body).then((respo) => {
+
 
             if (respo.emailerr) {
 
+                console.log("email err")
                 res.json({ emailerr: true })
                 return
 
             } else if (respo.flag) {
 
-                
 
-                // jwt setup 
+                console.log("login okk")
 
-                const { _id, username } = respo.data     // login time user data get
+                const { _id, name } = respo.data
 
-             const token= JWT.sign({name:username,id:_id},process.env.JWT_SECRET_KEY);
+                const token = JWT.sign({ name: name, id: _id }, process.env.JWT_BB_SECRET_KEY);
 
-             console.log(token)
+                res.cookie("donor_sync_user", token, {
 
-             res.cookie("donor_sync", token, {
-                maxAge: 360000,
-                sameSite:"none",
-                secure:true,
-                httpOnly:true
-                
-             })
-             
-             res.json({ flag: true,token:token })
-             
-             return
+                    maxAge: 360000,
+                    sameSite: "none",
+                    secure: true,
+                    httpOnly: true
 
+                })
+
+                res.json({ flag: true,token:token })
+                return
 
             } else {
 
-                res.json({ msg: "password err" })
+                console.log("pass errr")
+                res.json({ flag: false })
                 return
             }
+
         }).catch(err => {
 
-            res.json({ msg: "server " })
-            return
+            console.log("reject")
+            res.json({ err: true })
         })
 
 
 
-    }}
+    },
+
+
+
+
+      user_account_data:(req,res)=>{
+
+        const token = req.cookies.donor_sync_user
+
+        console.log("account view")
+
+        JWT.verify(token, process.env.JWT_BB_SECRET_KEY,(err,result)=>{
+
+              
+              if(err){
+
+                  res.json({authfailed:true})
+            }else{
+
+
+                  const {id}=result
+
+                    authservice.user_account_data(id).then((respo)=>{
+
+                           if(respo.flag){
+
+                               res.json({flag:true,data:respo.data})
+                           
+                            }else{
+
+                               res.json({flag:false})
+                           }
+                    }).catch(err=>{
+
+
+                          res.json({err:true})
+                    })
+            }
+        })
+
+
+
+         
+      }
+
+
+
+
+}
