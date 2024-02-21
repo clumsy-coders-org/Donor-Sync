@@ -94,7 +94,50 @@ module.exports = {
 
 
 
-    }
+    },
+
+
+
+
+      user_account_data:(req,res)=>{
+
+        const token = req.cookies.donor_sync_user
+
+        console.log("account view")
+
+        JWT.verify(token, process.env.JWT_BB_SECRET_KEY,(err,result)=>{
+
+              
+              if(err){
+
+                  res.json({authfailed:true})
+            }else{
+
+
+                  const {id}=result
+
+                    authservice.user_account_data(id).then((respo)=>{
+
+                           if(respo.flag){
+
+                               res.json({flag:true,data:respo.data})
+                           
+                            }else{
+
+                               res.json({flag:false})
+                           }
+                    }).catch(err=>{
+
+
+                          res.json({err:true})
+                    })
+            }
+        })
+
+
+
+         
+      }
 
 
 

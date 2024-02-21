@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+
+
+
+
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Assuming you are using React Router
 import loginImg from '../../assets/young.jpg';
 import logo from '../../assets/logo.png';
 import axios from "../../axios/instance.js"
 import { useNavigate } from "react-router-dom"
 import { message } from "antd"
+import { useContext } from 'react';
+import {UserdataContext} from "../../contextapi/accountdata.js"
 
 
 
@@ -33,6 +39,8 @@ export default function Login() {
   };
 
   const navigate = useNavigate()
+
+  const {setaccdata}=useContext(UserdataContext)  // user account data contextapi
 
 
   const handleSubmit = (e) => {
@@ -68,26 +76,65 @@ export default function Login() {
 
           message.error("this email not valid")
           return
-        
+
         } else if (respo.data.flag) {
 
           navigate("/")
-      
-        }else{
- 
-           message.error("email and password not match")
+
+        } else {
+
+          message.error("email and password not match")
         }
 
       }).catch(err => {
 
         message.error("something wrong")
-      
+
       })
 
 
 
     }
-  };
+  }
+
+
+
+
+  useEffect(() => {                  // user auth checking and account data fetch func
+
+    axios("/auth/account").then((respo) => {
+
+      if (respo.data.authfailed) {
+
+        navigate("/login")
+
+      } else if (respo.data.flag) {
+
+        setaccdata(respo.data.data)
+        navigate("/userdetails")
+
+      } else if (respo.data.err) {
+
+        message.error("server error")
+      }
+    }).catch(err => {
+
+      message.error("somthing worng")
+    })
+
+
+  }, [])
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="bg-gray-200 flex items-center justify-center min-h-screen">

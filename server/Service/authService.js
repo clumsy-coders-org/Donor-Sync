@@ -82,6 +82,38 @@ module.exports = {
 
             }
         })
+    },
+
+
+
+
+    user_account_data:(userid)=>{
+
+        return new Promise(async(resolve,reject)=>{
+
+                try {
+
+                     const userdata= await users.findOne({_id:userid})
+
+                      if(userdata){
+
+                          resolve({flag:true,data:userdata})
+                          return
+                      }else{
+
+                         resolve({flag:false})
+                         return
+                      }
+                    
+                } catch (error) {
+
+                    reject()
+                    
+                }
+             
+        })
+
+         
     }
 
 

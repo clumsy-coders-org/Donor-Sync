@@ -32,11 +32,12 @@ app.use(cors({
       credentials: true
   }));
 
-app.use(`/auth`, authRoute); //auth/register
+
 
 DB.DBConnect();  // Database connecting func
 
 
+app.use("/auth", authRoute); //auth/register
 
 app.use("/search",searchRout)
 
