@@ -44,6 +44,131 @@ function Home() {
   }, [])
 
 
+  const quantity_increment = (index) => {       // blood bank stock blood group quantity increment func
+
+    const res = datas[index]
+
+
+    const obj = {
+
+      bloodgroup: res.bloodgroup,
+      num: 1,
+      status: true
+    }
+
+    axios.post("/bloodbank/dashboard/edit", obj).then((respo) => {
+
+      if (respo.data.flag) {
+
+        res.quantity += 1
+        res.status = true
+        setdatas([...datas])
+
+      } else {
+
+        message.error("server error")
+      }
+
+
+    }).catch(err => {
+
+
+      message.error("somthing worng !")
+
+    })
+
+
+  }
+
+
+
+  const quantity_decres = (index) => {  //// blood bank stock blood group quantity decrement func  
+
+    const res = datas[index]
+
+    if (res.quantity <= 1) {
+
+
+
+      const obj = {
+
+        bloodgroup: res.bloodgroup,
+        num:-1,
+        status: false
+      }
+
+
+
+      axios.post("/bloodbank/dashboard/edit", obj).then((respo) => {
+
+        if (respo.data.flag) {
+
+
+          res.quantity = 0
+
+          res.status = false
+
+          setdatas([...datas])
+
+        } else {
+
+          message.error("server error")
+        }
+
+      }).catch(err => {
+
+
+        message.error("somthing worng !")
+
+      })
+
+
+      return
+
+    } else {
+
+
+
+      const obj = {
+
+        bloodgroup: res.bloodgroup,
+        num: -1,
+        status: true
+      }
+
+
+      axios.post("/bloodbank/dashboard/edit", obj).then((respo) => {
+
+        if (respo.data.flag) {
+
+          res.quantity -= 1
+
+          setdatas([...datas])
+
+
+        } else {
+
+          message.error("server error")
+        }
+
+      }).catch(err => {
+
+
+        message.error("somthing worng !")
+
+      })
+
+
+
+
+
+
+
+
+    }
+
+
+  }
 
 
 
@@ -64,32 +189,34 @@ function Home() {
               <tr >
 
                 <th >Blood Group</th>
-                <th>Quantity</th>
+                <th>Quantity(unit)</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
 
               {
-                datas?.map((obj) => (
+                datas?.map((obj, index) => (
 
                   <tr className='text-center' >
+
                     <td>{obj.bloodgroup}</td>
-                   
-                    <td>{obj.quantity}</td>
-                    
-                    <td> 
-                    {
-                        obj.status  ?
-                        
-                        <span className='px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-400 text-white' > Avilable   </span>   
-                         
-                        : 
 
-                        <span className='px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-500 text-white' > Not Avilable  </span>   
+                    <td> <button className='font-bold text-[20px] mr-4' onClick={() => { quantity_decres(index) }} > - </button>    {obj.quantity}   <button className='font-bold text-[20px] ml-4' onClick={() => { quantity_increment(index) }}> + </button>          </td>
 
-                    }
-                    
+                    <td>
+
+                      {
+                        obj.status ?
+
+                          <span className='px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-400 text-white' > Avilable   </span>
+
+                          :
+
+                          <span className='px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-500 text-white' > Not Avilable  </span>
+
+                      }
+
                     </td>
 
                   </tr>

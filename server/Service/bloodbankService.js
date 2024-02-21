@@ -30,7 +30,7 @@ const arrya = [
    {
       bloodgroup: "B-",
       quantity: 0,
-      status:false
+      status: false
    },
    {
       bloodgroup: "O-",
@@ -86,8 +86,8 @@ module.exports = {
 
             final.save().then((respo) => {
 
-                 
-               resolve({flag:true})
+
+               resolve({ flag: true })
 
 
             }).catch(err => {
@@ -152,32 +152,62 @@ module.exports = {
 
 
 
-   blood_bank_dashboard_data:(id)=>{
+   blood_bank_dashboard_data: (id) => {
 
 
-           return new Promise(async(resolve,reject)=>{
+      return new Promise(async (resolve, reject) => {
 
-                 try {
+         try {
 
 
-           const result= await bbModel.findOne({_id:id})
+            const result = await bbModel.findOne({ _id: id })
+
+            if (!result) {
+
+               resolve({ flag: false })
+            } else {
+
+               resolve({ flag: true, data: result })
+            }
+
+
+         } catch (error) {
+
+            reject()
+
+         }
+
+      })
+   },
+
+
+
+   blood_bank_dashboard_data_edit: (data) => {         // blood bank stock blood group quantity changes fun 
+
+      return new Promise(async (resolve, reject) => {
+
+          
+         bbModel.updateOne({_id:data.id,"blooddata.bloodgroup":data.bloodgroup},{
+
+              $inc:{"blooddata.$.quantity":data.num},
+              $set:{"blooddata.$.status":data.status}
               
-                if(!result){
+       
+            }).then(()=>{
 
-                     resolve({flag:false})
-                }else{
 
-                     resolve({flag:true,data:result})
-                }
+                 resolve();
+          
+               }).catch(err=>{
 
-                  
-                 } catch (error) {
+                   reject()
 
-                  reject()
-                  
-                 }
-                     
-           })
+            })
+
+             
+
+
+      })
    }
 
 

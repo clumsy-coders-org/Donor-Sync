@@ -72,42 +72,82 @@ module.exports = {
 
 
             }
-        }).catch(err=>{
+        }).catch(err => {
 
-             res.json({err:true})
+            res.json({ err: true })
         })
 
     },
 
 
 
-    blood_bank_dashboard_data:(req,res)=>{
+    blood_bank_dashboard_data: (req, res) => {
 
-            const id="65d38bc7d4f42a5624707f22"
+        const id = "65d38bc7d4f42a5624707f22"
 
 
-            service.blood_bank_dashboard_data(id).then((respo)=>{
+        service.blood_bank_dashboard_data(id).then((respo) => {
 
-                 
-                   if(respo.flag){
 
-                      res.json({flag:true,data:respo.data})
-                      return
-                  
-                    }else{
+            if (respo.flag) {
 
-                         res.json({flag:false})
-                         return
+                res.json({ flag: true, data: respo.data })
+                return
 
-                   }
+            } else {
+
+                res.json({ flag: false })
+                return
+
+            }
+        }).catch(err => {
+
+            res.json({ err: true })
+            return
+        })
+
+
+
+    },
+
+
+    bllod_bank_dashboard_data_edit: (req, res) => {      // blood bank stock blood group quantity changes fun 
+
+
+        // const token = req.cookie.donor_sync_blood_bank
+
+        // JWT.verify(token, process.env.JWT_BB_SECRET_KEY, (err, result) => {
+
+        //     if (result) {
+
+        //         const { id } = result
+
+
+        //     }
+        // })
+
+        const obj = {
+
+            id: "65d38bc7d4f42a5624707f22",
+            bloodgroup: req.body.bloodgroup,
+            num: req.body.num,
+            status:req.body.status
+
+        }
+
+      
+
+       
+          service.blood_bank_dashboard_data_edit(obj).then((respo)=>{
+
+                     res.json({flag:true})
+          
             }).catch(err=>{
 
-                  res.json({err:true})
-                  return
-            })
+               res.json({flag:false})
+          })
 
 
-          
     }
 
 
