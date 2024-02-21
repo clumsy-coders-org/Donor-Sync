@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Assuming you are using React Router
-import loginImg from '../../assets/young.webp';
-import logo from '../../assets/logo.png';
+import loginImg from '../../Assets/young.webp';
+import logo from '../../Assets/logo.png';
 import axios from "../../Axios/constant"
 import { useNavigate } from "react-router-dom"
 import {message} from "antd"
