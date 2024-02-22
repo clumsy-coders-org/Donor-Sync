@@ -38,8 +38,18 @@ const bloodBank= new mongoose.Schema({
 
              type:String,
              require:true
-        }
+        },
+        mobile:{
 
+           type:String,
+           require:true
+        },
+        blooddata:{
+
+            type:Array,
+            require:true
+        }
+      
     
     
     })
