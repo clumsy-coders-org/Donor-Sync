@@ -1,11 +1,8 @@
 
 
 
-<<<<<<< HEAD
+
 const bbModel=require("../Database/Models/bloodBankModel")
-const bycript=require("bcrypt")
-=======
-const bbModel = require("../Database/Models/bloodBankModel")
 const bcrypt = require("bcrypt")
 const JWT = require("jsonwebtoken")
 // const bloodBankdata_add_fun = require("./blooddataadd")
@@ -17,7 +14,7 @@ const arrya = [
       status: false
    },
    {
-      bloodgroup: "A+",
+      bloodgroup: "A-",
       quantity: 0,
       status: false
    },
@@ -100,7 +97,7 @@ module.exports = {
                reject({ err: true })
 
             })
->>>>>>> bloodbank_work
+
 
 
 

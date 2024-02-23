@@ -40,13 +40,14 @@ function Signup() {
 
     setspinner(true);
     console.log(inputValus);
-    axios.post("/auth/signup",inputValus).then((respo)=>{
+    axios.post("/bloodbank/signup",inputValus).then((respo)=>{
 
       if(respo.data.exist){
 
-            message.error("This email already exists, try another one.")
+            message.error("This Register Number already exists, try another one.")
      
           }else if(respo.data.flag){
+            
             message.success("Account created")
             navigate("/login")
 
@@ -124,7 +125,7 @@ function Signup() {
 
 
 
-                  <input type="text" placeholder='Enter Your Full Name' className='w-[300px] h-10 rounded-[10px] mb-4 mr-5 border-solid border-2 border-red-600'
+                  <input type="text" placeholder='Enter Blood Bank Name' className='w-[300px] h-10 rounded-[10px] mb-4 mr-5 border-solid border-2 border-red-600'
 
                     onChange={(e) => { setinputValus({ ...inputValus, name: e.target.value }) }}
 

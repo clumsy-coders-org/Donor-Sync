@@ -137,7 +137,7 @@ function Home() {
       }
 
 
-      axios.post("/bloodbank/dashboard/edit", obj).then((respo) => {
+      axios.post("/bloodbank/dashboard/edit", obj).then((respo) =>{
 
         if (respo.data.flag) {
 

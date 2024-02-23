@@ -11,7 +11,7 @@ module.exports = {
 
     blood_bank_signup: (req, res) => {
 
-
+       
         service.blood_bank_signup(req.body).then((respo) => {
 
             if (respo.exist) {
