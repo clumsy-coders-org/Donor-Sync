@@ -52,28 +52,15 @@ export const firstFormValid = (inputvalues, seterrmsg, seterrflag,setmobnext,for
     }else if(!passReg.test(inputvalues.password)){
 
 
-        seterrmsg(" Enter Must 6 Digit Password ")
+        seterrmsg(" Enter 6 Digit Password Only ")
         seterrflag(true)
 
 
-    }else if(!inputvalues.district){
+    }else{
 
-        seterrmsg("Select Your District")
-        seterrflag(true)
-   
-       }else if(!inputvalues.city){
-
-           seterrmsg("Select Your City")
-           seterrflag(true)
-            
-       }
-
-    
-    else{
-
-        formSubmit()
+        
         setmobnext(false)
-         seterrflag(false)
+        seterrflag(false)
 
     }
 

@@ -2,6 +2,7 @@
 
 const service = require("../Service/bloodbankService");
 const JWT = require("jsonwebtoken")
+require("dotenv").config()
 
 
 
@@ -11,7 +12,7 @@ module.exports = {
 
     blood_bank_signup: (req, res) => {
 
-       
+
         service.blood_bank_signup(req.body).then((respo) => {
 
             if (respo.exist) {
@@ -39,6 +40,7 @@ module.exports = {
     blood_bank_login: (req, res) => {
 
 
+
         service.blood_bank_login(req.body).then((respo) => {
 
 
@@ -60,6 +62,7 @@ module.exports = {
 
 
                 res.cookie("donor_sync_blood_bank", token, {
+
                     maxAge: 360000,
                     sameSite: "none",
                     secure: true,
@@ -79,32 +82,99 @@ module.exports = {
 
     },
 
+    blood_bank_account: (req, res) => {
+
+
+        const token = req.cookies.donor_sync_blood_bank
+
+        JWT.verify(token, process.env.JWT_BB_SECRET_KEY, (err, result) => {
+
+            if (result) {
+
+                const { id } = result
+
+                service.blood_bank_account(id).then((respo) => {
+
+
+                    if (respo.flag) {
+
+                        res.json({ flag: true, data: respo.data })
+                        return
+
+                    } else {
+
+                        res.json({ flag: false })
+                        return
+
+                    }
+                }).catch(err => {
+
+                    res.json({ err: true })
+                    return
+                })
+
+
+
+            } else {
+
+                res.json({ authfailed: true })
+            }
+
+        })
+
+
+
+
+
+
+
+
+    },
+
 
 
     blood_bank_dashboard_data: (req, res) => {
 
-        const id = "65d38bc7d4f42a5624707f22"
+
+        const token = req.cookies.donor_sync_blood_bank
+
+        JWT.verify(token, process.env.JWT_BB_SECRET_KEY, (err, result) => {
+
+            if (result) {
+
+                const { id } = result
+
+                service.blood_bank_dashboard_data(id).then((respo) => {
 
 
-        service.blood_bank_dashboard_data(id).then((respo) => {
+                    if (respo.flag) {
+
+                        res.json({ flag: true, data: respo.data })
+                        return
+
+                    } else {
+
+                        res.json({ flag: false })
+                        return
+
+                    }
+                }).catch(err => {
+
+                    res.json({ err: true })
+                    return
+                })
 
 
-            if (respo.flag) {
-
-                res.json({ flag: true, data: respo.data })
-                return
 
             } else {
 
-                res.json({ flag: false })
-                return
-
+                res.json({ authfailed: true })
             }
-        }).catch(err => {
 
-            res.json({ err: true })
-            return
         })
+
+
+
 
 
 
@@ -114,38 +184,56 @@ module.exports = {
     bllod_bank_dashboard_data_edit: (req, res) => {      // blood bank stock blood group quantity changes fun 
 
 
-        // const token = req.cookie.donor_sync_blood_bank
+        const token = req.cookies.donor_sync_blood_bank
 
-        // JWT.verify(token, process.env.JWT_BB_SECRET_KEY, (err, result) => {
+        JWT.verify(token, process.env.JWT_BB_SECRET_KEY, (err, result) => {
 
-        //     if (result) {
+            if (result) {
 
-        //         const { id } = result
+                const { id } = result
+
+                const obj = {
+
+                    id: id,
+                    bloodgroup: req.body.bloodgroup,
+                    num: req.body.num,
+                    status: req.body.status
+
+                }
 
 
-        //     }
-        // })
+                service.blood_bank_dashboard_data_edit(obj).then((respo) => {
 
-        const obj = {
+                    res.json({ flag: true })
 
-            id: "65d38bc7d4f42a5624707f22",
-            bloodgroup: req.body.bloodgroup,
-            num: req.body.num,
-            status:req.body.status
+                }).catch(err => {
 
-        }
+                    res.json({ flag: false })
+                })
 
-      
 
-       
-          service.blood_bank_dashboard_data_edit(obj).then((respo)=>{
+            } else {
 
-                     res.json({flag:true})
-          
-            }).catch(err=>{
+                res.json({ authfailed: true })
 
-               res.json({flag:false})
-          })
+            }
+
+
+
+
+
+        })
+
+
+
+
+
+
+
+
+
+
+
 
 
     }

@@ -1,15 +1,19 @@
 
+
+
+
 import React from 'react'
 // import signupimg from "../../assets/logo.png"
-import signupimg from "../../Assets/logo-navbar.png"
+import signupimg from "../../Assets/logo.png"
 import { useState } from 'react'
 import { CiWarning } from "react-icons/ci";
 import { IoWarning } from "react-icons/io5";
-import { firstFormValid, secondValidation } from "./Formvalid.js"
-import { Navigate, useNavigate } from "react-router-dom"
+import { firstFormValid, secondValidation } from "./Formvalid"
+import { useNavigate } from "react-router-dom"
 import { Oval } from 'react-loader-spinner'
-import axios from "../../Axios/constant.js"
-import {message} from "antd"
+import axios from "../../Axios/constant"
+import { message } from "antd"
+import Nave from '../navebar/Nave';
 
 
 
@@ -23,48 +27,53 @@ function Signup() {
   const [inputValus, setinputValus] = useState({
 
     name: "",
-    age: "",
     mobile: "",
     regnumber: "",
     password: "",
     district: "",
     city: "",
+
   });
 
-  // axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true;
 
   const navigate = useNavigate();
 
 
   const formSubmit = (e) => {
 
-    setspinner(true);
-    console.log(inputValus);
-    axios.post("/bloodbank/signup",inputValus).then((respo)=>{
+   
 
-      if(respo.data.exist){
+      setspinner(true);
+      console.log(inputValus);
+      axios.post("/bloodbank/signup",inputValus).then((respo)=>{
 
-            message.error("This Register Number already exists, try another one.")
-     
-          }else if(respo.data.flag){
-            
-            message.success("Account created")
-            navigate("/login")
+        if(respo.data.exist){
 
-      }else{
+              message.error("This email already exists, try another one.")
 
-           message.error("Server Error")
-      }
+            }else if(respo.data.flag){
+             
+              navigate("/login")
 
+        }else{
+
+             message.error("Server Error")
+        }
+
+
+    }).catch(err=>{
+
+         message.error("Something wrong ! ")
+         console.log(err)
         
-  }).catch(err=>{
 
-       message.error("Something wrong ! ")
-       console.log(err)
-       console.log("errrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
-        
-  })
-    
+    })
+
+
+
+
+
   }
 
 
@@ -76,6 +85,8 @@ function Signup() {
   return (
 
     <div>
+
+      <Nave />
 
       <div className='w-full h-screen   flex flex-wrap justify-center items-center' >
 
@@ -99,7 +110,7 @@ function Signup() {
 
             <div className='w-[100%] h-[30px]  mt-5 text-center rounded-[100px] '  >
 
-              <h1 className='text-3xl sm:text-4xl font-bold text-red-600' > Register as Blood Bank </h1>
+              <h1 className='text-4xl font-bold text-red-600' > Sign Up </h1>
 
 
 
@@ -110,7 +121,7 @@ function Signup() {
 
               errflag ?
 
-                <div className='flex mt-16 sm:mt-4 ml-[100px] sm:ml-[200px]' >    <IoWarning className='text-red-600 w-5 h-5' /> <span> {errmsg} </span> </div>
+                <div className='flex mt-10 ml-[100px] sm:ml-[200px]' >    <IoWarning className='text-red-600 w-5 h-5' /> <span> {errmsg} </span> </div>
 
                 : null
 
@@ -121,24 +132,24 @@ function Signup() {
             {
               mobNext ?
 
-                <div className='w-[100%] h-[350px] pt-[32px] pl-[130px] hidden sm:block '>
+                <div className='w-[100%] h-[350px] pt-[50px] pl-[130px] hidden sm:block '>
 
 
 
-                  <input type="text" placeholder='Enter Blood Bank Name' className='w-[300px] h-10 rounded-[10px] mb-4 mr-5 border-solid border-2 border-red-600'
+                  <input type="text" placeholder=' Blood Bank Name' className='w-[300px] h-10 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600'
 
                     onChange={(e) => { setinputValus({ ...inputValus, name: e.target.value }) }}
 
                   /><br />
 
-                  <input type="text" placeholder='Enter Your Register Number' className='w-[300px] h-10 rounded-[10px] mb-4 border-solid border-2 border-red-600 '
+                  <input type="text" placeholder='Register Number' className='w-[300px] h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600 '
 
                     onChange={(e) => { setinputValus({ ...inputValus, regnumber: e.target.value }) }}
 
 
                   /> <br />
 
-                  <input type="text" placeholder='Enter Your Mobile Number' className='w-[300px] h-10 rounded-[10px] mb-4 mr-5 border-solid border-2 border-red-600 '
+                  <input type="text" placeholder=' Contact Number' className='w-[300px] h-10 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600 '
 
                     onChange={(e) => { setinputValus({ ...inputValus, mobile: e.target.value }) }}
 
@@ -146,29 +157,74 @@ function Signup() {
 
                   /><br />
 
-                  <input type="password" placeholder='Enter Your Password' className='w-[300px] h-10 rounded-[10px] mb-4 border-solid border-2 border-red-600  '
+                  <input type="password" placeholder=' Your Password' className='w-[300px] h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600  '
 
                     onChange={(e) => { setinputValus({ ...inputValus, password: e.target.value }) }}
                   /><br />
 
-                    <select onChange={(e) => { setinputValus({ ...inputValus, district: e.target.value }) }} type="text" placeholder='District' className='w-[300px] h-10 rounded-[10px]    mb-4 mr-5 border-solid border-2 border-red-600 '>
+                  <button onClick={() => { firstFormValid(inputValus, seterrmsg, seterrflag, setmobNext) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[10px] font-bold border-solid border-2 border-red-600 text-[20px] ' > Next </button><br />
+
+                  <span className=' ml-[50px] mt-4 hidden sm:block   ' > Already have an Account ? <span className='text-blue-600  cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span>
+
+
+                </div>
+
+                :
+
+                <div className='w-[100%] h-[300px]   pt-32 pl-[130px] hidden sm:block '>
+
+
+
+
+
+                  <select onChange={(e) => { setinputValus({ ...inputValus, district: e.target.value }) }} type="text" placeholder='District' className='w-[300px] h-10 rounded-[10px]    mb-8 mr-5 border-solid border-2 border-red-600 '>
 
                     <option value={null}> Select Your District </option>
                     <option value={"palakkad"}> Palakkad </option>
 
 
-                    </select>   <br />
+                  </select>   <br />
 
-                    
-                  <input type="text" placeholder='Enter Your City' className='w-[300px] h-10 rounded-[10px] mb-4 border-solid border-2 border-red-600  '
+                  <input type="text" placeholder='Enter Your City' className='w-[300px] h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600  '
 
-                  onChange={(e) => { setinputValus({ ...inputValus, city: e.target.value }) }}
-
-
-                    /><br />
+                    onChange={(e) => { setinputValus({ ...inputValus, city: e.target.value }) }}
 
 
-                  <button onClick={() => { firstFormValid(inputValus, seterrmsg, seterrflag, setmobNext, formSubmit) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[10px] font-bold border-solid border-2 border-red-600 text-[20px] ' >
+                  /><br />
+
+
+
+                  {/* <select onChange={(e)=>{setinputValus({ ...inputValus, bloodgroup: e.target.value })}} type="text" placeholder='Bllod Group' className='w-[300px]   h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600 '>
+
+                    <option value={null}> Select Your Blood Group </option>
+                    <option value="O+"> O+ </option>
+
+                  </select> <br />
+
+                  <input type="text" placeholder='Enter Your age' className='w-[300px] h-10 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600 '
+
+                    onChange={(e) => { setinputValus({ ...inputValus, age: e.target.value }) }}
+
+
+
+                  /><br /> */}
+
+
+
+
+
+
+
+                  {/* <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input name='type' type="Radio" value={"Donor"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input name='type' type="Radio" value={"Recipient"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
+
+
+                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input name='type' value={"donor"} type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input name='type' value={"recipient"} type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
+
+ */}
+
+
+                  <button onClick={() => { secondValidation(inputValus, seterrmsg, seterrflag, formSubmit) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[30px] font-bold border-solid border-2 border-red-600 text-[20px] ' >
+
                     {
                       spinner ?
 
@@ -191,29 +247,13 @@ function Signup() {
                         :
                         <span> Sign Up </span>
 
-                    }  </button><br />
-
-                  <span className=' ml-[50px] mt-4 hidden sm:block   ' > Already have an Account ? <span className='text-blue-600  cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span> 
-
-
-                </div>
-
-                :
-
-                <div className='w-[100%] h-[400px] pt-10 pl-[130px] hidden sm:block '>
+                    }
 
 
 
 
 
-                  
-
-                 
-
-
-
-
-                  
+                  </button>
 
 
 
@@ -232,13 +272,13 @@ function Signup() {
 
 
 
-            {/* mobile view */}
+
 
             {
 
               mobNext ?
 
-                <div className='w-[100%] h-[400px] pt-[50px] pl-[20px]  sm:hidden '>
+                <div className='w-[100%] h-[400px] pt-[80px] pl-[20px]  sm:hidden '>
 
 
                   <input type="text" placeholder='Enter Your Full Name' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600'
@@ -248,9 +288,9 @@ function Signup() {
                   />
 
 
-                  <input type="text" placeholder='Enter Your Regsiter Number' className='w-[300px] h-12 rounded-[10px] mb-8 border-solid border-2 border-red-600 '
+                  <input type="text" placeholder='Enter Your Email Id' className='w-[300px] h-12 rounded-[10px] mb-8 border-solid border-2 border-red-600 '
 
-                    onChange={(e) => { setinputValus({ ...inputValus, regnumber: e.target.value }) }}
+                    onChange={(e) => { setinputValus({ ...inputValus, email: e.target.value }) }}
 
 
                   /> <br />
@@ -269,10 +309,21 @@ function Signup() {
 
                   /><br />
 
+                  <button onClick={() => { firstFormValid(inputValus, seterrmsg, seterrflag, setmobNext) }} className='ml-[80px] w-[150px] h-10 rounded-lg font-bold border-solid border-2 border-red-600 text-[20px] ' > Next  </button><br />
 
-                    <select onChange={(e) => { setinputValus({ ...inputValus, district: e.target.value }) }} type="text" placeholder='District' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600' >
-                    <option value={null}> Select Your District </option>
-                    <option value={"palakkad"}> Palakkad </option>
+                  {/* <span className=' ml-[200px]px] mt-4   ' > Already a Account ? <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span>  */}
+
+                  <span className='ml-16' > Already have an Account ? <span className='text-blue-700 cursor-pointer ' > Login </span> </span>
+
+                </div>
+
+                :
+
+                <div className='w-[100%] h-[400px] pt-[80px] pl-[20px]  sm:hidden '>
+
+
+                  <select type="text" placeholder='District' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600' >
+                    <option value=""> Select Your District </option>
 
                   </select><br />
 
@@ -283,7 +334,28 @@ function Signup() {
 
                   /><br />
 
-                  <button onClick={() => { firstFormValid(inputValus, seterrmsg, seterrflag, setmobNext, formSubmit)}} className='ml-[80px] w-[150px] h-10 rounded-lg font-bold border-solid border-2 border-red-600 text-[20px] ' > {
+
+
+                  <select type="text" placeholder='Blood Group' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600 '>
+                    <option value=""> Select Your Blood Group </option>
+
+                  </select> <br />
+
+                  <input type="text" placeholder='Enter Your age' className='w-[300px] h-10 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600 '
+
+                    onChange={(e) => { setinputValus({ ...inputValus, age: e.target.value }) }}
+
+
+
+                  /><br />
+
+                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input type="Radio" value={"Donor"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input type="Radio" value={"Recipient"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
+
+
+
+                  <button onClick={() => { secondValidation(inputValus, seterrmsg, seterrflag, formSubmit) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[50px] font-bold border-solid border-2 border-red-600 text-[20px] ' >
+
+                    {
                       spinner ?
 
                         <div className='ml-[52px]' >
@@ -305,38 +377,30 @@ function Signup() {
                         :
                         <span> Sign Up </span>
 
-                    }   </button><br/>
-                    <br/>
-
-                  {/* <span className=' ml-[200px]px] mt-4   ' > Already a Account ? <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span>  */}
-
-                  <span className='ml-8 ' > Already have an Account ? <span className='text-blue-700 cursor-pointer ' onClick={() => { navigate("/login") }}> Login </span> </span>
-
-                </div>
-
-                :
-
-                <div className='w-[100%] h-[400px] pt-[80px] pl-[20px]  sm:hidden '>
-
-
-                  
+                    }
 
 
 
-                  
-                  
 
-                 
+                  </button>
 
-                 
-
-                  
 
                 </div>
 
 
 
             }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

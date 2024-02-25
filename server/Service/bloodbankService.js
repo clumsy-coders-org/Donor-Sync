@@ -2,7 +2,7 @@
 
 
 
-const bbModel=require("../Database/Models/bloodBankModel")
+const bbModel = require("../Database/Models/bloodBankModel")
 const bcrypt = require("bcrypt")
 const JWT = require("jsonwebtoken")
 // const bloodBankdata_add_fun = require("./blooddataadd")
@@ -152,6 +152,35 @@ module.exports = {
 
    },
 
+   blood_bank_account: (id) => {
+
+      return new Promise(async (resolve, reject) => {
+
+         try {
+
+            const data = await bbModel.findOne({ _id: id })
+
+            if (data) {
+
+               resolve({ flag: true, data: data })
+
+            } else {
+
+               resolve({flag:false})
+
+            }
+
+
+         } catch (error) {
+
+               reject()
+         }
+
+
+
+      })
+   },
+
 
 
    blood_bank_dashboard_data: (id) => {
@@ -188,25 +217,25 @@ module.exports = {
 
       return new Promise(async (resolve, reject) => {
 
-          
-         bbModel.updateOne({_id:data.id,"blooddata.bloodgroup":data.bloodgroup},{
 
-              $inc:{"blooddata.$.quantity":data.num},
-              $set:{"blooddata.$.status":data.status}
-              
-       
-            }).then(()=>{
+         bbModel.updateOne({ _id: data.id, "blooddata.bloodgroup": data.bloodgroup }, {
+
+            $inc: { "blooddata.$.quantity": data.num },
+            $set: { "blooddata.$.status": data.status }
 
 
-                 resolve();
-          
-               }).catch(err=>{
+         }).then(() => {
 
-                   reject()
 
-            })
+            resolve();
 
-             
+         }).catch(err => {
+
+            reject()
+
+         })
+
+
 
 
       })

@@ -4,18 +4,19 @@ import loginImg from '../../Assets/young.webp';
 import logo from '../../Assets/logo.png';
 import axios from "../../Axios/constant"
 import { useNavigate } from "react-router-dom"
-import {message} from "antd"
+import { message } from "antd"
+import Nave from '../navebar/Nave';
 
 
 
 export default function Login() {
   const [formData, setFormData] = useState({
-    username: '',
+    regnumber: '',
     password: '',
   });
 
   const [errors, setErrors] = useState({
-    username: '',
+    regnumber: '',
     password: '',
   });
 
@@ -32,15 +33,19 @@ export default function Login() {
     });
   };
 
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Check for empty fields
+
+
+
+
+    //     // Check for empty fields
     let newErrors = {};
-    if (!formData.username.trim()) {
-      newErrors = { ...newErrors, username: 'Register Number is required' };
+    if (!formData.regnumber.trim()) {
+      newErrors = { ...newErrors, regnumber: 'Register Number is required' };
     }
     if (!formData.password.trim()) {
       newErrors = { ...newErrors, password: 'Password is required' };
@@ -52,35 +57,45 @@ export default function Login() {
       // Perform login logic
       axios.defaults.withCredentials = true;
 
-  
-      
-      
-      axios.post("/auth/login",formData).then((respo)=>{
 
-        if(respo.data.emailerr){
-
-              message.error("This email is invalid")
-        
-             }else if(respo.data.flag){
-                  message.success("Login successful")
-                   navigate("/")
-             }else{
-
-                   message.error("Password and email does not match")
-             }
- }).catch(err=>{
-
-         message.error("something wrong")
- })
+      axios.post("/bloodbank/login", formData).then((respo) => {
 
 
-      
+
+        if (respo.data.regerr) {
+
+          message.error("This Regester is invalid")
+
+        } else if (respo.data.flag) {
+
+         navigate("/home")
+
+
+
+        } else if (respo.data.passerr) {
+
+          message.error(" password and regester number not match ")
+        }
+      }).catch(err => {
+
+        message.error("something wrong")
+      })
+
+
+
     }
+
+
+
   };
 
   return (
-    <div className="bg-gray-200 flex items-center justify-center min-h-screen">
-      <div className="bg-white p-8 rounded-lg shadow-md flex flex-col md:flex-row w-full max-w-4xl mx-4">
+
+    <div>
+      <Nave />
+
+    <div className=" flex items-center justify-center min-h-screen">
+      <div className="bg-white p-8 rounded-lg shadow-xl flex flex-col md:flex-row w-full max-w-4xl mx-4">
         {/* Left Column (Form, Logo, and Headline) */}
         <div className="w-full md:w-1/2 flex flex-col text-center md:text-left mx-auto md:mx-0 md:mr-4">
           {/* Logo at the center */}
@@ -98,14 +113,14 @@ export default function Login() {
             <div className="mb-6">
               <input
                 type="text"
-                id="username"
-                name="username"
-                className={`w-full border rounded-md p-3 text-lg ${errors.username && 'border-red-500'}`}
+                id="regnumber"
+                name="regnumber"
+                className={`w-full border rounded-md p-3 text-lg ${errors.regnumber && 'border-red-500'}`}
                 placeholder="Register Number"
-                value={formData.username}
+                value={formData.regnumber}
                 onChange={handleInputChange}
               />
-              {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+              {errors.regnumber && <p className="text-red-500 text-sm">{errors.regnumber}</p>}
             </div>
 
             <div className="mb-6">
@@ -145,6 +160,8 @@ export default function Login() {
           <img src={loginImg} alt="Illustration" className="w-full h-full  object-contain" />
         </div>
       </div>
+    </div>
+
     </div>
   );
 }

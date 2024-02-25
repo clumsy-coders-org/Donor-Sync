@@ -6,21 +6,29 @@ import axios from "../../Axios/constant"
 import { useState, useEffect } from 'react'
 import { message } from "antd"
 import Table from 'react-bootstrap/Table';
+import { useNavigate } from 'react-router-dom'
+import Footer from '../footer/Footer'
 
 function Home() {
 
 
   const [datas, setdatas] = useState([])
 
+  const navigate = useNavigate()
+
   useEffect(() => {
-
-
 
     axios("/bloodbank/dashboard").then((respo) => {
 
       const result = respo.data;
 
-      if (result.flag) {
+      if (result.authfailed) {
+
+
+        navigate("/login")
+        return
+
+      } else if (result.flag) {
 
         console.log(result.data)
         setdatas(result.data.blooddata)
@@ -32,6 +40,7 @@ function Home() {
       } else {
 
         console.log("empty account")
+
       }
 
     }).catch(err => {
@@ -58,7 +67,10 @@ function Home() {
 
     axios.post("/bloodbank/dashboard/edit", obj).then((respo) => {
 
-      if (respo.data.flag) {
+      if (respo.data.authfailed) {
+
+        navigate("/login")
+      } else if (respo.data.flag) {
 
         res.quantity += 1
         res.status = true
@@ -86,14 +98,14 @@ function Home() {
 
     const res = datas[index]
 
-    if (res.quantity <= 1) {
+    if (res.quantity === 1) {
 
 
 
       const obj = {
 
         bloodgroup: res.bloodgroup,
-        num:-1,
+        num: -1,
         status: false
       }
 
@@ -101,7 +113,12 @@ function Home() {
 
       axios.post("/bloodbank/dashboard/edit", obj).then((respo) => {
 
-        if (respo.data.flag) {
+
+        if (respo.data.authfailed) {
+
+          navigate("/login")
+
+        } else if (respo.data.flag) {
 
 
           res.quantity = 0
@@ -125,7 +142,7 @@ function Home() {
 
       return
 
-    } else {
+    } else if(res.quantity > 1 ) {
 
 
 
@@ -137,9 +154,14 @@ function Home() {
       }
 
 
-      axios.post("/bloodbank/dashboard/edit", obj).then((respo) =>{
+      axios.post("/bloodbank/dashboard/edit", obj).then((respo) => {
 
-        if (respo.data.flag) {
+
+        if (respo.data.authfailed) {
+
+          navigate("/login")
+        
+        } else if (respo.data.flag) {
 
           res.quantity -= 1
 
@@ -157,14 +179,10 @@ function Home() {
         message.error("somthing worng !")
 
       })
+    
+    }else{
 
-
-
-
-
-
-
-
+      console.log("hiii")
     }
 
 
@@ -177,9 +195,9 @@ function Home() {
 
       <Nave />
 
-      <h5> Your Data  </h5>
+      <h5 className='text-center mt-12 font-bold text-red-700' > Your Stock Detailes </h5>
 
-      <div className='w-full h-[100vh]  pt-20 ' >
+      <div className='w-full h-[500px]  pt-12  ' >
 
 
         <div className='container mx-auto flex justify-center ' >
@@ -202,7 +220,7 @@ function Home() {
 
                     <td>{obj.bloodgroup}</td>
 
-                    <td> <button className='font-bold text-[20px] mr-4' onClick={() => { quantity_decres(index) }} > - </button>    {obj.quantity}   <button className='font-bold text-[20px] ml-4' onClick={() => { quantity_increment(index) }}> + </button>          </td>
+                    <td> <button className='font-bold text-[20px] mr-4' onClick={() => { quantity_decres(index) }} > - </button>  <span className='text-blue-700 font-bold' > {obj.quantity}  </span>    <button className='font-bold text-[20px] ml-4' onClick={() => { quantity_increment(index) }}> + </button>          </td>
 
                     <td>
 
@@ -234,6 +252,9 @@ function Home() {
 
 
       </div>
+
+
+      <Footer />
 
 
 
