@@ -47,6 +47,23 @@ function Nave() {
 
   const navigate = useNavigate()
 
+  const logout=()=>{
+
+    axios("/bloodbank/logout").then((respo)=>{
+
+         if(respo.data.flag){
+
+            navigate("/login")
+         }else{
+
+              message.error("server error")
+         }
+    }).catch(err=>{
+
+         message.error("somthing worng ")
+    })
+  }
+
   return (
     <div>
 
@@ -87,7 +104,7 @@ function Nave() {
 
                       <p className='text-center cursor-pointer ' > Account  </p>
 
-                      <p className='text-center cursor-pointer'  > Logout  </p>
+                      <p className='text-center cursor-pointer' onClick={logout} > Logout  </p>
 
                     </>
 

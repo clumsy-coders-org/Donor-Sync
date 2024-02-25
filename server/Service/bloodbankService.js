@@ -5,6 +5,9 @@
 const bbModel = require("../Database/Models/bloodBankModel")
 const bcrypt = require("bcrypt")
 const JWT = require("jsonwebtoken")
+const Email=require("../Email/usermailsent")
+
+
 // const bloodBankdata_add_fun = require("./blooddataadd")
 
 const arrya = [
@@ -226,8 +229,20 @@ module.exports = {
 
          }).then(() => {
 
+            if(data.mail){
 
-            resolve();
+                 Email.sent_mail({id:data.id,bloodgroup:data.bloodgroup})
+                 resolve()
+           
+           
+               }else{
+
+                
+                 resolve();
+            }
+
+
+            
 
          }).catch(err => {
 

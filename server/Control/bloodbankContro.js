@@ -197,7 +197,8 @@ module.exports = {
                     id: id,
                     bloodgroup: req.body.bloodgroup,
                     num: req.body.num,
-                    status: req.body.status
+                    status: req.body.status,
+                    mail:req.body.mail
 
                 }
 
@@ -236,6 +237,15 @@ module.exports = {
 
 
 
+    },
+
+
+    blood_bank_logout:(req,res)=>{
+
+             
+        res.clearCookie('donor_sync_blood_bank')
+        res.json({flag:true})
+          
     }
 
 

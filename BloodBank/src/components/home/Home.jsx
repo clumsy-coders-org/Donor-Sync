@@ -106,7 +106,8 @@ function Home() {
 
         bloodgroup: res.bloodgroup,
         num: -1,
-        status: false
+        status: false,
+        mail:true
       }
 
 
@@ -150,7 +151,8 @@ function Home() {
 
         bloodgroup: res.bloodgroup,
         num: -1,
-        status: true
+        status: true,
+        mail:false
       }
 
 
