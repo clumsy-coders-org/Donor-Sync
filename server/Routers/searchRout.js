@@ -8,7 +8,7 @@ const control=require("../Control/searchContro")
 
 
 
-router.post("/blood",control.find_blood)
+router.get("/blood/:bloodgroup/:type/:district",control.find_blood)
 
 
 

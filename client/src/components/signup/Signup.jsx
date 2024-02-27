@@ -20,6 +20,10 @@ function Signup() {
   const [errmsg, seterrmsg] = useState("");
   const [errflag, seterrflag] = useState(false);
   const [spinner, setspinner] = useState(false);
+  const [district, setdistrict] = useState([
+
+    "Malappuram", "Alappuzha", "Palakkad", "Thiruvananthapuram", "Kannur", "Ernakulam", "Idukki", "Kottayam", "Kozhikode", "Thrissur", "Wayanad", "Kasaragod", "Pathanamthitta", "Kollam"
+])
   const [inputValus, setinputValus] = useState({
 
     name: "",
@@ -170,7 +174,14 @@ function Signup() {
                   <select onChange={(e) => { setinputValus({ ...inputValus, district: e.target.value }) }} type="text" placeholder='District' className='w-[300px] h-10 rounded-[10px]    mb-8 mr-5 border-solid border-2 border-red-600 '>
 
                     <option value={null}> Select Your District </option>
-                    <option value={"palakkad"}> Palakkad </option>
+                    {
+                        district.map((obj) => (
+
+                            <option value={obj}>  {obj} </option>
+
+                        ))
+                    }
+
 
 
                   </select>   <br />
@@ -187,7 +198,15 @@ function Signup() {
                   <select onChange={(e)=>{setinputValus({ ...inputValus, bloodgroup: e.target.value })}} type="text" placeholder='Bllod Group' className='w-[300px]   h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600 '>
 
                     <option value={null}> Select Your Blood Group </option>
-                    <option value="O+"> O+ </option>
+                    <option value="A+"> A+</option>
+                    <option value="A-"> A-</option>
+                    <option value="B+"> B+</option>
+                    <option value="B-"> B-</option>
+                    <option value="O+"> O+</option>
+                    <option value="O-"> O-</option>
+                    <option value="AB+"> AB+</option>
+                    <option value="AB-"> AB-</option>
+
 
                   </select> <br />
 
@@ -208,7 +227,6 @@ function Signup() {
                   <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input name='type' type="Radio" value={"Donor"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input name='type' type="Radio" value={"Recipient"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
 
 
-                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input name='type' value={"donor"} type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input name='type' value={"recipient"} type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
 
 
 

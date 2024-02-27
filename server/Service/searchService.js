@@ -2,7 +2,7 @@
 
 const userModel = require("../Database/Models/userModel") // doners data model
 
-const bloodBank_AC_Model = require("../Database/Models/bloodBankModel")  // blood bank account data model 
+const bbModel = require("../Database/Models/bloodBankModel")  // blood bank account data model 
 
 // const blood_data_Model = require("../Database/Models/bloodModel");   // blood bank stock data model 
 
@@ -47,48 +47,33 @@ module.exports = {
 
 
 
-
-
-
-
-
-
     find_avilable_donor: (data) => {       // finding doner func 
-
 
         return new Promise(async (resolve, reject) => {
 
 
             try {
 
-                const { bloodgroup, district } = data
+                const result = await userModel.find({ bloodgroup: data.bloodgroup, district: data.district, type: "Donor" })
+
+            if (result.length === 0) {
 
 
-                const result = userModel.find({ bloodgroup: bloodgroup, district: district })
+                resolve({ empty: true })
+            } else {
 
-                if (result.length <= 0) {
-
-                    resolve({ empty: true })
-                } else {
-
-                    resolve({ flag: true, data: result })
-                }
-
-
-
+                resolve({ flag: true, data: result })
+            }
+                
             } catch (error) {
 
-
-                reject(error)
-
-
+                reject()
+                
             }
-
-
-
-
-
+        
         })
+
+
     }
 
 
