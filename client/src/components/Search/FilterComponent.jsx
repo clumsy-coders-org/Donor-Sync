@@ -13,6 +13,7 @@ import { message } from 'antd';
 import axios from "../../axios/instance"
 import imgs from "../../assets/nodata.png"
 import { Oval } from 'react-loader-spinner'
+import { FaLocationDot } from "react-icons/fa6";
 
 
 
@@ -36,6 +37,7 @@ const FilterComponent = () => {
     const [citydata, setcitydata] = useState([])
     const [filter, setfilter] = useState('')
     const [find, setfind] = useState([])
+    const [spinner, setspinner] = useState(true)
 
 
 
@@ -66,15 +68,17 @@ const FilterComponent = () => {
             donor ?
 
 
-                <div className='w-[250px] h-[160px] rounded-3xl bg-gray-300 shadow-xl pl-8 pt-5    '  >
+                <div className='w-[250px] h-[160px] rounded-3xl bg-gray-300 shadow-xl pl-5 pt-5    '  >
 
 
-                    <div className='flex'  > < BsFillPersonFill className=' text-[18px] mr-3  ' /> <span> {obj.name} </span>  </div>
+                    <div className='flex gap-7 '  > < BsFillPersonFill className=' text-[18px] mt-1   ' /> <span > {obj.name} </span>  </div>
 
-                    <div className='flex mt-2'  > <  FaPhone className=' text-[18px] mr-3  ' />    <span> {obj.mobile} </span>  </div>
+                    <div className='flex mt-2 gap-7'  > <  FaPhone className=' text-[18px]  mt-1 ' />    <span> {obj.mobile} </span>  </div>
+
+                    <div className='flex mt-2 gap-7'  > <  FaLocationDot className=' text-[18px]  mt-1 ' />    <span> {obj.city} </span>  </div>
 
 
-                    <div className='flex mt-2'  > <span className=' mr-3 '  > Blood Group :  </span>   <span> {obj.bloodgroup}</span>  </div>
+                    <div className='flex gap-7 mt-2'  > <span className='  '  > Blood Group :  </span>   <span className='text-red-700 font-semibold' > {obj.bloodgroup}</span>  </div>
 
 
                 </div>
@@ -90,16 +94,31 @@ const FilterComponent = () => {
 
 
 
-                <div className='w-[250px] h-[150px] rounded-3xl bg-gray-300 shadow-xl pl-8 pt-6   '  >
-
-                    <div className='flex'  > < BsFillPersonFill className='text-blue-800 text-[18px] mr-3  ' /> <span> {obj.name} </span>  </div>
-
-                    <div className='flex mt-2'  > <  FaPhone className='text-blue-800 text-[18px] mr-3  ' />    <span> {obj.mobile} </span>  </div>
+                <div className='w-[250px] h-[210px] rounded-3xl bg-gray-300 shadow-xl pl-8 pt-6   '  >
 
 
-                    <div className='flex mt-2'  > <span className='text-blue-800 mr-3 '  > Blood Group :  </span>   <span> {obj.bloodgroup} </span>  </div>
+                    <div className='flex gap-7 '  > < BsFillPersonFill className=' text-[18px] mt-1   ' /> <span > {obj.name} </span>  </div>
 
-                    <div className='flex mt-2'  > < MdEmail className='text-blue-800 text-[18px] mr-3 ' />    <span> sarath@gmail.com </span>  </div>
+                    <div className='flex mt-2 gap-7'  > <  FaPhone className=' text-[18px]  mt-1 ' />    <span> {obj.mobile} </span>  </div>
+
+                    <div className='flex mt-2 gap-7'  > <  FaLocationDot className=' text-[18px]  mt-1 ' />    <span> {obj.city} </span>  </div>
+
+
+                    <div className='flex gap-7 mt-2'  > <span className='  '  > Blood Group :  </span>   <span className='text-red-700 font-semibold' > {obj.bloodgroup}</span>  </div>
+
+                    <div className='flex gap-7 mt-2'  > <span className='  '  > Unit :  </span>   <span className='text-red-700 font-semibold' > {obj.unit}</span>  </div>
+
+                    {
+                        obj.status ?
+
+                            <span className='px-2 mt-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-400 text-white' > Avilable   </span>
+
+                            :
+
+                            <span className='px-2 mt-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-500 text-white' > Not Avilable  </span>
+
+
+                    }
 
                 </div>
 
@@ -113,13 +132,24 @@ const FilterComponent = () => {
 
     const formsubmit = () => {  // search button press time find result filiter on city base    
 
-        setshow(false)
-        setemptyshow(false)
+        if(!filter){
+
+              message.warning("select city then search")
+        }else{
+
+            setshow(false)
+            setemptyshow(false)
+            setspinner(false)
+    
+    
+            const result = find.filter((obj) => obj.city === filter)
+    
+            setarrya(result)
 
 
-        const result = find.filter((obj) => obj.city === filter)
+        }
 
-        setarrya(result)
+       
 
 
     }
@@ -143,16 +173,24 @@ const FilterComponent = () => {
             if (values.type === "BloodBank") {  // user select blood bank. this func find data in database
 
                 setdonor(false)
+                setshow(false)
+                
 
                 axios(`/search/blood/${values.bloodgroup}/${values.type}/${district}`).then((respo) => {
 
                     if (respo.data.empty) {
 
                         console.log("empty")
+                       setspinner(false)
+                       setemptyshow(true)
+
 
 
 
                     } else if (respo.data.flag) {
+
+                        setemptyshow(false)
+                        setspinner(false)
 
                         const result = respo.data.data;
 
@@ -227,6 +265,7 @@ const FilterComponent = () => {
                         })
 
                         setcityspinner(false)
+                        message.warning("select city then search")
 
 
                     } else if (respo.data.err) {
@@ -420,11 +459,30 @@ const FilterComponent = () => {
 
                             :
 
+                            spinner ?
+
+                                <div className='w-full h-[400px] pl-8  flex justify-center items-center' >
+
+                                    <Oval
+                                        visible={true}
+                                        height="40"
+                                        width="40"
+                                        color="#A94438"
+                                        ariaLabel="oval-loading"
+                                        wrapperStyle={{}}
+                                        wrapperClass=""
+                                    />
+
+
+
+                                </div>
+
+                                :
 
 
 
 
-                            displyaData
+                                displyaData
 
 
 
