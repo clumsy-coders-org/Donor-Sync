@@ -68,7 +68,7 @@ const FilterComponent = () => {
             donor ?
 
 
-                <div className='w-[250px] h-[160px] rounded-3xl bg-gray-300 shadow-xl pl-5 pt-5    '  >
+                <div className='w-[250px] h-[160px] rounded-3xl bg-gray-300 shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px] pl-5 pt-5    '  >
 
 
                     <div className='flex gap-7 '  > < BsFillPersonFill className=' text-[18px] mt-1   ' /> <span > {obj.name} </span>  </div>
@@ -94,7 +94,7 @@ const FilterComponent = () => {
 
 
 
-                <div className='w-[250px] h-[210px] rounded-3xl bg-gray-300 shadow-xl pl-8 pt-6   '  >
+                <div className='w-[250px] h-[210px] rounded-3xl bg-gray-300 shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px] pl-8 pt-6   '  >
 
 
                     <div className='flex gap-7 '  > < BsFillPersonFill className=' text-[18px] mt-1   ' /> <span > {obj.name} </span>  </div>

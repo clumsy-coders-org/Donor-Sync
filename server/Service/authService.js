@@ -13,6 +13,31 @@ const users = require("../Database/Models/userModel")
 module.exports = {
 
 
+    connecting:()=>{
+
+        return new Promise(async(resolve,reject)=>{
+
+                try {
+
+                     users.find().then((respo)=>{
+
+                            resolve()
+                     }).catch(err=>{
+
+                            reject()
+                     })
+                    
+                } catch (error) {
+                    
+                  reject()
+                       
+                }
+        })
+
+          
+    },
+
+
 
     user_signup: (data) => {                           //user signup Database query
 

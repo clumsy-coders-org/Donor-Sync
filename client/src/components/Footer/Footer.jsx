@@ -9,7 +9,7 @@ function Footer() {
   return (
     <div>
 
-        <div className='w-full h-[250px] bg-slate-300 pt-3 '>
+        <div className='w-full h-[230px] bg-slate-300 pt-3 '>
 
             
            <div className='w-full h-[50px]  flex justify-center items-center gap-3 '>  
@@ -27,10 +27,10 @@ function Footer() {
           
 
           
-          <p className='text-center text-gray-500 ' > Created & All Rights Reserved By  <a href=""> <span className='text-black font-bold' > Clumsy  </span> <span className='text-red-700 font-bold' > Coders </span>    </a>      </p>
+          <p className='text-center text-gray-500 text-[12px] ' > Created & All Rights Reserved By  <a href=""> <span className='text-black font-bold' > Clumsy  </span> <span className='text-red-700 font-bold' > Coders </span>    </a>      </p>
 
          
-        <p className='text-center text-gray-500' > @2024 </p>
+        <p className='text-center text-gray-500 text-[12px]' > @2024 </p>
 
         
 

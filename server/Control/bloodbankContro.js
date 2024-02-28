@@ -133,7 +133,7 @@ module.exports = {
 
 
 
-    blood_bank_dashboard_data: (req, res) => {
+    blood_bank_dashboard_data: (req, res) =>{
 
 
         const token = req.cookies.donor_sync_blood_bank

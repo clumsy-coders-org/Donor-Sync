@@ -9,8 +9,23 @@ module.exports = {
 
 
 
+    connecting:(req,res)=>{    // app open time check server and database connecting func
 
-    signup_data: (req, res) => {
+   authservice.connecting().then(()=>{
+
+            res.json({flag:true})
+  
+        }).catch(err=>{
+
+         res.json({err:true})
+   })
+
+
+          
+    },
+
+
+    signup_data: (req, res) => { // user signup func
 
         //  console.log(req.body)
 
@@ -46,7 +61,7 @@ module.exports = {
 
 
 
-    login_user: (req, res) => {
+    login_user: (req, res) => { // user login func 
 
 
         authservice.user_login(req.body).then((respo) => {
@@ -99,7 +114,7 @@ module.exports = {
 
 
 
-      user_account_data:(req,res)=>{
+      user_account_data:(req,res)=>{  // user account data get func
 
         const token = req.cookies.donor_sync_user
 
