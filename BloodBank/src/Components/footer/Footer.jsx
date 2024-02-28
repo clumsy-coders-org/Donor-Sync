@@ -10,10 +10,9 @@ function Footer() {
   return (
     <div>
 
-        <div className='w-full h-[250px] bg-slate-300 pt-3 '>
+        <div className='w-full h-[230px] bg-slate-300 pt-3 '>
 
             
-           <p className='text-center' > Donor <span className='text-red-500' >  Sync </span> </p>
            <div className='w-full h-[50px]  flex justify-center items-center gap-3 '>  
 
            < IoMail className='text-[20px]' />
@@ -28,7 +27,9 @@ function Footer() {
 
           <span className='text-gray-600 ml-10'> Blood Bank Port </span>
           
-          <p className='text-center ' > Created & All Rights Reserved By  <a href=""> <span className='text-black font-bold' > Clumsy  </span> <span className='text-red-700 font-bold' > Coders </span>    </a>      </p>
+          <p className='text-center text-gray-500 text-[12px] ' > Created & All Rights Reserved By  <a href=""> <span className='text-black font-bold' > Clumsy  </span> <span className='text-red-700 font-bold' > Coders </span>    </a>      </p>
+          
+          <p className='text-center text-gray-500 text-[12px]' > @2024 </p>
 
          
         
