@@ -38,9 +38,12 @@ module.exports = {
                })
           
           } else {
+
+
+              
                
                
-               service.find_avilable_bloodBank(req.body).then((respo) => {
+               service.find_avilable_bloodBank({district}).then((respo) => {
 
                     if (respo.empty) {
 

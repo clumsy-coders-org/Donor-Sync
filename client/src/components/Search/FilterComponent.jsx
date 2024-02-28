@@ -12,6 +12,8 @@ import "./styile.css"
 import { message } from 'antd';
 import axios from "../../axios/instance"
 import imgs from "../../assets/nodata.png"
+import { Oval } from 'react-loader-spinner'
+
 
 
 const FilterComponent = () => {
@@ -75,8 +77,6 @@ const FilterComponent = () => {
                     <div className='flex mt-2'  > <span className=' mr-3 '  > Blood Group :  </span>   <span> {obj.bloodgroup}</span>  </div>
 
 
-
-
                 </div>
 
 
@@ -92,12 +92,12 @@ const FilterComponent = () => {
 
                 <div className='w-[250px] h-[150px] rounded-3xl bg-gray-300 shadow-xl pl-8 pt-6   '  >
 
-                    <div className='flex'  > < BsFillPersonFill className='text-blue-800 text-[18px] mr-3  ' /> <span> krishna kumar </span>  </div>
+                    <div className='flex'  > < BsFillPersonFill className='text-blue-800 text-[18px] mr-3  ' /> <span> {obj.name} </span>  </div>
 
-                    <div className='flex mt-2'  > <  FaPhone className='text-blue-800 text-[18px] mr-3  ' />    <span> 7592831937 </span>  </div>
+                    <div className='flex mt-2'  > <  FaPhone className='text-blue-800 text-[18px] mr-3  ' />    <span> {obj.mobile} </span>  </div>
 
 
-                    <div className='flex mt-2'  > <span className='text-blue-800 mr-3 '  > Blood Group :  </span>   <span> O+ </span>  </div>
+                    <div className='flex mt-2'  > <span className='text-blue-800 mr-3 '  > Blood Group :  </span>   <span> {obj.bloodgroup} </span>  </div>
 
                     <div className='flex mt-2'  > < MdEmail className='text-blue-800 text-[18px] mr-3 ' />    <span> sarath@gmail.com </span>  </div>
 
@@ -111,18 +111,21 @@ const FilterComponent = () => {
 
 
 
-    const formsubmit = () => {
+    const formsubmit = () => {  // search button press time find result filiter on city base    
 
         setshow(false)
+        setemptyshow(false)
+
 
         const result = find.filter((obj) => obj.city === filter)
+
         setarrya(result)
-       
+
 
     }
 
 
-    const findresult = (district) => {
+    const findresult = (district) => {  // this func use to users district select time find data in database
 
 
 
@@ -137,47 +140,112 @@ const FilterComponent = () => {
 
         } else {
 
-            setcity(false)
+            if (values.type === "BloodBank") {  // user select blood bank. this func find data in database
 
-            axios(`/search/blood/${values.bloodgroup}/${values.type}/${district}`).then((respo) => {
+                setdonor(false)
 
-                if (respo.data.empty) {
+                axios(`/search/blood/${values.bloodgroup}/${values.type}/${district}`).then((respo) => {
 
-                    console.log("empty")
-                    setshow(false)
-                   setemptyshow(true)
-                   setcity(true)
-                   
+                    if (respo.data.empty) {
+
+                        console.log("empty")
 
 
 
+                    } else if (respo.data.flag) {
 
-                } else if (respo.data.flag) {
+                        const result = respo.data.data;
 
-                    const result = respo.data.data
-                    setfind(result)
-                    
+                        setarrya(prevArrya => {
+                            // Map over the result array and return an updated array
+                            return result.map(obj => {
+                                const blooddata = obj.blooddata;
+                                const bloodshow = blooddata.find(res => res.bloodgroup === values.bloodgroup);
 
-                    result.forEach((obj) => {
-
-                        setcitydata([...citydata, obj.city])
-                    })
-
-                    setcityspinner(false)
-
-
-                } else if (respo.data.err) {
-
-                    console.log("server err")
-
-                }
-
+                                return {
+                                    name: obj.name,
+                                    mobile: obj.mobile,
+                                    city: obj.city,
+                                    bloodgroup: bloodshow ? bloodshow.bloodgroup : "",
+                                    unit: bloodshow ? bloodshow.quantity : "",
+                                    status: bloodshow ? bloodshow.status : ""
+                                };
+                            });
+                        });
 
 
-            }).catch(err => {
 
-                console.log("net err")
-            })
+
+                        setshow(false)
+                        console.log(result)
+
+
+
+
+                    } else if (respo.data.err) {
+
+                        console.log("server err")
+
+
+                    }
+
+                }).catch(err => {
+
+                    console.log("net err")
+
+                })
+
+
+
+
+            } else {
+
+
+
+
+                setcity(false)
+
+                axios(`/search/blood/${values.bloodgroup}/${values.type}/${district}`).then((respo) => {
+
+                    if (respo.data.empty) {
+
+                        console.log("empty")
+                        setshow(false)
+                        setemptyshow(true)
+                        setcity(true)
+
+
+                    } else if (respo.data.flag) {
+
+                        const result = respo.data.data
+                        setfind(result)
+
+
+                        result.forEach((obj) => {
+
+                            setcitydata([...citydata, obj.city])
+                        })
+
+                        setcityspinner(false)
+
+
+                    } else if (respo.data.err) {
+
+                        console.log("server err")
+                        setcity(true)
+                        message.error("server error")
+
+                    }
+
+                }).catch(err => {
+
+                    console.log("net err")
+                    setcity(true)
+                    message.error("somthing worng")
+
+                })
+
+            }
 
 
         }
@@ -224,7 +292,7 @@ const FilterComponent = () => {
 
                 <select name="" id="" onChange={(e) => { findresult(e.target.value) }} className='border-2 border-red-600 rounded-2xl text-center w-[150px] mt-4 sm:mt-0   sm:w-[170px]  h-[40px] ' >
                     <option value="">  District </option>
-                    
+
                     {
                         district.map((obj) => (
 
@@ -233,11 +301,8 @@ const FilterComponent = () => {
                         ))
                     }
 
-
-
-
-
                 </select>
+
 
                 {
 
@@ -249,44 +314,83 @@ const FilterComponent = () => {
 
                         cityspinner ?
 
-                            <span> spinner </span>
+
+                            <Oval
+                                visible={true}
+                                height="40"
+                                width="40"
+                                color="#A94438"
+                                ariaLabel="oval-loading"
+                                wrapperStyle={{}}
+                                wrapperClass=""
+                            />
+
+
+
+
+
+
 
                             :
 
-                            <select onChange={(e) => { setfilter(e.target.value) }} name="" id="" className='border-2 border-red-600 rounded-2xl text-center w-[150px] mt-4 sm:mt-0  h-[40px] ' >
-
-                                <option value=""> Select City </option>
-                                {
-                                    citydata.map((obj) => (
-
-                                        <option value={obj}> {obj} </option>
-
-                                    ))
-                                }
-
-                            </select>
+                            <>
 
 
-                }
+                                <select onChange={(e) => { setfilter(e.target.value) }} name="" id="" className='border-2 border-red-600 rounded-2xl text-center w-[150px] mt-4 sm:mt-0  h-[40px] ' >
+
+                                    <option value=""> Select City </option>
+                                    {
+                                        citydata.map((obj) => (
+
+                                            <option value={obj}> {obj} </option>
+
+                                        ))
+                                    }
+
+                                </select>
 
 
-                {
-                    cityspinner ?
+                                <button onClick={formsubmit} className='w-[150px] h-[40px] bg-red-700 text-white flex justify-center mt-4 sm:mt-0  items-center rounded-xl'> <FaSearch /> </button>
 
-                        null
 
-                        :
+                            </>
 
-                        <button onClick={formsubmit} className='w-[150px] h-[40px] bg-red-700 text-white flex justify-center mt-4 sm:mt-0  items-center rounded-xl'> <FaSearch /> </button>
 
 
 
                 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             <div className=' w-full  min-h-[400px] mt-24  sm:mt-0 flex flex-wrap gap-5 justify-center ' >
@@ -305,16 +409,18 @@ const FilterComponent = () => {
 
                         :
 
-                       emptyshow ?
+                        emptyshow ?
 
                             <div className='w-full h-[400px] pl-8  flex justify-center items-center' >
 
-                               <img src={imgs} alt="" className='w-[100px] h-[100px]' />
+                                <img src={imgs} alt="" className='w-[100px] h-[100px]' />
 
 
                             </div>
 
                             :
+
+
 
 
 

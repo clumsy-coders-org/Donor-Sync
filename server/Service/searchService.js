@@ -14,20 +14,28 @@ module.exports = {
     find_avilable_bloodBank: (data) => {    // find blood bank func
 
 
+
         return new Promise(async (resolve, reject) => {
+
+            console.log(data.district)
 
 
             try {
 
-                const result = await bloodBank_AC_Model.find({ district: data.district })
+                const result = await bbModel.find({ district: data.district })
+
+               
 
                 if (result.length === 0) {
 
-                    resolve({ empty: true })
 
+                    console.log("empty")
+                    resolve({empty:true})
+                
                 } else {
 
-                    resolve({ flag: true, data: result })
+
+                  resolve({flag:true,data:result})
 
 
                 }
@@ -35,6 +43,7 @@ module.exports = {
             } catch (error) {
 
                 reject()
+                console.log(error)
 
             }
 
@@ -56,21 +65,21 @@ module.exports = {
 
                 const result = await userModel.find({ bloodgroup: data.bloodgroup, district: data.district, type: "Donor" })
 
-            if (result.length === 0) {
+                if (result.length === 0) {
 
 
-                resolve({ empty: true })
-            } else {
+                    resolve({ empty: true })
+                } else {
 
-                resolve({ flag: true, data: result })
-            }
-                
+                    resolve({ flag: true, data: result })
+                }
+
             } catch (error) {
 
                 reject()
-                
+
             }
-        
+
         })
 
 

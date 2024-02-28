@@ -24,6 +24,10 @@ function Signup() {
   const [errmsg, seterrmsg] = useState("");
   const [errflag, seterrflag] = useState(false);
   const [spinner, setspinner] = useState(false);
+  const [district, setdistrict] = useState([
+
+    "Malappuram", "Alappuzha", "Palakkad", "Thiruvananthapuram", "Kannur", "Ernakulam", "Idukki", "Kottayam", "Kozhikode", "Thrissur", "Wayanad", "Kasaragod", "Pathanamthitta", "Kollam"
+  ])
   const [inputValus, setinputValus] = useState({
 
     name: "",
@@ -42,31 +46,31 @@ function Signup() {
 
   const formSubmit = (e) => {
 
-   
-
-      setspinner(true);
-      console.log(inputValus);
-      axios.post("/bloodbank/signup",inputValus).then((respo)=>{
-
-        if(respo.data.exist){
-
-              message.error("This email already exists, try another one.")
-
-            }else if(respo.data.flag){
-             
-              navigate("/login")
-
-        }else{
-
-             message.error("Server Error")
-        }
 
 
-    }).catch(err=>{
+    setspinner(true);
+    console.log(inputValus);
+    axios.post("/bloodbank/signup", inputValus).then((respo) => {
 
-         message.error("Something wrong ! ")
-         console.log(err)
-        
+      if (respo.data.exist) {
+
+        message.error("This email already exists, try another one.")
+
+      } else if (respo.data.flag) {
+
+        navigate("/login")
+
+      } else {
+
+        message.error("Server Error")
+      }
+
+
+    }).catch(err => {
+
+      message.error("Something wrong ! ")
+      console.log(err)
+
 
     })
 
@@ -180,8 +184,14 @@ function Signup() {
                   <select onChange={(e) => { setinputValus({ ...inputValus, district: e.target.value }) }} type="text" placeholder='District' className='w-[300px] h-10 rounded-[10px]    mb-8 mr-5 border-solid border-2 border-red-600 '>
 
                     <option value={null}> Select Your District </option>
-                    <option value={"palakkad"}> Palakkad </option>
+                    {
+                      district.map((obj) => (
 
+                        <option value={obj}> {obj} </option>
+
+
+                      ))
+                    }
 
                   </select>   <br />
 
