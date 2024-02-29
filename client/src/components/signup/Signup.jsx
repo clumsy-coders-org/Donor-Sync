@@ -82,9 +82,9 @@ function Signup() {
 
     <div>
 
-      <div className='w-full h-screen   flex flex-wrap justify-center items-center' >
+      <div className='w-full h-screen bg-gray-200   flex flex-wrap justify-center items-center' >
 
-        <div className='w-[350px] h-[600px] bg-white flex justify-center items-center sm:w-[800px] sm:h-[550px] sm:border-solid sm:border-2  sm:border-red-600 sm:rounded-[50px]    '  >
+        <div className='w-[350px] h-[600px] bg-white flex justify-center items-center sm:w-[800px] sm:h-[550px] sm:border-solid  sm:rounded-[20px]  shadow-md   '  >
 
           <div className='w-[400px] h-[300px] hidden sm:block' >
 
@@ -321,7 +321,7 @@ function Signup() {
 
                   {/* <span className=' ml-[200px]px] mt-4   ' > Already a Account ? <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span>  */}
 
-                  <span className='ml-16' > Already have an Account ? <span className='text-blue-700 cursor-pointer ' > Login </span> </span>
+                  <span className='ml-16' > Already have an Account ? <span className='text-blue-700 cursor-pointer ' onClick={()=>{navigate("/login")}} > Login </span> </span>
 
                 </div>
 
