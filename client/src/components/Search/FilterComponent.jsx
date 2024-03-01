@@ -68,10 +68,10 @@ const FilterComponent = () => {
             donor ?
 
 
-                <div className='w-[250px] h-[160px] rounded-3xl bg-gray-300 shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px] pl-5 pt-5    '  >
+                <div className='w-[300px] sm:w-[250px] h-[160px] rounded-3xl bg-gray-300 shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px] pl-11 sm:pl-5 pt-5    '  >
 
 
-                    <div className='flex gap-7 '  > < BsFillPersonFill className=' text-[18px] mt-1   ' /> <span > {obj.name} </span>  </div>
+                    <div className='flex gap-7'  > < BsFillPersonFill className=' text-[18px] mt-1   ' /> <span > {obj.name} </span>  </div>
 
                     <div className='flex mt-2 gap-7'  > <  FaPhone className=' text-[18px]  mt-1 ' />    <span> {obj.mobile} </span>  </div>
 
@@ -94,7 +94,7 @@ const FilterComponent = () => {
 
 
 
-                <div className='w-[250px] h-[210px] rounded-3xl bg-gray-300 shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px] pl-8 pt-6   '  >
+                <div className='w-[300px] sm:w-[250px] h-[210px] rounded-3xl bg-gray-300 shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px] pl-8 pt-6   '  >
 
 
                     <div className='flex gap-7 '  > < BsFillPersonFill className=' text-[18px] mt-1   ' /> <span > {obj.name} </span>  </div>
@@ -111,11 +111,11 @@ const FilterComponent = () => {
                     {
                         obj.status ?
 
-                            <span className='px-2 mt-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-400 text-white' > Avilable   </span>
+                            <span className='px-2 mt-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-400 text-white' > Available   </span>
 
                             :
 
-                            <span className='px-2 mt-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-500 text-white' > Not Avilable  </span>
+                            <span className='px-2 mt-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-500 text-white' > Not Available  </span>
 
 
                     }
@@ -132,24 +132,24 @@ const FilterComponent = () => {
 
     const formsubmit = () => {  // search button press time find result filiter on city base    
 
-        if(!filter){
+        if (!filter) {
 
-              message.warning("select city then search")
-        }else{
+            message.warning("select city then search")
+        } else {
 
             setshow(false)
             setemptyshow(false)
             setspinner(false)
-    
-    
+
+
             const result = find.filter((obj) => obj.city === filter)
-    
+
             setarrya(result)
 
 
         }
 
-       
+
 
 
     }
@@ -174,15 +174,15 @@ const FilterComponent = () => {
 
                 setdonor(false)
                 setshow(false)
-                
+
 
                 axios(`/search/blood/${values.bloodgroup}/${values.type}/${district}`).then((respo) => {
 
                     if (respo.data.empty) {
 
                         console.log("empty")
-                       setspinner(false)
-                       setemptyshow(true)
+                        setspinner(false)
+                        setemptyshow(true)
 
 
 
@@ -256,13 +256,19 @@ const FilterComponent = () => {
                     } else if (respo.data.flag) {
 
                         const result = respo.data.data
+                        console.log(result)
                         setfind(result)
 
+                        setcitydata(prevdata => {
 
-                        result.forEach((obj) => {
+                            return result.map((obj) => (
 
-                            setcitydata([...citydata, obj.city])
+                                obj.city
+                            ))
                         })
+
+
+
 
                         setcityspinner(false)
                         message.warning("select city then search")
@@ -438,9 +444,9 @@ const FilterComponent = () => {
 
                     show ?
 
-                        <div className='w-full h-[400px] pl-8  flex justify-center items-center' >
+                        <div className='w-full h-[400px]   flex justify-center items-center' >
 
-                            <h1 className='font-bold text-[25px]' > Find Your Donor or Blood Bank </h1>
+                            <h1 className='font-bold text-[20px] ' > Find Your Donor or Blood Bank </h1>
 
 
                         </div>
@@ -450,9 +456,9 @@ const FilterComponent = () => {
 
                         emptyshow ?
 
-                            <div className='w-full h-[400px] pl-8  flex justify-center items-center' >
+                            <div className='w-full h-[400px]  flex justify-center items-center' >
 
-                                <img src={imgs} alt="" className='w-[100px] h-[100px]' />
+                                <img src={imgs} alt="" className='w-[100px] h-[100px] ' />
 
 
                             </div>
@@ -461,7 +467,7 @@ const FilterComponent = () => {
 
                             spinner ?
 
-                                <div className='w-full h-[400px] pl-8  flex justify-center items-center' >
+                                <div className='w-full h-[400px]   flex justify-center items-center' >
 
                                     <Oval
                                         visible={true}
