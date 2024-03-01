@@ -3,6 +3,7 @@
 import React from 'react'
 
 import { Route, Routes } from "react-router-dom"
+import Welcome from "./components/welcomee/welcome"
 // import Login from './components/Login/Login.jsx'
 // import Register from './components/Register/Register.jsx'
 // import Home from './components/home/Home.jsx'
@@ -18,8 +19,14 @@ function App(){
   return (
     <div>
 
+        <Routes>
 
-      <h1> helooo   </h1>
+        <Route path="/" element={<Welcome />} />
+       
+       
+        </Routes>
+
+      
       
       {/* <Routes>
         <Route path="/" element={<Welcome />} />
