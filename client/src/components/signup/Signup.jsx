@@ -353,6 +353,15 @@ function Signup() {
 
                   <select type="text" placeholder='Blood Group' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600 '>
                     <option value=""> Select Your Blood Group </option>
+                    <option value="A+"> A+</option>
+                    <option value="A-"> A-</option>
+                    <option value="B+"> B+</option>
+                    <option value="B-"> B-</option>
+                    <option value="O+"> O+</option>
+                    <option value="O-"> O-</option>
+                    <option value="AB+"> AB+</option>
+                    <option value="AB-"> AB-</option>
+
 
                   </select> <br />
 
