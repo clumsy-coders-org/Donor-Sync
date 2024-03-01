@@ -1,7 +1,7 @@
 
 
 
-const authservice = require("../service/authService.js")
+const authservice = require("../Service/authService")
 const JWT = require("jsonwebtoken")
 require("dotenv").config()
 
