@@ -1,8 +1,4 @@
-
-
-
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Assuming you are using React Router
 import loginImg from '../../assets/young.jpg';
 import logo from '../../assets/logo.png';
@@ -16,12 +12,12 @@ import {UserdataContext} from "../../contextapi/accountdata.js"
 
 export default function Login() {
   const [formData, setFormData] = useState({
-    username: '',
+    emailid: '',
     password: '',
   });
 
   const [errors, setErrors] = useState({
-    username: '',
+    emailid: '',
     password: '',
   });
 
@@ -47,8 +43,8 @@ export default function Login() {
     e.preventDefault();
     // Check for empty fields
     let newErrors = {};
-    if (!formData.username.trim()) {
-      newErrors = { ...newErrors, username: 'Username is required' };
+    if (!formData.emailid.trim()) {
+      newErrors = { ...newErrors, emailid: 'Email Id is required' };
     }
     if (!formData.password.trim()) {
       newErrors = { ...newErrors, password: 'Password is required' };
@@ -157,15 +153,15 @@ export default function Login() {
           <form className="flex-grow flex flex-col justify-between" onSubmit={handleSubmit}>
             <div className="mb-6">
               <input
-                type="text"
-                id="username"
-                name="username"
-                className={`w-full border rounded-md p-3 text-lg ${errors.username && 'border-red-500'}`}
-                placeholder="Username"
-                value={formData.username}
+                type="email"
+                id="emailid"
+                name="emailid"
+                className={`w-full border rounded-md p-3 text-lg ${errors.emailid && 'border-red-500'}`}
+                placeholder="Email Id"
+                value={formData.emailid}
                 onChange={handleInputChange}
               />
-              {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+              {errors.emailid && <p className="text-red-500 text-sm">{errors.emailid}</p>}
             </div>
 
             <div className="mb-6">
