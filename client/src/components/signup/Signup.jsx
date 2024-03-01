@@ -351,7 +351,7 @@ function Signup() {
 
 
 
-                  <select type="text" placeholder='Blood Group' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600 '>
+                  <select onChange={(e)=>{setinputValus({ ...inputValus, bloodgroup: e.target.value })}} type="text" placeholder='Blood Group' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600 '>
                     <option value=""> Select Your Blood Group </option>
                     <option value="A+"> A+</option>
                     <option value="A-"> A-</option>
