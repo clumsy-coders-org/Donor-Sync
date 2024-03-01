@@ -8,6 +8,9 @@ import { IoWarning } from "react-icons/io5";
 import { firstFormValid, secondValidation } from "./Formvalid"
 import { useNavigate } from "react-router-dom"
 import { Oval } from 'react-loader-spinner'
+import axios from "../../axios/instance.js"
+import {message} from "antd"
+
 
 
 
@@ -17,6 +20,10 @@ function Signup() {
   const [errmsg, seterrmsg] = useState("");
   const [errflag, seterrflag] = useState(false);
   const [spinner, setspinner] = useState(false);
+  const [district, setdistrict] = useState([
+
+    "Malappuram", "Alappuzha", "Palakkad", "Thiruvananthapuram", "Kannur", "Ernakulam", "Idukki", "Kottayam", "Kozhikode", "Thrissur", "Wayanad", "Kasaragod", "Pathanamthitta", "Kollam"
+])
   const [inputValus, setinputValus] = useState({
 
     name: "",
@@ -30,14 +37,39 @@ function Signup() {
     type: ""
   });
 
+  axios.defaults.withCredentials = true;
+
   const navigate = useNavigate();
 
 
-  const formSubmit = () => {
+  const formSubmit = (e) => {
 
     setspinner(true);
+    console.log(inputValus);
+    axios.post("/auth/signup",inputValus).then((respo)=>{
 
-    alert("signup ok");
+      if(respo.data.exist){
+
+            message.error("This email already exists, try another one.")
+     
+          }else if(respo.data.flag){
+            message.success("Account created")
+            navigate("/login")
+
+      }else{
+
+           message.error("Server Error")
+      }
+
+        
+  }).catch(err=>{
+
+       message.error("Something wrong ! ")
+       console.log(err)
+       console.log("errrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
+        
+  })
+    
   }
 
 
@@ -50,9 +82,9 @@ function Signup() {
 
     <div>
 
-      <div className='w-full h-screen   flex flex-wrap justify-center items-center' >
+      <div className='w-full h-screen bg-gray-200   flex flex-wrap justify-center items-center' >
 
-        <div className='w-[350px] h-[600px] bg-white flex justify-center items-center sm:w-[800px] sm:h-[550px] sm:border-solid sm:border-2  sm:border-red-600 sm:rounded-[50px]    '  >
+        <div className='w-[350px] h-[700px] bg-white flex justify-center items-center sm:w-[800px] sm:h-[550px] sm:border-solid  sm:rounded-[20px]  shadow-md   '  >
 
           <div className='w-[400px] h-[300px] hidden sm:block' >
 
@@ -142,7 +174,14 @@ function Signup() {
                   <select onChange={(e) => { setinputValus({ ...inputValus, district: e.target.value }) }} type="text" placeholder='District' className='w-[300px] h-10 rounded-[10px]    mb-8 mr-5 border-solid border-2 border-red-600 '>
 
                     <option value={null}> Select Your District </option>
-                    <option value={"palakkad"}> Palakkad </option>
+                    {
+                        district.map((obj) => (
+
+                            <option value={obj}>  {obj} </option>
+
+                        ))
+                    }
+
 
 
                   </select>   <br />
@@ -156,10 +195,18 @@ function Signup() {
 
 
 
-                  <select type="text" placeholder='Bllod Group' className='w-[300px]   h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600 '>
+                  <select onChange={(e)=>{setinputValus({ ...inputValus, bloodgroup: e.target.value })}} type="text" placeholder='Bllod Group' className='w-[300px]   h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600 '>
 
                     <option value={null}> Select Your Blood Group </option>
-                    <option value="O+"> O+ </option>
+                    <option value="A+"> A+</option>
+                    <option value="A-"> A-</option>
+                    <option value="B+"> B+</option>
+                    <option value="B-"> B-</option>
+                    <option value="O+"> O+</option>
+                    <option value="O-"> O-</option>
+                    <option value="AB+"> AB+</option>
+                    <option value="AB-"> AB-</option>
+
 
                   </select> <br />
 
@@ -174,7 +221,13 @@ function Signup() {
 
 
 
-                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input name='type' type="Radio" onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
+
+
+
+                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input name='type' type="Radio" value={"Donor"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input name='type' type="Radio" value={"Recipient"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
+
+
+
 
 
 
@@ -268,17 +321,24 @@ function Signup() {
 
                   {/* <span className=' ml-[200px]px] mt-4   ' > Already a Account ? <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span>  */}
 
-                  <span className='ml-16' > Already have an Account ? <span className='text-blue-700 cursor-pointer ' > Login </span> </span>
+                  <p className=' text-center' > Already have an Account ? <span className='text-blue-700 cursor-pointer ' onClick={()=>{navigate("/login")}} > Login </span> </p>
 
                 </div>
 
                 :
 
-                <div className='w-[100%] h-[400px] pt-[80px] pl-[20px]  sm:hidden '>
+                <div className='w-[100%] h-[430px] mt-10 pl-[20px]   sm:hidden'>
 
 
-                  <select type="text" placeholder='District' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600' >
+                  <select onChange={(e) => { setinputValus({ ...inputValus, district: e.target.value }) }} type="text" placeholder='District' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600' >
                     <option value=""> Select Your District </option>
+                    {
+                        district.map((obj) => (
+
+                            <option value={obj}>  {obj} </option>
+
+                        ))
+                    }
 
                   </select><br />
 
@@ -291,8 +351,17 @@ function Signup() {
 
 
 
-                  <select type="text" placeholder='Blood Group' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600 '>
+                  <select onChange={(e)=>{setinputValus({ ...inputValus, bloodgroup: e.target.value })}} type="text" placeholder='Blood Group' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600 '>
                     <option value=""> Select Your Blood Group </option>
+                    <option value="A+"> A+</option>
+                    <option value="A-"> A-</option>
+                    <option value="B+"> B+</option>
+                    <option value="B-"> B-</option>
+                    <option value="O+"> O+</option>
+                    <option value="O-"> O-</option>
+                    <option value="AB+"> AB+</option>
+                    <option value="AB-"> AB-</option>
+
 
                   </select> <br />
 
@@ -304,9 +373,9 @@ function Signup() {
 
                   /><br />
 
-                  <label htmlFor="" className='ml-[50px] font-bold  ' > Doner ?  </label> <input type="Radio" />  <label htmlFor="" className='ml-[20px] font-bold'>Reciepient ?  </label> <input type="Radio" />
+                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input type="Radio" value={"Donor"}  onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }}/>  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input type="Radio" value={"Recipient"}  onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }}/>
 
-
+                 
 
                   <button onClick={() => { secondValidation(inputValus, seterrmsg, seterrflag, formSubmit) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[50px] font-bold border-solid border-2 border-red-600 text-[20px] ' >
                     

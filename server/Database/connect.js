@@ -11,10 +11,14 @@ module.exports.DBConnect=()=>{
     moongoose.connect(process.env.DB_URL).then(()=>{
 
           console.log("DB connected")
-    }).catch(err=>{
+    
+      
+      }).catch(err=>{
 
-          console.log("DB connecting failed",err)
-    })
+         
+            console.log("DB connecting failed",err)
+   
+      })
 
        
 }
