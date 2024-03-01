@@ -6,6 +6,7 @@ const bbModel = require("../Database/Models/bloodBankModel")
 const userModel = require("../Database/Models/userModel")
 const nodemailer = require("nodemailer")
 const mailgen = require('mailgen');
+require("dotenv").config()
 
 
 // blood bank stock out time  sent mail to user
@@ -34,8 +35,8 @@ module.exports = {
                     const transporter = nodemailer.createTransport({
                         service: 'Gmail',
                         auth: {
-                            user: "sarathsarath93366@gmail.com",
-                            pass: "bqszytogqedtrxtz",
+                            user: process.env.EMAIL,
+                            pass:process.env.EMAIL_PASS,
                         }
                     });
 
