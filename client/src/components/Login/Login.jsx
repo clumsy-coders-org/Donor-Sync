@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Assuming you are using React Router
 import loginImg from '../../assets/young.jpg';
 import logo from '../../assets/logo.png';
+import axios from "../../axios/instance.js"
+import { useNavigate } from "react-router-dom"
+import { message } from "antd"
+import { useContext } from 'react';
+import {UserdataContext} from "../../contextapi/accountdata.js"
+
+
 
 export default function Login() {
   const [formData, setFormData] = useState({
-    username: '',
+    emailid: '',
     password: '',
   });
 
   const [errors, setErrors] = useState({
-    username: '',
+    emailid: '',
     password: '',
   });
 
@@ -27,12 +35,17 @@ export default function Login() {
     });
   };
 
+  const navigate = useNavigate()
+
+  const {setaccdata}=useContext(UserdataContext)  // user account data contextapi
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Check for empty fields
     let newErrors = {};
-    if (!formData.username.trim()) {
-      newErrors = { ...newErrors, username: 'Username is required' };
+    if (!formData.emailid.trim()) {
+      newErrors = { ...newErrors, emailid: 'Email Id is required' };
     }
     if (!formData.password.trim()) {
       newErrors = { ...newErrors, password: 'Password is required' };
@@ -42,9 +55,83 @@ export default function Login() {
       setErrors(newErrors);
     } else {
       // Perform login logic
-      console.log('Logging in...');
+      axios.defaults.withCredentials = true;
+
+
+
+
+      axios.post("/auth/login", formData).then((respo) => {
+
+
+        if (respo.data.err) {
+
+          message.error("server err")
+
+          return
+
+        } else if (respo.data.emailerr) {
+
+          message.error("this email not valid")
+          return
+
+        } else if (respo.data.flag) {
+
+          navigate("/home")
+
+        } else {
+
+          message.error("email and password not match")
+        }
+
+      }).catch(err => {
+
+        message.error("something wrong")
+
+      })
+
+
+
     }
-  };
+  }
+
+
+
+
+  useEffect(() => {                  // user auth checking and account data fetch func
+
+    axios("/auth/account").then((respo) => {
+
+      if (respo.data.authfailed) {
+
+        navigate("/login")
+
+      } else if (respo.data.flag) {
+
+        setaccdata(respo.data.data)
+        navigate("/userdetails")
+
+      } else if (respo.data.err) {
+
+        message.error("server error")
+      }
+    }).catch(err => {
+
+      message.error("somthing worng")
+    })
+
+
+  }, [])
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="bg-gray-200 flex items-center justify-center min-h-screen">
@@ -67,15 +154,15 @@ export default function Login() {
           <form className="flex-grow flex flex-col justify-between" onSubmit={handleSubmit}>
             <div className="mb-6">
               <input
-                type="text"
-                id="username"
-                name="username"
-                className={`w-full border rounded-md p-3 text-lg ${errors.username && 'border-red-500'}`}
-                placeholder="Username"
-                value={formData.username}
+                type="email"
+                id="emailid"
+                name="emailid"
+                className={`w-full border rounded-md p-3 text-lg ${errors.emailid && 'border-red-500'}`}
+                placeholder="Email Id"
+                value={formData.emailid}
                 onChange={handleInputChange}
               />
-              {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+              {errors.emailid && <p className="text-red-500 text-sm">{errors.emailid}</p>}
             </div>
 
             <div className="mb-6">
