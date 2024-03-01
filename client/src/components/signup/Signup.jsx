@@ -84,7 +84,7 @@ function Signup() {
 
       <div className='w-full h-screen bg-gray-200   flex flex-wrap justify-center items-center' >
 
-        <div className='w-[350px] h-[600px] bg-white flex justify-center items-center sm:w-[800px] sm:h-[550px] sm:border-solid  sm:rounded-[20px]  shadow-md   '  >
+        <div className='w-[350px] h-[700px] bg-white flex justify-center items-center sm:w-[800px] sm:h-[550px] sm:border-solid  sm:rounded-[20px]  shadow-md   '  >
 
           <div className='w-[400px] h-[300px] hidden sm:block' >
 
@@ -321,17 +321,24 @@ function Signup() {
 
                   {/* <span className=' ml-[200px]px] mt-4   ' > Already a Account ? <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span>  */}
 
-                  <span className='ml-16' > Already have an Account ? <span className='text-blue-700 cursor-pointer ' onClick={()=>{navigate("/login")}} > Login </span> </span>
+                  <p className=' text-center' > Already have an Account ? <span className='text-blue-700 cursor-pointer ' onClick={()=>{navigate("/login")}} > Login </span> </p>
 
                 </div>
 
                 :
 
-                <div className='w-[100%] h-[400px] pt-[80px] pl-[20px]  sm:hidden '>
+                <div className='w-[100%] h-[430px] mt-10 pl-[20px]   sm:hidden'>
 
 
                   <select type="text" placeholder='District' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600' >
                     <option value=""> Select Your District </option>
+                    {
+                        district.map((obj) => (
+
+                            <option value={obj}>  {obj} </option>
+
+                        ))
+                    }
 
                   </select><br />
 

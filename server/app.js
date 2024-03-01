@@ -15,6 +15,7 @@ const cookieparser=require("cookie-parser");
 require('dotenv').config();
 const PORT=process.env.PORT || 3001
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyparser.json());
@@ -32,7 +33,7 @@ app.use(cors({
       credentials: true
   }));
 
-
+//   "https://testdonerbloodbank-port.onrender.com","https://donor-sync-com.onrender.com"
 
 DB.DBConnect();  // Database connecting func
 
