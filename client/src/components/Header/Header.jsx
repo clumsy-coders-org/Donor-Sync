@@ -11,8 +11,8 @@ import { useNavigate } from 'react-router-dom'
 const navigation = [
   
   
-  { name: 'DonorSync', href: '/', current: true },
-  { name: 'Home', href: '/', current: false },
+  { name: 'DonorSync', href: '/home', current: true },
+  { name: 'Home', href: '/home', current: false },
   { name: 'About', href: '/about', current: false },
   { name: 'Contact', href: '/contact', current: false },
   {name:  <UserCircleOutline/>, href:'/login', current: false},

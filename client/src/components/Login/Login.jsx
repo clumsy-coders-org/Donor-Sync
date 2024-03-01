@@ -79,7 +79,7 @@ export default function Login() {
 
         } else if (respo.data.flag) {
 
-          navigate("/")
+          navigate("/home")
 
         } else {
 
