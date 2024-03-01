@@ -330,7 +330,7 @@ function Signup() {
                 <div className='w-[100%] h-[430px] mt-10 pl-[20px]   sm:hidden'>
 
 
-                  <select type="text" placeholder='District' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600' >
+                  <select onChange={(e) => { setinputValus({ ...inputValus, district: e.target.value }) }} type="text" placeholder='District' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600' >
                     <option value=""> Select Your District </option>
                     {
                         district.map((obj) => (
