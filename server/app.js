@@ -28,12 +28,14 @@ app.use(cookieparser());
 
 
 app.use(cors({
-      origin : ["https://testdonerbloodbank-port.onrender.com","https://donor-sync-com.onrender.com"],
+      origin : ["http://localhost:3000"],
       methods: ["GET", "POST"],
       credentials: true
   }));
 
 //   "https://testdonerbloodbank-port.onrender.com","https://donor-sync-com.onrender.com"
+
+
 
 DB.DBConnect();  // Database connecting func
 
