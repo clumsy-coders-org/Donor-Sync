@@ -12,14 +12,6 @@ function UserDetails() {
   const { accdata } = useContext(UserdataContext)
   const [checkbox, setcheckbox] = useState(false)
 
-
-
-
-
-
-
-
-
   const [values, setValues] = useState({
     name: '',
     age: '',
@@ -28,16 +20,19 @@ function UserDetails() {
     bloodgroup: '',
     district: '',
     city: '',
-    type: ""
+    type: ''
   })
 
   const [errors, setErrors] = useState({})
 
   useEffect(() => {
 
-    if (accdata.type === "donor") {
+   
+
+    if (accdata.type === "Donor") {
 
       setcheckbox(true)
+
     }
 
 
@@ -61,6 +56,9 @@ function UserDetails() {
 
 
   function handleInput(event) {
+
+    console.log(event.target.value)
+
     const newObj = { ...values, [event.target.name]: event.target.value }
     setValues(newObj)
   }
@@ -68,7 +66,6 @@ function UserDetails() {
   function handleValidation(event) {
 
 
-    event.preventDefault();
 
     setErrors(validation(values));
 
@@ -89,7 +86,7 @@ function UserDetails() {
             <h2 className='text-3xl mb-8 text-center font-bold'>Account Details</h2>
 
 
-            <form action='#' onSubmit={handleValidation}>
+            <form>
 
               <div className='flex flex-wrap gap-5 justify-center'>
 
@@ -139,57 +136,59 @@ function UserDetails() {
 
               <div className='mt-5  px-8'>
 
-                <label htmlFor="" className='ml-[20px] sm:ml-[100px] mr-2 font-bold ' > Doner </label>
-
-                {
-                  checkbox ?
-
-                    <input name='type' checked  type="Radio" />
-
-                    :
-
-                    <input name='type' type="Radio" value={"donor"} onChange={(e) => { setValues({ ...values, type:"donor" }) }} />
-
-
-
-                }
-
-
-                <label htmlFor="" className='ml-[20px] mr-2 font-bold'>Recepient</label>
-
                 {
 
                   checkbox ?
 
-                    <input name='type' type="Radio" value={"recepient"} onChange={(e) => { setValues({ ...values, type:"recepient" }) }} />
+                    <>
+
+                      <label htmlFor="" className='ml-[20px] sm:ml-[100px] mr-2 font-bold '    > Doner </label>
+
+                      <input name='type' type="Radio" checked value={"Doner"} onChange={handleInput} />
+
+                      <label htmlFor="" className='ml-[20px] sm:ml-[100px] mr-2 font-bold ' > Recepient </label>
+
+                      <input name='type' type="Radio" value={"Recepient"} onChange={handleInput} />
+
+                   
+                   
+                    </>
+
+
 
                     :
 
-                    <input name='type' checked  type="Radio"  />
+                    <>
 
+                      <label htmlFor="" className='ml-[20px] sm:ml-[100px] mr-2 font-bold '    > Doner </label>
 
+                      <input name='type' type="Radio" value={"Doner"} onChange={handleInput} />
+
+                      <label htmlFor="" className='ml-[20px] sm:ml-[100px] mr-2 font-bold ' > Recepient </label>
+
+                      <input name='type'  type="Radio" value={"Recepient"} onChange={handleInput} />
+
+                    </>
 
                 }
 
 
-
-
-
-
               </div>
 
-              <div className='mt-5 grid grid-cols-2 gap-6 '>
 
-                <button onClick={() => { console.log(values) }} className='bg-red-500 py-1 px-1 text-center text-white font-bold rounded-full hover:bg-red-600'>Save</button>
-
-                <button className='bg-red-500 py-1 px-1 text-center text-white font-bold rounded-full hover:bg-red-600'>Log Out</button>
-
-              </div>
             </form>
+
+            <div className='mt-5 grid grid-cols-2 gap-6 '>
+
+              <button onClick={ handleValidation } className='bg-red-500 py-1 px-1 text-center text-white font-bold rounded-full hover:bg-red-600'>Save</button>
+
+              <button onClick={() => { console.log("hiii") }} className='bg-red-500 py-1 px-1 text-center text-white font-bold rounded-full hover:bg-red-600'>Log Out</button>
+
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   )
 }
 
