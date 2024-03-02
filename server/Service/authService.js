@@ -71,13 +71,15 @@ module.exports = {
 
     user_login: (data) => {
 
+        console.log(data)
+
 
         return new Promise(async (resolve, reject) => {
 
             try {
 
 
-                const userdata = await users.findOne({ email: data.username })
+                const userdata = await users.findOne({ email: data.emailid })
 
                 if (userdata) {
 
