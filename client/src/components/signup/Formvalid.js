@@ -9,7 +9,7 @@ export const firstFormValid = (inputvalues, seterrmsg, seterrflag,setmobnext) =>
 
     let nameReg = new RegExp(/^[a-zA-Z ]{2,30}$/)
     
-    let passReg = new RegExp(/^[0-9a-zA-Z ]{6,6}$/)
+    let passReg = new RegExp(/^[0-9a-zA-Z ]{4,15}$/)
     let emailReg = new RegExp(/^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/)
     let mobReg = new RegExp(/^[0-9 ]{10,10}$/)
 
@@ -60,7 +60,7 @@ export const firstFormValid = (inputvalues, seterrmsg, seterrflag,setmobnext) =>
     }else if(!passReg.test(inputvalues.password)){
 
 
-        seterrmsg(" Enter Must 6 Digit Password ")
+        seterrmsg(" Enter Minimum 4 Digit  ")
         seterrflag(true)
 
 

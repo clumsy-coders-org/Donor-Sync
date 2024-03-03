@@ -84,7 +84,7 @@ module.exports = {
 
                 res.cookie("donor_sync_user", token, {
 
-                    maxAge: 360000,
+                    maxAge:360000,
                     sameSite: "none",
                     secure: true,
                     httpOnly: true

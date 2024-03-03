@@ -7,26 +7,35 @@ import { Fragment } from 'react'
 import { Disclosure,  Transition } from '@headlessui/react'
 import { SearchCircleOutline, X ,Menu, BellIcon,  UserCircleOutline } from 'heroicons-react'
 import { useNavigate } from 'react-router-dom'
+import axios from "../../axios/instance"
+import { useEffect } from 'react'
 
-const navigation = [
-  
-  
-  { name: 'DonorSync', href: '/home', current: true },
-  { name: 'Home', href: '/home', current: false },
-  { name: 'About', href: '/about', current: false },
-  { name: 'Contact', href: '/contact', current: false },
-  {name:  <UserCircleOutline/>, href:'/login', current: false},
-]
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
 
 function Header() {
 
 
+  const navigation = [
+  
+  
+    { name: 'DonorSync', href: '/home', current: true },
+    { name: 'Home', href: '/home', current: false },
+    { name: 'About', href: '/about', current: false },
+    { name: 'Contact', href: '/contact', current: false },
+    {name:  <UserCircleOutline/>, href:'/login', current: false},
+  ]
+  
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+  }
+  
+
+
   const navigate=useNavigate()
 
+  
+  
+ 
 
 
 
@@ -74,6 +83,8 @@ function Header() {
                       {item.name}
                     </span>
                   ))}
+
+                 
                 </div>
               </div>
             </div>

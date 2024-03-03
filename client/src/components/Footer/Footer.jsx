@@ -14,7 +14,7 @@ function Footer() {
             
            <div className='w-full h-[50px]  flex justify-center items-center gap-3 '>  
 
-           < IoMail className='text-[20px]' />
+       <a href="mailto:sarathsarath93366@gmail.com">  < IoMail className='text-[20px]' /> </a>   
 
            < FaPhoneAlt className='text-[18px]' /> 7592831937
            

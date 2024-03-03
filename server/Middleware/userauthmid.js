@@ -9,10 +9,11 @@ module.exports = {
     user_auth_verify: (req, res, next) => {
 
         const token = req.cookies.donor_sync_user
+        console.log(token)
 
         if (!token) {
 
-            console.log("no token")
+            console.log("no token hii")
             res.json({ authfailed: true })
             return
 
@@ -22,6 +23,7 @@ module.exports = {
 
                 if (resilt) {
 
+                    console.log("ok")
                     next()
 
                 } else {
@@ -41,5 +43,8 @@ module.exports = {
 
 
 
-    }
+    },
+
+
+   
 }

@@ -2,7 +2,7 @@
 
 
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaSearch } from "react-icons/fa";
 import { BsFillPersonFill } from "react-icons/bs";
 import { FaPhone } from "react-icons/fa6";
@@ -14,6 +14,9 @@ import axios from "../../axios/instance"
 import imgs from "../../assets/nodata.png"
 import { Oval } from 'react-loader-spinner'
 import { FaLocationDot } from "react-icons/fa6";
+import logo from "../../assets/logo.png"
+import { IoMdClose } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -38,6 +41,8 @@ const FilterComponent = () => {
     const [filter, setfilter] = useState('')
     const [find, setfind] = useState([])
     const [spinner, setspinner] = useState(true)
+    const [popup, setpopup] = useState(false)
+    const navigate=useNavigate()
 
 
 
@@ -73,7 +78,7 @@ const FilterComponent = () => {
 
                     <div className='flex gap-7'  > < BsFillPersonFill className=' text-[18px] mt-1   ' /> <span > {obj.name} </span>  </div>
 
-                    <div className='flex mt-2 gap-7'  > <  FaPhone className=' text-[18px]  mt-1 ' />    <span> {obj.mobile} </span>  </div>
+                    <div className='flex mt-2 gap-7'  >   <  FaPhone className=' text-[18px]  mt-1 ' />   <a href={`tel:+91${obj.mobile}`}> <span className='text-blue-700' > {obj.mobile} </span>    </a>      </div>
 
                     <div className='flex mt-2 gap-7'  > <  FaLocationDot className=' text-[18px]  mt-1 ' />    <span> {obj.city} </span>  </div>
 
@@ -94,12 +99,12 @@ const FilterComponent = () => {
 
 
 
-                <div className='w-[300px] sm:w-[250px] h-[210px] rounded-3xl bg-gray-300 shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px] pl-8 pt-6   '  >
+                <div className='w-[300px] sm:w-[250px] h-[210px] rounded-3xl bg-gray-300 shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px] pl-8 pt-6 ' >
 
 
                     <div className='flex gap-7 '  > < BsFillPersonFill className=' text-[18px] mt-1   ' /> <span > {obj.name} </span>  </div>
 
-                    <div className='flex mt-2 gap-7'  > <  FaPhone className=' text-[18px]  mt-1 ' />    <span> {obj.mobile} </span>  </div>
+                    <div className='flex mt-2 gap-7'  > <  FaPhone className=' text-[18px]  mt-1 ' />     <a href={`tel:+91${obj.mobile}`}> <span className='text-blue-700' > {obj.mobile} </span>    </a>   </div>
 
                     <div className='flex mt-2 gap-7'  > <  FaLocationDot className=' text-[18px]  mt-1 ' />    <span> {obj.city} </span>  </div>
 
@@ -299,12 +304,34 @@ const FilterComponent = () => {
     }
 
 
+    // popup show func
+
+     
+    const shwpopup=()=>{
+
+           setTimeout(() => {
+
+            setpopup(true)
+            
+           }, 2000);
+    }
+
+    // popup show func call useeffect
+
+
+    useEffect(()=>{
+
+         shwpopup()
+
+    },[])
+
+
 
 
 
 
     return (
-        <div>
+        <div  >
 
             <div className='w-full h-[100px]  mt-10 sm:mt-24 flex flex-wrap justify-around ' >
 
@@ -432,13 +459,49 @@ const FilterComponent = () => {
 
 
 
+            <div className=' w-full  min-h-[400px] mt-24 sm:mt-0 flex flex-wrap gap-5 justify-center    ' >
+
+                {
+
+                    popup ?
+
+                        <div className='w-[300px] sm:w-[400px] h-[280px] sm:h-[250px] bg-red-500 transition   absolute rounded-2xl shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px] ' >
+
+                            <div className='w-full h-[10px] bg-white flex justify-end pr-5 pt-5 ' > <IoMdClose className='cursor-pointer font-semibold' onClick={()=>{setpopup(false)}} /> </div>
+
+                            <div className='w-full h-[80px] bg-white flex justify-center pt-5  ' >
+
+                                <img src={logo} className='w-[70px] h-[70px]' />
+
+                            </div>
+
+                            <p className='text-center text-wrap mt-8 text-white font-semibold text-[18px]' > Create an Account and Part of Donor Sync </p>
+
+                            <div className='w-full flex justify-center mt-5'>
+
+                                <button onClick={()=>{navigate("/signup")}}  className='w-[100px] h-[35px] bg-white rounded-2xl hover:shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px]' > Register </button>
+
+                            </div>
+
+                            <p className='text-center text-[13px] mt-3 cursor-pointer' onClick={()=>{setpopup(false)}} > Skip </p>
+
+
+
+
+                        </div>
+
+                        :
+
+                        null
+                        
+                        }
 
 
 
 
 
 
-            <div className=' w-full  min-h-[400px] mt-24  sm:mt-0 flex flex-wrap gap-5 justify-center ' >
+
 
                 {
 

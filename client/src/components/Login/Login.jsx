@@ -107,6 +107,7 @@ export default function Login() {
       } else if (respo.data.flag) {
 
         setaccdata(respo.data.data)
+        
         navigate("/userdetails")
 
       } else if (respo.data.err) {

@@ -138,7 +138,7 @@ function Signup() {
 
                   /><br />
 
-                  <input type="text" placeholder='Enter Your Email Id' className='w-[300px] h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600 '
+                  <input type="email" placeholder='Enter Your Email Id' className='w-[300px] h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600 '
 
                     onChange={(e) => { setinputValus({ ...inputValus, email: e.target.value }) }}
 
@@ -298,7 +298,7 @@ function Signup() {
                   />
 
 
-                  <input type="text" placeholder='Enter Your Email Id' className='w-[300px] h-12 rounded-[10px] mb-8 border-solid border-2 border-red-600 '
+                  <input type="email" placeholder='Enter Your Email Id' className='w-[300px] h-12 rounded-[10px] mb-8 border-solid border-2 border-red-600 '
 
                     onChange={(e) => { setinputValus({ ...inputValus, email: e.target.value }) }}
 
