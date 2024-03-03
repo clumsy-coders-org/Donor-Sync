@@ -42,7 +42,7 @@ const FilterComponent = () => {
     const [find, setfind] = useState([])
     const [spinner, setspinner] = useState(true)
     const [popup, setpopup] = useState(false)
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
 
 
@@ -306,24 +306,24 @@ const FilterComponent = () => {
 
     // popup show func
 
-     
-    const shwpopup=()=>{
 
-           setTimeout(() => {
+    const shwpopup = () => {
+
+        setTimeout(() => {
 
             setpopup(true)
-            
-           }, 2000);
+
+        }, 2000);
     }
 
     // popup show func call useeffect
 
 
-    useEffect(()=>{
+    useEffect(() => {
 
-         shwpopup()
+        shwpopup()
 
-    },[])
+    }, [])
 
 
 
@@ -333,141 +333,16 @@ const FilterComponent = () => {
     return (
         <div  >
 
-            <div className='w-full h-[100px]  mt-10 sm:mt-24 flex flex-wrap justify-around ' >
+            {
 
-                <select name="" id="" onChange={(e) => { setvalues({ ...values, bloodgroup: e.target.value }) }} className='border-2 border-red-600 text-center  rounded-2xl   w-[150px] sm:w-[170px]  h-[40px] ' >
+                popup ?
 
-                    <option value="">  Blood Group </option>
-                    <option value="A+"> A+</option>
-                    <option value="A-"> A-</option>
-                    <option value="B+"> B+</option>
-                    <option value="B-"> B-</option>
-                    <option value="O+"> O+</option>
-                    <option value="O-"> O-</option>
-                    <option value="AB+"> AB+</option>
-                    <option value="AB-"> AB-</option>
 
-                </select>
-
-
-                <select name="" id="" onChange={(e) => { setvalues({ ...values, type: e.target.value }) }} className='border-2 border-red-600 text-center  rounded-2xl w-[150px] sm:w-[170px] h-[40px] ' >
-
-
-                    <option value=""> Select Type</option>
-                    <option value="Donor"> Donor</option>
-                    <option value="BloodBank"> Blood Bank </option>
-
-
-
-                </select>
-
-
-                <select name="" id="" onChange={(e) => { findresult(e.target.value) }} className='border-2 border-red-600 rounded-2xl text-center w-[150px] mt-4 sm:mt-0   sm:w-[170px]  h-[40px] ' >
-                    <option value="">  District </option>
-
-                    {
-                        district.map((obj) => (
-
-                            <option value={obj}>  {obj} </option>
-
-                        ))
-                    }
-
-                </select>
-
-
-                {
-
-                    city ?
-
-                        null
-
-                        :
-
-                        cityspinner ?
-
-
-                            <Oval
-                                visible={true}
-                                height="40"
-                                width="40"
-                                color="#A94438"
-                                ariaLabel="oval-loading"
-                                wrapperStyle={{}}
-                                wrapperClass=""
-                            />
-
-
-
-
-
-
-
-                            :
-
-                            <>
-
-
-                                <select onChange={(e) => { setfilter(e.target.value) }} name="" id="" className='border-2 border-red-600 rounded-2xl text-center w-[150px] mt-4 sm:mt-0  h-[40px] ' >
-
-                                    <option value=""> Select City </option>
-                                    {
-                                        citydata.map((obj) => (
-
-                                            <option value={obj}> {obj} </option>
-
-                                        ))
-                                    }
-
-                                </select>
-
-
-                                <button onClick={formsubmit} className='w-[150px] h-[40px] bg-red-700 text-white flex justify-center mt-4 sm:mt-0  items-center rounded-xl'> <FaSearch /> </button>
-
-
-                            </>
-
-
-
-
-                }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            </div>
-
-
-
-
-
-
-
-
-            <div className=' w-full  min-h-[400px] mt-24 sm:mt-0 flex flex-wrap gap-5 justify-center    ' >
-
-                {
-
-                    popup ?
+                    <div className='w-full h-[650px] bg-gray-300 flex justify-center items-center ' >
 
                         <div className='w-[300px] sm:w-[400px] h-[280px] sm:h-[250px] bg-red-500 transition   absolute rounded-2xl shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px] ' >
 
-                            <div className='w-full h-[10px] bg-white flex justify-end pr-5 pt-5 ' > <IoMdClose className='cursor-pointer font-semibold' onClick={()=>{setpopup(false)}} /> </div>
+                            <div className='w-full h-[10px] bg-white flex justify-end pr-5 pt-5 ' > <IoMdClose className='cursor-pointer font-semibold' onClick={() => { setpopup(false) }} /> </div>
 
                             <div className='w-full h-[80px] bg-white flex justify-center pt-5  ' >
 
@@ -479,138 +354,269 @@ const FilterComponent = () => {
 
                             <div className='w-full flex justify-center mt-5'>
 
-                                <button onClick={()=>{navigate("/signup")}}  className='w-[100px] h-[35px] bg-white rounded-2xl hover:shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px]' > Register </button>
+                                <button onClick={() => { navigate("/signup") }} className='w-[100px] h-[35px] bg-white rounded-2xl hover:shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px]' > Register </button>
 
                             </div>
 
-                            <p className='text-center text-[13px] mt-3 cursor-pointer' onClick={()=>{setpopup(false)}} > Skip </p>
+                            <p className='text-center text-[13px] mt-3 cursor-pointer' onClick={() => { setpopup(false) }} > Skip </p>
 
 
 
 
                         </div>
 
-                        :
-
-                        null
-                        
-                        }
 
 
 
+                    </div>
+
+                    :
+
+
+
+                    <>
+
+
+                        <div className='w-full h-[100px]  mt-10 sm:mt-24 flex flex-wrap justify-around ' >
+
+                            <select name="" id="" onChange={(e) => { setvalues({ ...values, bloodgroup: e.target.value }) }} className='border-2 border-red-600 text-center  rounded-2xl   w-[150px] sm:w-[170px]  h-[40px] ' >
+
+                                <option value="">  Blood Group </option>
+                                <option value="A+"> A+</option>
+                                <option value="A-"> A-</option>
+                                <option value="B+"> B+</option>
+                                <option value="B-"> B-</option>
+                                <option value="O+"> O+</option>
+                                <option value="O-"> O-</option>
+                                <option value="AB+"> AB+</option>
+                                <option value="AB-"> AB-</option>
+
+                            </select>
+
+
+                            <select name="" id="" onChange={(e) => { setvalues({ ...values, type: e.target.value }) }} className='border-2 border-red-600 text-center  rounded-2xl w-[150px] sm:w-[170px] h-[40px] ' >
+
+
+                                <option value=""> Select Type</option>
+                                <option value="Donor"> Donor</option>
+                                <option value="BloodBank"> Blood Bank </option>
+
+
+
+                            </select>
+
+
+                            <select name="" id="" onChange={(e) => { findresult(e.target.value) }} className='border-2 border-red-600 rounded-2xl text-center w-[150px] mt-4 sm:mt-0   sm:w-[170px]  h-[40px] ' >
+                                <option value="">  District </option>
+
+                                {
+                                    district.map((obj) => (
+
+                                        <option value={obj}>  {obj} </option>
+
+                                    ))
+                                }
+
+                            </select>
+
+
+                            {
+
+                                city ?
+
+                                    null
+
+                                    :
+
+                                    cityspinner ?
+
+
+                                        <Oval
+                                            visible={true}
+                                            height="40"
+                                            width="40"
+                                            color="#A94438"
+                                            ariaLabel="oval-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClass=""
+                                        />
 
 
 
 
 
-                {
 
-                    show ?
 
-                        <div className='w-full h-[400px]   flex justify-center items-center' >
+                                        :
 
-                            <h1 className='font-bold text-[20px] ' > Find Your Donor or Blood Bank </h1>
+                                        <>
+
+
+                                            <select onChange={(e) => { setfilter(e.target.value) }} name="" id="" className='border-2 border-red-600 rounded-2xl text-center w-[150px] mt-4 sm:mt-0  h-[40px] ' >
+
+                                                <option value=""> Select City </option>
+                                                {
+                                                    citydata.map((obj) => (
+
+                                                        <option value={obj}> {obj} </option>
+
+                                                    ))
+                                                }
+
+                                            </select>
+
+
+                                            <button onClick={formsubmit} className='w-[150px] h-[40px] bg-red-700 text-white flex justify-center mt-4 sm:mt-0  items-center rounded-xl'> <FaSearch /> </button>
+
+
+                                        </>
+
+
+
+
+                            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                         </div>
 
 
-                        :
-
-                        emptyshow ?
-
-                            <div className='w-full h-[400px]  flex justify-center items-center' >
-
-                                <img src={imgs} alt="" className='w-[100px] h-[100px] ' />
-
-
-                            </div>
-
-                            :
-
-                            spinner ?
-
-                                <div className='w-full h-[400px]   flex justify-center items-center' >
-
-                                    <Oval
-                                        visible={true}
-                                        height="40"
-                                        width="40"
-                                        color="#A94438"
-                                        ariaLabel="oval-loading"
-                                        wrapperStyle={{}}
-                                        wrapperClass=""
-                                    />
-
-
-
-                                </div>
-
-                                :
-
-
-
-
-                                displyaData
-
-
-
-                }
-
-
-
-
-            </div>
-
-            <div className='mt-8 sm:mt-0  mb-10 flex justify-center ' >
-
-                {
-
-                    show ?
-
-                        null
-
-                        :
-
-
-                        emptyshow ?
-
-                            null
-
-                            :
-
-                            <ReactPaginate
-
-                                previousLabel={"previous"}
-
-                                nextLabel={"next"}
-
-                                pageCount={pageCount}
-
-                                onPageChange={changePage}
-
-                                containerClassName={"paginationBttns"}
-                                pageLinkClassName={"previousBttn"}
-                                nextLinkClassName={"nextBttn"}
-                                disabledClassName={"paginationDisabled"}
-                                activeClassName={"paginationActive"}
-                            />
-
-
-
-                }
 
 
 
 
 
 
-            </div>
+                        <div className=' w-full  min-h-[400px] mt-24 sm:mt-0 flex flex-wrap gap-5 justify-center    ' >
+
+
+
+                            {
+
+                                show ?
+
+                                    <div className='w-full h-[400px]   flex justify-center items-center' >
+
+                                        <h1 className='font-bold text-[20px] ' > Find Your Donor or Blood Bank </h1>
+
+
+                                    </div>
+
+
+                                    :
+
+                                    emptyshow ?
+
+                                        <div className='w-full h-[400px]  flex justify-center items-center' >
+
+                                            <img src={imgs} alt="" className='w-[100px] h-[100px] ' />
+
+
+                                        </div>
+
+                                        :
+
+                                        spinner ?
+
+                                            <div className='w-full h-[400px]   flex justify-center items-center' >
+
+                                                <Oval
+                                                    visible={true}
+                                                    height="40"
+                                                    width="40"
+                                                    color="#A94438"
+                                                    ariaLabel="oval-loading"
+                                                    wrapperStyle={{}}
+                                                    wrapperClass=""
+                                                />
+
+
+
+                                            </div>
+
+                                            :
+
+
+
+
+                                            displyaData
+
+
+
+                            }
+
+
+
+
+                        </div>
+
+                        <div className='mt-8 sm:mt-0  mb-10 flex justify-center ' >
+
+                            {
+
+                                show ?
+
+                                    null
+
+                                    :
+
+
+                                    emptyshow ?
+
+                                        null
+
+                                        :
+
+                                        <ReactPaginate
+
+                                            previousLabel={"previous"}
+
+                                            nextLabel={"next"}
+
+                                            pageCount={pageCount}
+
+                                            onPageChange={changePage}
+
+                                            containerClassName={"paginationBttns"}
+                                            pageLinkClassName={"previousBttn"}
+                                            nextLinkClassName={"nextBttn"}
+                                            disabledClassName={"paginationDisabled"}
+                                            activeClassName={"paginationActive"}
+                                        />
+
+
+
+                            }
 
 
 
 
 
+
+                        </div>
+
+                    </>
+
+
+
+
+            }
 
 
 

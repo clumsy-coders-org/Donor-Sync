@@ -323,7 +323,7 @@ function Signup() {
 
                   {/* <span className=' ml-[200px]px] mt-4   ' > Already a Account ? <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span>  */}
 
-                  <p className=' text-center' > Already have an Account ? <span className='text-blue-700 cursor-pointer ' onClick={()=>{navigate("/login")}} > Login </span> </p>
+                  <p className=' text-center mr-8' > Already have an Account ? <span className='text-blue-700 cursor-pointer ' onClick={()=>{navigate("/login")}} > Login </span> </p>
 
                 </div>
 
