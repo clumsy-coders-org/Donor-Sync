@@ -48,7 +48,7 @@ function Header() {
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
               {/* Mobile menu button*/}
-              <Disclosure.Button className="relative inline-flex items-center justify-center rounded-3xl p-2 text-black hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-400">
+              <Disclosure.Button className="relative inline-flex items-center justify-center rounded-3xl p-2 text-black hover:text-black focus:text-white  focus:ring-inset ">
                 <span className="absolute -inset-0.5" />
                 <span className="sr-only">Open main menu</span>
                 {open ? (
@@ -90,8 +90,8 @@ function Header() {
             </div>
             {/* <div className="absolute hidden sm:block inset-y-0 left-0  items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"> */}
               <button
-                type="button"
-                className="relative rounded-full right-12 md:right-4 text-gray-900 hover:text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-1"
+                type="button"  onClick={() => { navigate("/search") }} 
+                className="relative rounded-full focus:text-white right-12 md:right-4 text-gray-900 md:hover:text-white "
               >
                 <span className="absolute -inset-1.5" />
                 <span className="sr-only">Search</span>
