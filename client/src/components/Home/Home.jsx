@@ -3,7 +3,7 @@ import home from "../../assets/home-page-image.jpg"
 import donation from '../../assets/donation.jpg'
 import blooddonation from '../../assets/blooddonation.jpg'
 import blood from '../../assets/mobile-view-home-bg.jpeg'
-import mobimg from "../../assets/mobimg.jpeg"
+import mobimg from "../../assets/mobimgnew.jpg"
 import { useNavigate } from "react-router-dom"
 import { MdFeedback } from "react-icons/md";
 
@@ -26,7 +26,7 @@ function Home() {
         <div className='md:hidden block'>
           <img className='md:hidden block w-auto h-screen ' src={mobimg} alt="" />
         </div>
-        <div class="absolute top-[6rem] md:top-32 lg:top-55 px-5 py-2 w-full md:1/2 lg:w-3/4   ">
+        <div class="absolute top-[6rem] md:top-32 lg:top-55 px-5 py-2 w-full md:1/2 lg:w-3/4" >
 
 
           <h1 class=" text-red-500 font-bold text-2xl md:text-4xl lg:text-5xl "> DONATE BLOOD !</h1>
