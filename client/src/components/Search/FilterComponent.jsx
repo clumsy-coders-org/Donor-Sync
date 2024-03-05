@@ -264,22 +264,17 @@ const FilterComponent = () => {
                         console.log(result)
                         setfind(result)
 
-                        setcitydata(prevdata => {
 
-                            return result.map((obj) => (
+                        let cityresult = result.map((obj) => obj.city)
 
-                                obj.city
-                            ))
-                        })
+                        cityresult = [...new Set(cityresult)]
 
-
-
-
+                        setcitydata(cityresult)
                         setcityspinner(false)
                         message.warning("select city then search")
 
 
-                    } else if (respo.data.err) {
+                    } else if (respo.data.err){
 
                         console.log("server err")
                         setcity(true)
@@ -289,7 +284,7 @@ const FilterComponent = () => {
 
                 }).catch(err => {
 
-                    console.log("net err")
+                    console.log("net err", err)
                     setcity(true)
                     message.error("somthing worng")
 

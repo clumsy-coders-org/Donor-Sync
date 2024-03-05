@@ -39,7 +39,9 @@ module.exports = {
 
 
 
-    user_signup: (data) => {                           //user signup Database query
+    user_signup: (data) => {     
+        
+        //user signup Database query
 
         return new Promise(async (resolve, reject) => {
             const userdata = await users.findOne({ email: data.email })
@@ -64,6 +66,8 @@ module.exports = {
 
             }
         })
+
+        
     },
 
 

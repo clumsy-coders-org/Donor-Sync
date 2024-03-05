@@ -48,6 +48,11 @@ const bloodBank= new mongoose.Schema({
 
             type:Array,
             require:true
+        },
+        timestamp:{
+
+            type:String,
+            require:true
         }
       
     

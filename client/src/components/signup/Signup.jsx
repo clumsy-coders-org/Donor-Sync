@@ -9,7 +9,7 @@ import { firstFormValid, secondValidation } from "./Formvalid"
 import { useNavigate } from "react-router-dom"
 import { Oval } from 'react-loader-spinner'
 import axios from "../../axios/instance.js"
-import {message} from "antd"
+import { message } from "antd"
 
 
 
@@ -23,7 +23,7 @@ function Signup() {
   const [district, setdistrict] = useState([
 
     "Malappuram", "Alappuzha", "Palakkad", "Thiruvananthapuram", "Kannur", "Ernakulam", "Idukki", "Kottayam", "Kozhikode", "Thrissur", "Wayanad", "Kasaragod", "Pathanamthitta", "Kollam"
-])
+  ])
   const [inputValus, setinputValus] = useState({
 
     name: "",
@@ -34,7 +34,8 @@ function Signup() {
     district: "",
     city: "",
     bloodgroup: "",
-    type: ""
+    type: "",
+    timestamp: ""
   });
 
   axios.defaults.withCredentials = true;
@@ -45,33 +46,56 @@ function Signup() {
   const formSubmit = (e) => {
 
     setspinner(true);
-    console.log(inputValus);
-    axios.post("/auth/signup",inputValus).then((respo)=>{
 
-      if(respo.data.exist){
+    // timestamb value create
+    const date = new Date
+    const year = date.getFullYear()
+    const month = date.getMonth()+1
+    const res = year + "-" + month
 
-            message.error("This email already exists, try another one.")
-     
-          }else if(respo.data.flag){
-            message.success("Account created")
-            navigate("/login")
 
-      }else{
+    const data = {
+      name: inputValus.name,
+      age: inputValus.age,
+      mobile: inputValus.mobile,
+      email: inputValus.email,
+      password: inputValus.password,
+      district:inputValus.district,
+      city: inputValus.city,
+      bloodgroup:inputValus.bloodgroup,
+      type:inputValus.type,
+      timestamp: res
 
-           message.error("Server Error")
-           setspinner(false)
+    }
+
+
+
+    axios.post("/auth/signup", data ).then((respo) => {
+
+      if (respo.data.exist) {
+
+        message.error("This email already exists, try another one.")
+
+      } else if (respo.data.flag) {
+        message.success("Account created")
+        navigate("/login")
+
+      } else {
+
+        message.error("Server Error")
+        setspinner(false)
       }
 
-        
-  }).catch(err=>{
 
-       message.error("Something wrong ! ")
-       console.log(err)
-       console.log("errrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
-       setspinner(false)
-        
-  })
-    
+    }).catch(err => {
+
+      message.error("Something wrong ! ")
+      console.log(err)
+      console.log("errrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
+      setspinner(false)
+
+    })
+
   }
 
 
@@ -160,7 +184,7 @@ function Signup() {
 
                   <button onClick={() => { firstFormValid(inputValus, seterrmsg, seterrflag, setmobNext) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[10px] font-bold border-solid border-2 border-red-600 text-[20px] ' > Next </button><br />
 
-                  <span className=' ml-[50px] mt-4 hidden sm:block   ' > Already have an Account ? <span className='text-blue-600  cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span> 
+                  <span className=' ml-[50px] mt-4 hidden sm:block   ' > Already have an Account ? <span className='text-blue-600  cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span>
 
 
                 </div>
@@ -177,11 +201,11 @@ function Signup() {
 
                     <option value={null}> Select Your District </option>
                     {
-                        district.map((obj) => (
+                      district.map((obj) => (
 
-                            <option value={obj}>  {obj} </option>
+                        <option value={obj}>  {obj} </option>
 
-                        ))
+                      ))
                     }
 
 
@@ -197,7 +221,7 @@ function Signup() {
 
 
 
-                  <select onChange={(e)=>{setinputValus({ ...inputValus, bloodgroup: e.target.value })}} type="text" placeholder='Bllod Group' className='w-[300px]   h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600 '>
+                  <select onChange={(e) => { setinputValus({ ...inputValus, bloodgroup: e.target.value }) }} type="text" placeholder='Bllod Group' className='w-[300px]   h-10 rounded-[10px] mb-8 border-solid border-2 border-red-600 '>
 
                     <option value={null}> Select Your Blood Group </option>
                     <option value="A+"> A+</option>
@@ -319,11 +343,11 @@ function Signup() {
 
                   /><br />
 
-                  <button onClick={() => { firstFormValid(inputValus, seterrmsg, seterrflag, setmobNext) }} className='ml-[80px] w-[150px] h-10 rounded-lg font-bold border-solid border-2 border-red-600 text-[20px] ' > Next  </button><br/>
+                  <button onClick={() => { firstFormValid(inputValus, seterrmsg, seterrflag, setmobNext) }} className='ml-[80px] w-[150px] h-10 rounded-lg font-bold border-solid border-2 border-red-600 text-[20px] ' > Next  </button><br />
 
                   {/* <span className=' ml-[200px]px] mt-4   ' > Already a Account ? <span className='text-blue-600 font-bold cursor-pointer' onClick={() => { navigate("/login") }} > Log in </span> </span>  */}
 
-                  <p className=' text-center mr-8' > Already have an Account ? <span className='text-blue-700 cursor-pointer ' onClick={()=>{navigate("/login")}} > Login </span> </p>
+                  <p className=' text-center mr-8' > Already have an Account ? <span className='text-blue-700 cursor-pointer ' onClick={() => { navigate("/login") }} > Login </span> </p>
 
                 </div>
 
@@ -335,11 +359,11 @@ function Signup() {
                   <select onChange={(e) => { setinputValus({ ...inputValus, district: e.target.value }) }} type="text" placeholder='District' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600' >
                     <option value=""> Select Your District </option>
                     {
-                        district.map((obj) => (
+                      district.map((obj) => (
 
-                            <option value={obj}>  {obj} </option>
+                        <option value={obj}>  {obj} </option>
 
-                        ))
+                      ))
                     }
 
                   </select><br />
@@ -353,8 +377,8 @@ function Signup() {
 
 
 
-                  <select onChange={(e)=>{setinputValus({ ...inputValus, bloodgroup: e.target.value })}} type="text" placeholder='Blood Group' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600 '>
-                    
+                  <select onChange={(e) => { setinputValus({ ...inputValus, bloodgroup: e.target.value }) }} type="text" placeholder='Blood Group' className='w-[300px] h-12 rounded-[10px] mb-8 mr-5 border-solid border-2 border-red-600 '>
+
                     <option value=""> Select Your Blood Group </option>
                     <option value="A+"> A+</option>
                     <option value="A-"> A-</option>
@@ -376,13 +400,13 @@ function Signup() {
 
                   /><br />
 
-                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input type="Radio" value={"Donor"}  onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }}/>  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input type="Radio" value={"Recipient"}  onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }}/>
+                  <label htmlFor="" className='ml-[50px] font-bold  ' > Donor ?  </label> <input type="Radio" value={"Donor"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />  <label htmlFor="" className='ml-[20px] font-bold'>Recipient ?  </label> <input type="Radio" value={"Recipient"} onChange={(e) => { setinputValus({ ...inputValus, type: e.target.value }) }} />
 
-                 
+
 
                   <button onClick={() => { secondValidation(inputValus, seterrmsg, seterrflag, formSubmit) }} className='ml-[80px] w-[150px] h-10 rounded-lg mt-[50px] font-bold border-solid border-2 border-red-600 text-[20px] ' >
-                    
-                  {
+
+                    {
                       spinner ?
 
                         <div className='ml-[52px]' >
@@ -405,11 +429,11 @@ function Signup() {
                         <span> Sign Up </span>
 
                     }
-                     
-                     
-                     
-                     
-                     </button>
+
+
+
+
+                  </button>
 
 
                 </div>
