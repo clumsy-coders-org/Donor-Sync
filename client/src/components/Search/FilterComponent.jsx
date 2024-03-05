@@ -17,6 +17,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import logo from "../../assets/logo.png"
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
+import { FaRegHospital } from "react-icons/fa";
 
 
 
@@ -102,7 +103,7 @@ const FilterComponent = () => {
                 <div className='w-[300px] sm:w-[250px] h-[210px] rounded-3xl bg-gray-300 shadow-[rgba(0,_0,_0,_0.24)_0px_5px_8px] pl-8 pt-6 ' >
 
 
-                    <div className='flex gap-7 '  > < BsFillPersonFill className=' text-[18px] mt-1   ' /> <span > {obj.name} </span>  </div>
+                    <div className='flex gap-7 '  > < FaRegHospital className=' text-[18px] mt-1   ' /> <span > {obj.name} </span>  </div>
 
                     <div className='flex mt-2 gap-7'  > <  FaPhone className=' text-[18px]  mt-1 ' />     <a href={`tel:+91${obj.mobile}`}> <span className='text-blue-700' > {obj.mobile} </span>    </a>   </div>
 
