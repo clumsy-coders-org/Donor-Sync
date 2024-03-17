@@ -36,11 +36,11 @@ const FilterComponent = () => {
         bloodgroup: "",
         type: ""
     })
-    const [city, setcity] = useState(true)
-    const [cityspinner, setcityspinner] = useState(true)
-    const [citydata, setcitydata] = useState([])
-    const [filter, setfilter] = useState('')
-    const [find, setfind] = useState([])
+    const [city, setcity] = useState(true);
+    const [cityspinner, setcityspinner] = useState(true);
+    const [citydata, setcitydata] = useState([]);
+    const [filter, setfilter] = useState('');
+    const [find, setfind] = useState([]);
     const [spinner, setspinner] = useState(true)
     const [popup, setpopup] = useState(false)
     const navigate = useNavigate()
