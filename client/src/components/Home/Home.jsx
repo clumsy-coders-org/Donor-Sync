@@ -28,7 +28,7 @@ function Home() {
         </div>
         <div class="absolute top-[6rem] md:top-32 lg:top-55 px-5 py-2 w-full md:1/2 lg:w-3/4   ">
           <h1 class=" text-red-500 font-bold text-2xl md:text-4xl lg:text-5xl "> DONATE BLOOD !</h1>
-          <p class="text-white text-lg md:text-2xl lg:text-3xl  py-4 font-semibold">
+          <p class="text-white sm:text-black text-lg md:text-2xl lg:text-3xl  py-4 font-semibold">
             A single "drop of your blood" could be a "drop of life" for someone else...
           </p>
           <p class="text-red-700 text-xl md:text-3xl lg:text-4xl pt-1 md:mt-10 font-semibold">"Donate Blood, Save Lives"</p>
