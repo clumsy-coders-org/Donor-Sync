@@ -27,7 +27,7 @@ function Footer() {
           
 
           
-          <p className='text-center text-gray-500 text-[12px] ' > Created & All Rights Reserved By  <a href=""> <span className='text-black font-bold' > Clumsy  </span> <span className='text-red-700 font-bold' > Coders </span>    </a>      </p>
+          <p className='text-center text-gray-500 text-[12px] ' > Created & All Rights Reserved By  <a href="https://clumsy-coders.onrender.com/"> <span className='text-black font-bold' > Clumsy  </span> <span className='text-red-700 font-bold' > Coders </span>    </a>      </p>
 
          
         <p className='text-center text-gray-500 text-[12px]' > @2024 </p>

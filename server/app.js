@@ -28,7 +28,7 @@ app.use(cookieparser());
 
 
 app.use(cors({
-      origin :[ "https://testdonerbloodbank-port.onrender.com","https://donor-sync-com.onrender.com"  ] ,
+      origin :[ "https://testdonerbloodbank-port.onrender.com","https://donor-sync-com.onrender.com" ] ,
       methods: ["GET", "POST"],
       credentials: true
   }));
@@ -40,12 +40,12 @@ app.use(cors({
 DB.DBConnect();  // Database connecting func
 
 
-app.use("/auth", authRoute); //auth/register
+app.use("/auth", authRoute); //auth/register/login/userdata updation 
 
-app.use("/search",searchRout) 
+app.use("/search",searchRout) // 
 
 
-app.use("/bloodbank",bbauth)  // blood bank auth  
+app.use("/bloodbank",bbauth)  // blood bank auth  / register/login/userdata updation 
 
 
 

@@ -145,7 +145,51 @@ module.exports = {
         })
 
          
+    },
+
+
+    edit_account:(datas)=>{
+
+
+        return new Promise((resolve,reject)=>{
+
+              const {id,data}=datas
+
+
+              users.findOneAndUpdate({_id:id},{
+
+                   $set:{
+                        name:data.name,
+                        email:data.email,
+                        age:data.age,
+                        bloodgroup:data.bloodgroup,
+                        city:data.city,
+                        district:data.district,
+                        mobile:data.mobile,
+                        type:data.type,
+
+
+                   }
+              }).then(()=>{
+
+                console.log("data updated")
+
+                     resolve()
+             
+                    }).catch(err=>{
+
+                    reject()
+              })
+                  
+        })
+
+
+
+           
     }
+
+
+    
 
 
 

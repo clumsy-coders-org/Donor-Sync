@@ -9,19 +9,19 @@ module.exports = {
 
 
 
-    connecting:(req,res)=>{    // app open time check server and database connecting func
+    connecting: (req, res) => {    // app open time check server and database connecting func
 
-   authservice.connecting().then(()=>{
+        authservice.connecting().then(() => {
 
-            res.json({flag:true})
-  
-        }).catch(err=>{
+            res.json({ flag: true })
 
-         res.json({err:true})
-   })
+        }).catch(err => {
+
+            res.json({ err: true })
+        })
 
 
-          
+
     },
 
 
@@ -84,14 +84,14 @@ module.exports = {
 
                 res.cookie("donor_sync_user", token, {
 
-                    maxAge:360000,
+                    maxAge: 360000,
                     sameSite: "none",
                     secure: true,
                     httpOnly: true
 
                 })
 
-                res.json({ flag: true,token:token })
+                res.json({ flag: true, token: token })
                 return
 
             } else {
@@ -114,45 +114,87 @@ module.exports = {
 
 
 
-      user_account_data:(req,res)=>{  // user account data get func
+    user_account_data: (req, res) => {  // user account data get func
 
         const token = req.cookies.donor_sync_user
 
         console.log("account view")
 
-        JWT.verify(token, process.env.JWT_BB_SECRET_KEY,(err,result)=>{
-
-              
-              if(err){
-
-                  res.json({authfailed:true})
-            }else{
+        JWT.verify(token, process.env.JWT_BB_SECRET_KEY, (err, result) => {
 
 
-                  const {id}=result
+            if (err) {
 
-                    authservice.user_account_data(id).then((respo)=>{
-
-                           if(respo.flag){
-
-                               res.json({flag:true,data:respo.data})
-                           
-                            }else{
-
-                               res.json({flag:false})
-                           }
-                    }).catch(err=>{
+                res.json({ authfailed: true })
+            } else {
 
 
-                          res.json({err:true})
-                    })
+                const { id } = result
+
+                authservice.user_account_data(id).then((respo) => {
+
+                    if (respo.flag) {
+
+                        res.json({ flag: true, data: respo.data })
+
+                    } else {
+
+                        res.json({ flag: false })
+                    }
+                }).catch(err => {
+
+
+                    res.json({ err: true })
+                })
             }
         })
 
 
 
-         
-      }
+
+    },
+
+
+
+    user_account_update: (req, res) => {
+
+
+
+    },
+
+    edit_account: (req, res) => {
+
+
+        const token = req.cookies.donor_sync_user
+
+        JWT.verify(token, process.env.JWT_BB_SECRET_KEY, (err, data) => {
+
+
+            if (err) {
+
+                res.json({ authfailed: true })
+
+
+            } else {
+
+                const { id } = data
+
+                authservice.edit_account({ id: id, data: req.body.data }).then(() => {
+
+                    res.json({ flag: true })
+                
+                }).catch(err => {
+
+                    res.json({ flag: false })
+                })
+
+
+            }
+        })
+
+
+
+    }
 
 
 
